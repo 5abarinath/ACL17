@@ -1,0 +1,21 @@
+{
+  "name": "acl",
+  "version": "1.0.0",
+  "description": "An auction software made for the bidding of players in an annual cricketing tournament called Ace Cricket League.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "auction",
+    "software",
+    "ACL",
+    "cricket"
+  ],
+  "author": "Sabarinath S., Saif Lakhani, Deepti Tanpure, Vishva Iyer",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}
