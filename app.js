@@ -36,6 +36,10 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/authenticate', function(req, res) {
+	res.redirect('/views/teamprofile');
+}
+
 // Start server
 app.listen(port, () => {
 	console.log('Server started on port ' + port);
