@@ -10,13 +10,13 @@ const cors = require('cors');
 const port = 3000;
 
 // Check connection with MySQL database
-const connection = require('./config/database');
+// const connection = require('./config/database');
 
 // CORS middleware
 app.use(cors());
 
 // Set up view engine as ejs
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
 // Set static folder
@@ -33,12 +33,12 @@ app.use(bodyParser.json());
 app.use(flash());
 
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/public/index.html');
+	res.sendFile('/index.html');
 });
 
 app.get('/authenticate', function(req, res) {
-	res.redirect('/views/teamprofile');
-}
+	res.render('teamprofile');
+});
 
 // Start server
 app.listen(port, () => {
