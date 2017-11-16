@@ -146,8 +146,8 @@
 					<img src="images/user.png" width="48" height="48" alt="User" />
 				</div>
 				<div class="info-container">
-					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Team Name</div>
-					<div class="email">Team Owner</div>
+					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= team_object[0].team_name%></div>
+					<div class="email"><%= team_object[0].team_owner%></div>
 					<!-- <div class="btn-group user-helper-dropdown">
 						<i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
 						<ul class="dropdown-menu pull-right">
@@ -212,7 +212,7 @@
 						</div>
 						<div class="content">
 							<div class="text">CURRENT ROUND</div>
-							<div class="number count-to" data-from="0" data-to="1" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= currentRound%>" data-speed="1000" data-fresh-interval="20"></div>
 						</div>
 					</div>
 				</div>
@@ -223,7 +223,7 @@
 						</div>
 						<div class="content">
 							<div class="text">BASE BID</div>
-							<div class="number count-to" data-from="0" data-to="100000" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= group_object[0].base_bid%>" data-speed="1000" data-fresh-interval="20"></div>
 						</div>
 					</div>
 				</div>
@@ -234,7 +234,7 @@
 						</div>
 						<div class="content">
 							<div class="text">MAXIMUM BID</div>
-							<div class="number count-to" data-from="0" data-to="125000" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= group_object[0].max_bid%>" data-speed="1000" data-fresh-interval="20"></div>
 						</div>
 					</div>
 				</div>
@@ -256,7 +256,7 @@
 						</div>
 						<div class="content">
 							<div class="text">PREMIUM LEFT</div>
-							<div class="number count-to" data-from="0" data-to="150000" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= team_object[0].premium_left%>" data-speed="1000" data-fresh-interval="20"></div>
 						</div>
 					</div>
 				</div>
@@ -359,56 +359,56 @@
 					<div class="card">
 						<div class="header">
 							<h2 id="players-category">
-								Senior Bowlers [SB-1]
+								<%= group_object[0].group_desc%> [<%= group_object[0].group_name%>]
 							</h2>
 						</div>
 						<div class="body">
 							<div id="gallery-images" class="list-unstyled row clearfix">
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		                        	<div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[0].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Player Player Player Player</div>
+		                        			<div class="text123"><%= player_object[0].player_fname +" "+ player_object[0].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[1].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                        			<div class="text123"><%= player_object[1].player_fname + " "+player_object[1].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[2].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                        			<div class="text123"><%= player_object[2].player_fname + " "+player_object[2].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[3].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                        			<div class="text123"><%= player_object[3].player_fname + " "+player_object[3].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[4].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                        			<div class="text123"><%= player_object[4].player_fname + " "+player_object[4].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="images/player.png">
+		                            	<img class="thumbnail image123" src="<%= player_object[5].player_image%>">
 		                        		<div class="overlay123">
-		                        			<div class="text123">Players</div>
+		                        			<div class="text123"><%= player_object[5].player_fname + " "+player_object[5].player_lname%></div>
 		                        		</div>
 		                        	</div>
 								</div>

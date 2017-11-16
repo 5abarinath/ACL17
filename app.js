@@ -54,9 +54,58 @@ app.post('/teamprofile', function(req, res) {
 });
 
 app.post('/bidding', function(req, res) {
-	res.render('bidding.ejs');		
-});
+	let teamID = req.body.token;
 
+	let currRound = 0;
+	let grp_obj, team_obj, player_obj;
+	let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
+	connection.query(sql_count, function(err, result) {
+		if(err) throw err;
+		// console.log(result);
+		currRound = result[0].no_of_rounds / 6 + 1;
+		// console.log(currRound);
+
+		let sql_groups = "SELECT * FROM Groups WHERE group_id = ?";
+		connection.query(sql_groups, [currRound], function(err1, result1) {
+			if(err1) throw err1;
+			grp_obj = result1;
+
+
+			let sql_teams = "SELECT * FROM Bidders WHERE team_id = ?";
+			connection.query(sql_teams, [teamID], function(err2, result2) {
+				if(err2) throw err2;
+				team_obj = result2;
+
+
+				let sql_players = "SELECT * FROM Players WHERE group_id = ?";
+				connection.query(sql_players, [currRound], function(err3, result3) {
+					if(err3) throw err3;
+					player_obj = result3;
+					
+					res.render('bidding.ejs', {
+					currentRound: currRound,
+					group_object: grp_obj,
+					team_object: team_obj,
+					player_object: player_obj });
+					
+					// console.log(currRound);
+					// console.log(grp_obj);
+					// console.log(team_obj);
+					// console.log(player_obj);
+				});
+				
+			});
+			
+		});
+		
+	});
+
+		
+	
+
+	
+});
+	
 // Start server
 app.listen(port, () => {
 	console.log('Server started on port ' + port);
