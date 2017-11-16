@@ -38,10 +38,7 @@ app.post('/teamprofile', function(req, res) {
 	connection.query(sql1, [teamID], function(err, result) {
 		if(err) throw err;
 		results = result;
-		// res.render('teamprofile', {data: results});
-		
 	});
-
 
 	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
 	connection.query(sql, [teamID], function(err, result) {
@@ -53,10 +50,11 @@ app.post('/teamprofile', function(req, res) {
 					   pointsSpent: result[0].points_spent,
 					   premiumLeft: result[0].premium_left,
 					   data: results });
-		// console.log(results);
 	});
+});
 
-	
+app.post('/bidding', function(req, res) {
+	res.render('bidding.ejs');		
 });
 
 // Start server
