@@ -168,7 +168,7 @@
 				<ul class="list">
 					<!-- <li class="header">MAIN NAVIGATION</li> -->
 					<li  class="active">
-						<a href="/authenticate?success=1">
+						<a onClick="renderEjs('teamprofile', getCookie('teamToken'));">
 							<i class="material-icons">home</i>
 							<span>Team Profile</span>
 						</a>
@@ -319,6 +319,10 @@
 	<!-- ChartJs -->
 	<script src="plugins/chartjs/Chart.bundle.js"></script>
 
+	<!-- JQuery Redirect Plugin -->
+    <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+
+
 	<!-- Flot Charts Plugin Js -->
 	<script src="plugins/flot-charts/jquery.flot.js"></script>
 	<script src="plugins/flot-charts/jquery.flot.resize.js"></script>
@@ -333,6 +337,8 @@
 	<script src="js/admin.js"></script>
 	<script src="js/pages/index.js"></script>
 	<script src="js/pages/medias/image-gallery.js"></script>
+    <script src="js/acl/render-ejs.js"></script>
+  	<script src="js/cookies.js"></script>
 
 	<!-- Demo Js -->
 	<script src="js/demo.js"></script>

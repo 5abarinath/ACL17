@@ -39,6 +39,7 @@ app.get('/', function(req, res) {
 
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
+	console.log(req.body.token);
 	res.render('teamprofile');
 });
 

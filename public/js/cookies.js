@@ -1,5 +1,5 @@
 // JavaScript functions to store and retrieve cookies
-function createCookie(name,value,days) {
+function setCookie(name,value,days) {
     var expires = "";
     if (days) {
         var date = new Date();
@@ -8,7 +8,7 @@ function createCookie(name,value,days) {
     }
     document.cookie = name + "=" + value + expires + "; path=/";
 }
-function readCookie(name) {
+function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {

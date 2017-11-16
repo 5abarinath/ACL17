@@ -91,11 +91,14 @@
     <!-- Sweet Alert Plugin Js -->
     <script src="plugins/sweetalert/sweetalert.min.js"></script>
 
+    <!-- JQuery Redirect Plugin -->
+    <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+
     <!-- Custom Js -->
     <script src="js/admin.js"></script>
     <script src="js/pages/examples/sign-in.js"></script>
     <script src="js/pages/forms/basic-form-elements.js"></script>
-
+    <script src="js/acl/render-ejs.js"></script>
     <script src="js/cookies.js"></script>
 
     <!-- passwords are : 1.ahrsjt117 2.cmtvny217 3.fmtgkr317 4.mfcjgv417 5.pttoyr517 6.sstdar617 -->
@@ -103,14 +106,12 @@
         function validateAndRedirect(){
             var user = document.getElementById("teamName").value;
             var password = document.getElementById("password").value;
-            console.log(user+ " "+ password);
             
             if((user==1 && password=="ahrsjt117")||(user==2 && password=="cmtvny217")||(user==3 && password=="fmtgkr317")||(user==4 && password=="mfcjgv417")||(user==5 && password=="pttoyr517")||(user==6 && password=="sstdar617")){
-                window.location = "/authenticate?success=1";
-                console.log("succ");
+                renderEjs('teamprofile', user);
+                setCookie('teamToken', user, 3);
             }
             else{
-                console.log("swal");
                 // swal('Oops...', 'Incorrect password or id!', 'error');
                 alert("Incorrect password");
             }
