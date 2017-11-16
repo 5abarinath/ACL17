@@ -10,7 +10,7 @@ const cors = require('cors');
 const port = 3000;
 
 // Check connection with MySQL database
-// const connection = require('./config/database');
+const connection = require('./config/database');
 
 // CORS middleware
 app.use(cors());
@@ -32,11 +32,13 @@ app.use(bodyParser.json());
 // Use connect-flash for flash messages stored in session
 app.use(flash());
 
+// index.html
 app.get('/', function(req, res) {
-	res.sendFile('/index.html');
+	res.sendFile('index');
 });
 
-app.get('/authenticate', function(req, res) {
+// POST request to render teamprofile.ejs
+app.post('/teamprofile', function(req, res) {
 	res.render('teamprofile');
 });
 
