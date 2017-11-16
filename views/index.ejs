@@ -33,15 +33,20 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST" action="/teamprofile">
+                <form id="sign_in" method="POST" action="/authenticate">
                     <div class="msg">Sign in to start your session</div>
+                    <!-- Show flash messages here -->
+                    <% if (message.length > 0) { %>
+                    	<script>alert("<%= message %>");</script>
+                    <% } %>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                            <select class="form-control show-tick">
+                            <!-- passwords are : 1.ahrsjt117 2.cmtvny217 3.fmtgkr317 4.mfcjgv417 5.pttoyr517 6.sstdar617 -->
+                            <select class="form-control show-tick" required>
                                 <option value="">-- Please select --</option>
                                 <option value="1">Aman Honda Ryders</option>
                                 <option value="2">Ceratec Masters</option>
@@ -52,14 +57,14 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="input-group">
+                    <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
                             <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
                         </div>
@@ -69,14 +74,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
                         </div>
                     </div>
-                    <!-- <div class="row m-t-15 m-b--20">
-                        <div class="col-xs-6">
-                            <a href="sign-up.html">Register Now!</a>
-                        </div>
-                        <div class="col-xs-6 align-right">
-                            <a href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                    </div> -->
                 </form>
             </div>
         </div>
@@ -98,6 +95,8 @@
     <script src="js/admin.js"></script>
     <script src="js/pages/examples/sign-in.js"></script>
     <script src="js/pages/forms/basic-form-elements.js"></script>
+
+   <script src="js/cookies.js"></script>
 </body>
 
 </html>

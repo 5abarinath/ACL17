@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2017 at 10:26 AM
+-- Generation Time: Nov 15, 2017 at 07:17 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -29,11 +29,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `Bidders` (
   `team_id` tinyint(3) UNSIGNED NOT NULL,
   `team_name` varchar(50) NOT NULL,
+  `team_pwd` char(40) NOT NULL,
   `team_owner` varchar(50) NOT NULL,
-  `team_logo` varchar(100) NOT NULL,
+  `team_logo` char(30) NOT NULL,
   `points_spent` int(10) UNSIGNED NOT NULL,
   `premium_left` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Bidders`
+--
+
+INSERT INTO `Bidders` (`team_id`, `team_name`, `team_pwd`, `team_owner`, `team_logo`, `points_spent`, `premium_left`) VALUES
+(1, 'Aman Honda Ryders', 'a218e9be2bcb7ffbc84edcfd7e6849c2f42054b4', 'Team owner 1', '../public/images/download.jpg', 0, 150000),
+(2, 'Ceratec Masters', '1c5aed5cd7148eddfd74657ff26c5c11fd8b5b76', 'Team owner 2', '../public/images/download.jpg', 0, 150000),
+(3, 'Fitness Mantra', 'a1e72c52b4b7a64b17321173fe35b8fc39f19fd1', 'Team owner 3', '../public/images/download.jpg', 0, 150000),
+(4, 'Maha Fast Champs', '0595ecf7eec62fcbebcdc45af3ee5e4bc15d6112', 'Team owner 4', '../public/images/download.jpg', 0, 150000),
+(5, 'Premier Titans', '4db9c5af09dbf3dd5a3039609ed67244b2904795', 'Team owner 5', '../public/images/download.jpg', 0, 150000),
+(6, 'Sun Shiners', '515ba944daf9adf5a40ae90d47e7727b65895db4', 'Team owner 6', '../public/images/download.jpg', 0, 150000);
 
 -- --------------------------------------------------------
 
