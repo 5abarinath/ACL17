@@ -32,15 +32,31 @@ app.get('/', function(req, res) {
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
 	let teamID = req.body.token;
+	
+	var results;
+	let sql1 = "SELECT p.player_fname, p.player_lname, p.player_image, g.group_name, p.price FROM Players p, Groups g WHERE p.team_id =? AND p.group_id = g.group_id";
+	connection.query(sql1, [teamID], function(err, result) {
+		if(err) throw err;
+		results = result;
+		// res.render('teamprofile', {data: results});
+		
+	});
+
+
 	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
 	connection.query(sql, [teamID], function(err, result) {
 		if(err) throw err;
-		res.render('teamprofile', { teamName: result[0].team_name,
+		res.render('teamprofile', { 
+					   teamName: result[0].team_name,
 					   teamOwner: result[0].team_owner,
 					   teamLogo: result[0].team_logo,
 					   pointsSpent: result[0].points_spent,
-					   premiumLeft: result[0].premium_left });
+					   premiumLeft: result[0].premium_left,
+					   data: results });
+		// console.log(results);
 	});
+
+	
 });
 
 // Start server

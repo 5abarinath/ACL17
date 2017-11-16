@@ -174,7 +174,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="bidding.html">
+						<a onClick="renderEjs('bidding', getCookie('teamToken'));">
 							<i class="material-icons">home</i>
 							<span>Bidding</span>
 						</a>
@@ -245,42 +245,34 @@
 							<thead>
 								<th>#</th>
 								<th>Name</th>
-								<th>Mugshot</th>
+								<th></th>
 								<th>Category</th>
 								<th>Price</th>
 							</thead>
+							
+							
+							<tbody>
+								<% 	var teamSize = data.length;
+									var tot_price = 0;
+									for(var i=0; i<teamSize; i++){ 
+									tot_price += data[i].price; %>
+								<tr>
+									<th scop="row"><%=i+1%></th>
+									<td><%= data[i].player_fname +" "+ data[i].player_lname%></td>
+									<td><img class="thumbnail" src="<%=data[i].player_image%>" width="100" height="100"></td>
+									<td><%=data[i].group_name%></td>
+									<td><%=data[i].price%></td>
+								</tr>
+								<% } %>
+							</tbody>
+
 							<tfoot>
 								<th></th>
 								<th></th>
 								<th></th>
 								<th>TOTAL</th>
-								<th>100000</th>
+								<th><%= tot_price%></th>
 							</tfoot>
-							<tbody>
-								<tr>
-									<th scop="row">1</th>
-									<td>Player Name</td>
-									<td><img class="thumbnail" src="images/player.png" width="100" height="100"></td>
-									<td>SB-1</td>
-									<td>100000</td>
-								</tr>
-
-								<tr>
-									<th scop="row">2</th>
-									<td>Player Name</td>
-									<td><img class="thumbnail" src="images/player.png" width="100" height="100"></td>
-									<td>SB-1</td>
-									<td>75000</td>
-								</tr>
-
-								<tr>
-									<th scop="row">3</th>
-									<td>Player Name</td>
-									<td><img class="thumbnail" src="images/player.png" width="100" height="100"></td>
-									<td>SB-1</td>
-									<td>50000</td>
-								</tr>
-							</tbody>
 						</table>
 					</div>
 				</div>
