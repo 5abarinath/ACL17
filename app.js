@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
 const cors = require('cors');
 
 // PORT number
@@ -22,15 +20,9 @@ app.set('view engine', 'ejs');
 // Set static folder
 app.use(express.static(path.join(__dirname + '/public')));
 
-// Cookie-Parser middleware
-app.use(cookieParser());
-
 // Body-Parser middleware
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-
-// Use connect-flash for flash messages stored in session
-app.use(flash());
 
 // index.html
 app.get('/', function(req, res) {
@@ -39,8 +31,16 @@ app.get('/', function(req, res) {
 
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
-	console.log(req.body.token);
-	res.render('teamprofile');
+	let teamID = req.body.token;
+	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
+	connection.query(sql, [teamID], function(err, result) {
+		if(err) throw err;
+		res.render('teamprofile', { teamName: result[0].team_name,
+					   teamOwner: result[0].team_owner,
+					   teamLogo: result[0].team_logo,
+					   pointsSpent: result[0].points_spent,
+					   premiumLeft: result[0].premium_left });
+	});
 });
 
 // Start server

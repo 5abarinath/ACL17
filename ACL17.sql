@@ -41,12 +41,12 @@ CREATE TABLE `Bidders` (
 --
 
 INSERT INTO `Bidders` (`team_id`, `team_name`, `team_pwd`, `team_owner`, `team_logo`, `points_spent`, `premium_left`) VALUES
-(1, 'Aman Honda Ryders', 'a218e9be2bcb7ffbc84edcfd7e6849c2f42054b4', 'Team owner 1', '../public/images/download.jpg', 0, 150000),
-(2, 'Ceratec Masters', '1c5aed5cd7148eddfd74657ff26c5c11fd8b5b76', 'Team owner 2', '../public/images/download.jpg', 0, 150000),
-(3, 'Fitness Mantra', 'a1e72c52b4b7a64b17321173fe35b8fc39f19fd1', 'Team owner 3', '../public/images/download.jpg', 0, 150000),
-(4, 'Maha Fast Champs', '0595ecf7eec62fcbebcdc45af3ee5e4bc15d6112', 'Team owner 4', '../public/images/download.jpg', 0, 150000),
-(5, 'Premier Titans', '4db9c5af09dbf3dd5a3039609ed67244b2904795', 'Team owner 5', '../public/images/download.jpg', 0, 150000),
-(6, 'Sun Shiners', '515ba944daf9adf5a40ae90d47e7727b65895db4', 'Team owner 6', '../public/images/download.jpg', 0, 150000);
+(1, 'Aman Honda Ryders', 'a218e9be2bcb7ffbc84edcfd7e6849c2f42054b4', 'Team owner 1', '/images/download.jpg', 0, 150000),
+(2, 'Ceratec Masters', '1c5aed5cd7148eddfd74657ff26c5c11fd8b5b76', 'Team owner 2', '/images/download.jpg', 0, 150000),
+(3, 'Fitness Mantra', 'a1e72c52b4b7a64b17321173fe35b8fc39f19fd1', 'Team owner 3', '/images/download.jpg', 0, 150000),
+(4, 'Maha Fast Champs', '0595ecf7eec62fcbebcdc45af3ee5e4bc15d6112', 'Team owner 4', '/images/download.jpg', 0, 150000),
+(5, 'Premier Titans', '4db9c5af09dbf3dd5a3039609ed67244b2904795', 'Team owner 5', '/images/download.jpg', 0, 150000),
+(6, 'Sun Shiners', '515ba944daf9adf5a40ae90d47e7727b65895db4', 'Team owner 6', '/images/download.jpg', 0, 150000);
 
 -- --------------------------------------------------------
 
