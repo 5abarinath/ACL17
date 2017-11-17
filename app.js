@@ -61,9 +61,7 @@ app.post('/bidding', function(req, res) {
 	let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
 	connection.query(sql_count, function(err, result) {
 		if(err) throw err;
-		// console.log(result);
 		currRound = result[0].no_of_rounds / 6 + 1;
-		// console.log(currRound);
 
 		let sql_groups = "SELECT * FROM Groups WHERE group_id = ?";
 		connection.query(sql_groups, [currRound], function(err1, result1) {
@@ -87,23 +85,10 @@ app.post('/bidding', function(req, res) {
 					group_object: grp_obj,
 					team_object: team_obj,
 					player_object: player_obj });
-					
-					// console.log(currRound);
-					// console.log(grp_obj);
-					// console.log(team_obj);
-					// console.log(player_obj);
 				});
-				
 			});
-			
 		});
-		
 	});
-
-		
-	
-
-	
 });
 	
 // Start server

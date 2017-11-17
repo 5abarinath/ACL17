@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2017 at 03:07 PM
+-- Generation Time: Nov 17, 2017 at 10:34 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -71,6 +71,7 @@ CREATE TABLE `Bidding` (
 CREATE TABLE `Groups` (
   `group_id` tinyint(3) UNSIGNED NOT NULL,
   `group_name` varchar(8) NOT NULL,
+  `group_desc` varchar(30) NOT NULL,
   `base_bid` mediumint(8) UNSIGNED NOT NULL,
   `max_bid` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -79,9 +80,9 @@ CREATE TABLE `Groups` (
 -- Dumping data for table `Groups`
 --
 
-INSERT INTO `Groups` (`group_id`, `group_name`, `base_bid`, `max_bid`) VALUES
-(1, 'SB-1', 50000, 75000),
-(2, 'SBAT-1', 75000, 100000);
+INSERT INTO `Groups` (`group_id`, `group_name`, `group_desc`, `base_bid`, `max_bid`) VALUES
+(1, 'SB-1', 'Senior Bowlers - 1', 50000, 75000),
+(2, 'SBAT-1', 'Senior Batsmen - 1', 75000, 100000);
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,11 @@ CREATE TABLE `Players` (
 INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, `player_image`, `team_id`, `price`) VALUES
 (1, 1, 'Vishva', 'Iyer', 'images/player.png', 1, 50000),
 (2, 1, 'Sabari', 'S.', 'images/player.png', 1, 56000),
-(3, 2, 'Saif', 'Lakhani', 'images/player.png', 2, 100000);
+(3, 2, 'Saif', 'Lakhani', 'images/player.png', 2, 100000),
+(4, 1, 'Vishva2', 'Iyer', 'images/player.png', 0, 0),
+(5, 1, 'Sabari2', 'S.', 'images/player.png', 0, 0),
+(6, 1, 'Vishva3', 'Iyer', 'images/player.png', 0, 0),
+(7, 1, 'Sabari3', 'S.', 'images/player.png', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -150,7 +155,7 @@ ALTER TABLE `Bidding`
 -- AUTO_INCREMENT for table `Players`
 --
 ALTER TABLE `Players`
-  MODIFY `player_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `player_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
