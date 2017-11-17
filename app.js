@@ -3,14 +3,37 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const redis = require('redis');
+
 
 // PORT number
 const port = 3000;
 
+// redis client
+const redisClient = redis.createClient();
+
 // Check connection with MySQL database
 const connection = require('./config/database');
+
+// Check connection with redis
+redisClient.on('connect', function() {
+	console.log('Redis Connected');
+	redisClient.set('currentBid', 0);
+	redisClient.set('currentRound', 1);
+	
+
+	let sql_groups = "SELECT * FROM Groups WHERE group_id = 1";
+	connection.query(sql_groups, function(err, result) {
+		if(err) throw err;
+		redisClient.set('baseBid', result[0].base_bid);
+		redisClient.set('maxBid', result[0].max_bid);
+	});
+});
+redisClient.on('error', function(){
+	console.log('Error in redis');
+});
 
 // CORS middleware
 app.use(cors());
@@ -34,6 +57,18 @@ app.get('/', function(req, res) {
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
 	let teamID = req.body.token;
+
+	var key = "aclteam" + teamID;
+	redisClient.exists(key, function(err, reply) {
+		if (reply != 1) {
+	    	redisClient.hmset(key, {
+			    'bidFlag': 0,
+			    'rank': 0,
+			    'premLeft': 0,
+			    'yourBid': 0
+			});   
+	    }
+	});
 	
 	var results;
 	let sql1 = "SELECT p.player_fname, p.player_lname, p.player_image, g.group_name, p.price FROM Players p, Groups g WHERE p.team_id = ? AND p.group_id = g.group_id";
@@ -58,6 +93,15 @@ app.post('/teamprofile', function(req, res) {
 // POST request to populate the bidding.ejs script
 app.post('/bidding', function(req, res) {
 	let teamID = req.body.token;
+
+	teamObject = 0;
+	setTimeout(function() {
+		redisClient.hgetall("aclteam" + teamID, function(err, object) {
+			teamObject = object;
+			console.log(teamObject);
+		});
+	}, 0);
+	console.log(teamObject.bidFlag);
 
 	let currRound = 0;
 	let grp_obj, team_obj, player_obj;
@@ -94,13 +138,13 @@ app.post('/bidding', function(req, res) {
 	});
 });
 
-io.on('connection', function(client) {
-	console.log('Client connected...');
+// io.on('connection', function(client) {
+// 	console.log('Client connected...');
 		
-	client.on('join', function(data) {
-		console.log(data);
-	});
-});
+// 	client.on('join', function(data) {
+// 		console.log(data);
+// 	});
+// });
 
 
 
@@ -108,3 +152,5 @@ io.on('connection', function(client) {
 server.listen(port, () => {
 	console.log('Server started on port ' + port);
 });
+
+
