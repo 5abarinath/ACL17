@@ -30,6 +30,16 @@ redisClient.on('connect', function() {
 		redisClient.set('baseBid', result[0].base_bid);
 		redisClient.set('maxBid', result[0].max_bid);
 	});
+
+	for(var i=1; i<=6; i++){
+		key = "aclteam" + i;
+		redisClient.hmset(key, {
+		    'bidFlag': 0,
+		    'rank': 0,
+		    'premLeft': 0,
+		    'yourBid': 0
+		});
+	} 
 });
 redisClient.on('error', function(){
 	console.log('Error in redis');
@@ -61,12 +71,7 @@ app.post('/teamprofile', function(req, res) {
 	var key = "aclteam" + teamID;
 	redisClient.exists(key, function(err, reply) {
 		if (reply != 1) {
-	    	redisClient.hmset(key, {
-			    'bidFlag': 0,
-			    'rank': 0,
-			    'premLeft': 0,
-			    'yourBid': 0
-			});   
+			console.log("Redis entry" + key + "doesnt exist");	    	  
 	    }
 	});
 	
@@ -95,56 +100,105 @@ app.post('/bidding', function(req, res) {
 	let teamID = req.body.token;
 
 	teamObject = 0;
-	setTimeout(function() {
-		redisClient.hgetall("aclteam" + teamID, function(err, object) {
-			teamObject = object;
-			console.log(teamObject);
-		});
-	}, 0);
-	console.log(teamObject.bidFlag);
+	redisClient.hgetall("aclteam" + teamID, function(err, object) {
+		teamObject = object;
+		console.log(teamObject);
 
-	let currRound = 0;
-	let grp_obj, team_obj, player_obj;
-	let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
-	connection.query(sql_count, function(err, result) {
-		if(err) throw err;
-		currRound = result[0].no_of_rounds / 6 + 1;
+		
+			let currRound = 0, currBid = 0, teamRank = 0, yourBid = 0, prem_flag = 0;
+			let grp_obj, team_obj, player_obj;
+			let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
+			connection.query(sql_count, function(err, result) {
+				if(err) throw err;
+				currRound = result[0].no_of_rounds / 6 + 1;
 
-		let sql_groups = "SELECT * FROM Groups WHERE group_id = ?";
-		connection.query(sql_groups, [currRound], function(err1, result1) {
-			if(err1) throw err1;
-			grp_obj = result1;
+				let sql_groups = "SELECT * FROM Groups WHERE group_id = ?";
+				connection.query(sql_groups, [currRound], function(err1, result1) {
+					if(err1) throw err1;
+					grp_obj = result1;
 
 
-			let sql_teams = "SELECT * FROM Bidders WHERE team_id = ?";
-			connection.query(sql_teams, [teamID], function(err2, result2) {
-				if(err2) throw err2;
-				team_obj = result2;
+					let sql_teams = "SELECT * FROM Bidders WHERE team_id = ?";
+					connection.query(sql_teams, [teamID], function(err2, result2) {
+						if(err2) throw err2;
+						team_obj = result2;
 
 
-				let sql_players = "SELECT * FROM Players WHERE group_id = ?";
-				connection.query(sql_players, [currRound], function(err3, result3) {
-					if(err3) throw err3;
-					player_obj = result3;
-					
-					res.render('bidding.ejs', {
-					currentRound: currRound,
-					group_object: grp_obj,
-					team_object: team_obj,
-					player_object: player_obj });
+						let sql_players = "SELECT * FROM Players WHERE group_id = ?";
+						connection.query(sql_players, [currRound], function(err3, result3) {
+							if(err3) throw err3;
+							player_obj = result3;
+
+							if(teamObject.bidFlag == 1){
+								redisClient.get('currentBid', function(err, reply) {
+								    currBid = reply;
+
+								    client.get('maxBid', function(err1, reply1) {
+									    grp_obj.max_bid = reply1;
+
+										client.get('baseBid', function(err2, reply2) {
+									    	grp_obj.base_bid = reply2;
+
+									    	team_obj.premium_left = teamObject.premLeft;
+									    	teamRank = teamObject.rank;
+									    	yourBid = teamObject.yourBid;
+
+									    	if(currBid >= grp_obj.max_bid){
+									    		prem_flag = 1;
+									    	}
+										});
+									});
+								});
+							}
+
+							res.render('bidding.ejs', {
+							currentRound: currRound,
+							group_object: grp_obj,
+							team_object: team_obj,
+							player_object: player_obj,
+							current_bid: currBid,
+							rank: teamRank,
+							your_bid: yourBid,
+							premiumFlag: prem_flag });
+						});
+					});
 				});
 			});
-		});
+		// else{
+
+		// 	var currRound, max_bid, base_bid;
+		// 	redisClient.get('currentRound', function(err, reply) {
+		// 	    currRound = reply;
+
+		// 	    client.get('maxBid', function(err1, reply1) {
+		// 		    max_bid = reply1;
+
+		// 			client.get('baseBid', function(err2, reply2) {
+		// 		    	base_bid = reply;
+		// 			});
+		// 		});
+		// 	});
+		// 	res.render('bidding.ejs', {
+		// 		currentRound: ,
+		// 		group_object: grp_obj,
+		// 		team_object: team_obj,
+		// 		player_object: player_obj });
+		// }
+
+
 	});
+
+	
+
 });
 
-// io.on('connection', function(client) {
-// 	console.log('Client connected...');
+io.on('connection', function(client) {
+	console.log('Client connected...');
 		
-// 	client.on('join', function(data) {
-// 		console.log(data);
-// 	});
-// });
+	client.on('join', function(data) {
+		console.log(data);
+	});
+});
 
 
 
