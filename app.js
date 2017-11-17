@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 // PORT number
 const port = 3000;
@@ -34,7 +36,7 @@ app.post('/teamprofile', function(req, res) {
 	let teamID = req.body.token;
 	
 	var results;
-	let sql1 = "SELECT p.player_fname, p.player_lname, p.player_image, g.group_name, p.price FROM Players p, Groups g WHERE p.team_id =? AND p.group_id = g.group_id";
+	let sql1 = "SELECT p.player_fname, p.player_lname, p.player_image, g.group_name, p.price FROM Players p, Groups g WHERE p.team_id = ? AND p.group_id = g.group_id";
 	connection.query(sql1, [teamID], function(err, result) {
 		if(err) throw err;
 		results = result;
@@ -53,6 +55,7 @@ app.post('/teamprofile', function(req, res) {
 	});
 });
 
+// POST request to populate the bidding.ejs script
 app.post('/bidding', function(req, res) {
 	let teamID = req.body.token;
 
@@ -90,8 +93,18 @@ app.post('/bidding', function(req, res) {
 		});
 	});
 });
-	
+
+io.on('connection', function(client) {
+	console.log('Client connected...');
+		
+	client.on('join', function(data) {
+		console.log(data);
+	});
+});
+
+
+
 // Start server
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log('Server started on port ' + port);
 });

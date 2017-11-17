@@ -31,6 +31,8 @@
 	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 	<link href="css/themes/all-themes.css" rel="stylesheet" />
 
+	<script src="/socket.io/socket.io.js"></script>
+
 	<style type="text/css">
 		.container1 {
 			position: relative;
@@ -87,6 +89,12 @@
 	    background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
 	    height: 135px; }
 	</style>
+	<script>
+		var socket = io.connect('localhost:3000');
+		socket.on('connect', function(data) {
+			socket.emit('join', 'Hello from the client');
+		});
+	</script>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
 		<div class="loader">
@@ -464,7 +472,7 @@
 	<script src="js/admin.js"></script>
 	<script src="js/pages/index.js"></script>
 	<script src="js/pages/medias/image-gallery.js"></script>
-    <script src="js/acl/render-ejs.js"></script>
+    	<script src="js/acl/render-ejs.js"></script>
   	<script src="js/cookies.js"></script>
 
 
