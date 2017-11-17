@@ -5,45 +5,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const redis = require('redis');
-
 
 // PORT number
 const port = 3000;
 
-// redis client
-const redisClient = redis.createClient();
-
 // Check connection with MySQL database
 const connection = require('./config/database');
 
-// Check connection with redis
-redisClient.on('connect', function() {
-	console.log('Redis Connected');
-	redisClient.set('currentBid', 0);
-	redisClient.set('currentRound', 1);
-	
-
-	let sql_groups = "SELECT * FROM Groups WHERE group_id = 1";
-	connection.query(sql_groups, function(err, result) {
-		if(err) throw err;
-		redisClient.set('baseBid', result[0].base_bid);
-		redisClient.set('maxBid', result[0].max_bid);
-	});
-
-	for(var i=1; i<=6; i++){
-		key = "aclteam" + i;
-		redisClient.hmset(key, {
-		    'bidFlag': 0,
-		    'rank': 0,
-		    'premLeft': 0,
-		    'yourBid': 0
-		});
-	} 
-});
-redisClient.on('error', function(){
-	console.log('Error in redis');
-});
+// Check connection with Redis
+const redisClient = require('./config/redis');
 
 // CORS middleware
 app.use(cors());
@@ -104,7 +74,6 @@ app.post('/bidding', function(req, res) {
 		teamObject = object;
 		console.log(teamObject);
 
-		
 			let currRound = 0, currBid = 0, teamRank = 0, yourBid = 0, prem_flag = 0;
 			let grp_obj, team_obj, player_obj;
 			let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
@@ -117,12 +86,10 @@ app.post('/bidding', function(req, res) {
 					if(err1) throw err1;
 					grp_obj = result1;
 
-
 					let sql_teams = "SELECT * FROM Bidders WHERE team_id = ?";
 					connection.query(sql_teams, [teamID], function(err2, result2) {
 						if(err2) throw err2;
 						team_obj = result2;
-
 
 						let sql_players = "SELECT * FROM Players WHERE group_id = ?";
 						connection.query(sql_players, [currRound], function(err3, result3) {
@@ -150,7 +117,6 @@ app.post('/bidding', function(req, res) {
 									});
 								});
 							}
-
 							res.render('bidding.ejs', {
 							currentRound: currRound,
 							group_object: grp_obj,
@@ -164,43 +130,8 @@ app.post('/bidding', function(req, res) {
 					});
 				});
 			});
-		// else{
-
-		// 	var currRound, max_bid, base_bid;
-		// 	redisClient.get('currentRound', function(err, reply) {
-		// 	    currRound = reply;
-
-		// 	    client.get('maxBid', function(err1, reply1) {
-		// 		    max_bid = reply1;
-
-		// 			client.get('baseBid', function(err2, reply2) {
-		// 		    	base_bid = reply;
-		// 			});
-		// 		});
-		// 	});
-		// 	res.render('bidding.ejs', {
-		// 		currentRound: ,
-		// 		group_object: grp_obj,
-		// 		team_object: team_obj,
-		// 		player_object: player_obj });
-		// }
-
-
-	});
-
-	
-
-});
-
-io.on('connection', function(client) {
-	console.log('Client connected...');
-		
-	client.on('join', function(data) {
-		console.log(data);
 	});
 });
-
-
 
 // Start server
 server.listen(port, () => {

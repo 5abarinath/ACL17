@@ -89,12 +89,6 @@
 	    background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
 	    height: 135px; }
 	</style>
-	<script>
-		var socket = io.connect('localhost:3000');
-		socket.on('connect', function(data) {
-			socket.emit('join', 'Hello from the client');
-		});
-	</script>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
 		<div class="loader">
