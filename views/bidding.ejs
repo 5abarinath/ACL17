@@ -234,13 +234,13 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-orange hover-expand-effect">
+					<div class="info-box bg-orange hover-expand-effect" id="bidIncrDiv">
 						<div class="icon">
 							<i class="material-icons">person_add</i>
 						</div>
 						<div class="content">
 							<div class="text">BID INCREMENT</div>
-							<div class="number count-to" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
+							<div class="number count-to" id="bidIncrVal" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
 						</div>
 					</div>
 				</div>
@@ -296,7 +296,7 @@
 					<div class="card">
 						<div class="body">
 							<button type="button" class="btn bg-red btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn">BID</button>
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" disabled="true">PREMIUM BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="true">PREMIUM BID</button>
 						</div>
 					</div>
 					<div class="card">
@@ -317,33 +317,33 @@
 								<tbody>
 									<tr>
 										<td>1</td>
-										<td></td>
-										<td></td>
+										<td id="team0"></td>
+										<td id="price0"></td>
 									</tr>
 									<tr>
 										<td>2</td>
-										<td></td>
-										<td></td>
+										<td id="team2"></td>
+										<td id="price2"></td>
 									</tr>
 									<tr>
 										<td>3</td>
-										<td></td>
-										<td></td>
+										<td id="team4"></td>
+										<td id="price4"></td>
 									</tr>
 									<tr>
 										<td>4</td>
-										<td></td>
-										<td></td>
+										<td id="team6"></td>
+										<td id="price6"></td>
 									</tr>
 									<tr>
 										<td>5</td>
-										<td></td>
-										<td></td>
+										<td id="team8"></td>
+										<td id="price8"></td>
 									</tr>
 									<tr>
 										<td>6</td>
-										<td></td>
-										<td></td>
+										<td id="team10"></td>
+										<td id="price10"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -433,25 +433,56 @@
 			var socket = io.connect('localhost:3000');
 
 			var btnClickFlag = false;
-			socket.on('bidding', function(data) {
-				console.log(data);
-			});
 			document.getElementById("bidBtn").addEventListener("click", function() {
-				socket.emit('bidBtnClicked', "Bid button has been clicked. Increment bid values and broadcast new current bid and new ranklist.");
+				socket.emit('bidBtnClicked', getCookie("teamToken"));
 				btnClickFlag = true;
 			});
 			
 			socket.on('bidBtnClicked',function(data) {
-				document.getElementById("div-currBid").innerHTML=data;
-
+				document.getElementById("div-currBid").innerHTML=data.currentBid;
 				if(btnClickFlag) {
-					document.getElementById("div-yourBid").innerHTML = data;				
+					document.getElementById("div-yourBid").innerHTML = data.currentBid;				
 					btnClickFlag = false;
 				}
-				// console.log(data);
-				// console.log(btnClickFlag);
-
-				//document.getElementById("currBidKaDiv").setAttribute("data-to", data);
+				if(data.disableFlag) {
+					var bbtn = document.getElementById("bidBtn");
+					var pbtn = document.getElementById("premiumBidBtn");
+					var incrDiv = document.getElementById("bidIncrDiv");
+					var incrVal = document.getElementById("bidIncrVal");
+					bbtn.disabled = true;
+					pbtn.disabled = false;
+					bbtn.classList.remove("bg-red");
+					bbtn.classList.add("bg-grey");
+					pbtn.classList.remove("bg-grey");
+					pbtn.classList.add("bg-red");
+					incrVal.innerHTML = "2000";
+					incrDiv.classList.remove("bg-orange");
+					incrDiv.classList.add("bg-red");
+				}
+				var j;
+				var currentTeam = "aclteam" + getCookie("teamToken");
+				for(j=0; j<=10; j+=2) {
+					if(data.ranks[j] == currentTeam)
+						break;
+				}
+				var rank = (j/2)+1;
+				document.getElementById('div-yourRank').innerHTML = rank;
+				for(var i=0; i<=10; i+=2) {
+					if(data.ranks[i] == "aclteam1")
+						data.ranks[i] = "Aman Honda Ryders";
+					else if(data.ranks[i] == "aclteam2")
+						data.ranks[i] = "Ceratec Masters";
+					else if(data.ranks[i] == "aclteam3")
+						data.ranks[i] = "Fitness Mantras";
+					else if(data.ranks[i] == "aclteam4")
+						data.ranks[i] = "Maha Fast Champs";
+					else if(data.ranks[i] == "aclteam5")
+						data.ranks[i] = "Premier Titans";
+					else
+						data.ranks[i] = "Sun Shiners";
+					document.getElementById("team"+i).innerHTML = data.ranks[i];
+					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
+				}	
 			});
 	</script>
 

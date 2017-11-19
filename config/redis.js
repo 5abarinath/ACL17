@@ -10,8 +10,8 @@ redisClient.on('connect', function() {
     redisClient.set('currentRound', 1);
 
 // TODO: Set the bid values for the first round
-    redisClient.set('baseBid', 100000);
-    redisClient.set('maxBid', 125000);
+    redisClient.set('baseBid', 50000);
+    redisClient.set('maxBid', 75000);
     
     // Creating the key-value storage for all six teams
 	for(var i=1; i<=6; i++){
@@ -22,6 +22,7 @@ redisClient.on('connect', function() {
 		    'premLeft': 0,
 		    'yourBid': 0
 		});
+		redisClient.zadd('aclTeamRanks', 0, key);
 	} 
 });
 redisClient.on('error', function(){

@@ -170,15 +170,36 @@ app.post('/bidding', function(req, res) {
 });
 
 io.on('connection', function(client) {
-	client.emit('bidding', "Connection successful!");
 	client.on('bidBtnClicked', function(data) {
-		console.log(data);
 		redisClient.get('currentBid', function(err, reply) {
-		    var currBid = parseInt(reply);
-			console.log("Current bid is : "+currBid);
-			currBid+=1000;
-			redisClient.set('currentBid', currBid);
-			io.sockets.emit('bidBtnClicked', currBid);
+			if(err) throw err;
+			var currBid = parseInt(reply);
+			var team = 'aclteam' + data;
+			var btnDisable = false;
+			redisClient.get('maxBid', function(err1, reply1) {
+				if(err1) throw err1;
+				var maxBid = parseInt(reply1);
+				if(currBid < maxBid) {
+					currBid += 1000;
+					redisClient.set('currentBid', currBid);
+					redisClient.hset(team, 'yourBid', currBid);
+					redisClient.zadd('aclTeamRanks', currBid, team);
+					redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
+						if(err3) throw err3;
+						redisClient.hset(team, 'rank', parseInt(reply3)+1);
+					});
+					if(currBid == maxBid)
+						btnDisable = true;
+				}
+				else {
+					btnDisable = true;
+				}
+				redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
+					if(err2) throw err2;
+					var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
+					io.sockets.emit('bidBtnClicked', currObject);	
+				});
+			});
 		});
 	});
 });
