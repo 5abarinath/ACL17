@@ -270,7 +270,8 @@
 
     <script type="text/javascript">
     	function setRankAndRedirect(){
-    		renderEjs('teamprofile',getCookie("teamToken") );
+    		var firstBidVal = document.getElementById('firstBid').value;
+    		renderEjs2('teamprofile',getCookie("teamToken"), firstBidVal);
     	}
 
     </script>

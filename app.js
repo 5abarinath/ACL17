@@ -45,12 +45,23 @@ app.post('/initialbids', function(req, res) {
 					   teamOwner: result[0].team_owner,
 					   teamLogo: result[0].team_logo});
 	});
-
 });
 
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
 	let teamID = req.body.token;
+	let firstBid = req.body.firstBid;
+
+	console.log(firstBid);
+	if(!(firstBid == null)){
+		key = "aclteam" + teamID;
+
+		//TODO: Amend yourBid in redis: aclteamx if required
+		redisClient.zadd('aclTeamRanks', firstBid, key);
+		redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err, reply){
+			console.log(reply);
+		});
+	}
 
 	var key = "aclteam" + teamID;
 	redisClient.exists(key, function(err, reply) {
@@ -69,13 +80,25 @@ app.post('/teamprofile', function(req, res) {
 	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
 	connection.query(sql, [teamID], function(err, result) {
 		if(err) throw err;
-		res.render('teamprofile', { 
-					   teamName: result[0].team_name,
-					   teamOwner: result[0].team_owner,
-					   teamLogo: result[0].team_logo,
-					   pointsSpent: result[0].points_spent,
-					   premiumLeft: result[0].premium_left,
-					   data: results });
+
+		redisClient.zscore('aclTeamRanks', key, function(err1, reply){
+			console.log(reply);
+			var totalSpent = parseInt(result[0].points_spent) + parseInt(reply);
+
+			redisClient.hgetall("aclteam" + teamID, function(err, object) {
+				var teamObject = object;
+
+				res.render('teamprofile', { 
+						   teamName: result[0].team_name,
+						   teamOwner: result[0].team_owner,
+						   teamLogo: result[0].team_logo,
+						   pointsSpent: totalSpent,
+						   premiumLeft: teamObject.premLeft,
+						   data: results });
+			});
+		});
+
+		
 	});
 });
 
@@ -86,7 +109,6 @@ app.post('/bidding', function(req, res) {
 	teamObject = 0;
 	redisClient.hgetall("aclteam" + teamID, function(err, object) {
 		teamObject = object;
-		console.log(teamObject);
 
 			let currRound = 0, currBid = 0, teamRank = 0, yourBid = 0, prem_flag = 0;
 			let grp_obj, team_obj, player_obj;
