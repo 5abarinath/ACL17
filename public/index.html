@@ -13,7 +13,7 @@
 		<h5>Ace Cricket League,2017</h5>
 		<br><br>
 		<h2>Sign In</h2>
-		<form>
+
 			<p>Username</p><br>
 			<select class="select-field" required id="teamName">
                                 <option value="">-- Please select --</option>
@@ -27,11 +27,20 @@
 			<br><br>
 			<p>Password</p>
 			<input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
-			<input type="submit" name="" value="Sign In"  onclick="validateAndRedirect();">
-		</form>
+			<button name="btn" onclick="validateAndRedirect();">Sign In</button>
+
 	</div>
   <div class="blur-background"></div>
 </div>
+
+<!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="plugins/bootstrap/js/bootstrap.js"></script>
+
+<!-- JQuery redirect plugin-->
+<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
 <!-- Custom Js -->
     <script src="js/admin.js"></script>
@@ -43,6 +52,8 @@
     <!-- passwords are : 1.ahrsjt117 2.cmtvny217 3.fmtgkr317 4.mfcjgv417 5.pttoyr517 6.sstdar617 -->
     <script type="text/javascript">
         function validateAndRedirect(){
+            console.log("inside validate()");
+
             var user = document.getElementById("teamName").value;
             var password = document.getElementById("password").value;
             
