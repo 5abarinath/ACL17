@@ -33,15 +33,18 @@
         </div>
         <div class="card">
             <div class="body">
-                <!-- <form id="sign_in" method="POST"> -->
+                    <div class="alert bg-red alert-dismissible" role="alert" style="display:none;" id="passwordAlert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        Password entered is incorrect!
+                    </div>
+                    
                     <div class="msg">Sign in to start your session</div>
-                    <!-- Show flash messages here -->
+                    
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
                             <!-- passwords are : 1.ahrsjt117 2.cmtvny217 3.fmtgkr317 4.mfcjgv417 5.pttoyr517 6.sstdar617 -->
                             <select class="form-control show-tick" required id="teamName">
                                 <option value="">-- Please select --</option>
@@ -112,8 +115,8 @@
                 setCookie('teamToken', user, 3);
             }
             else{
-                // swal('Oops...', 'Incorrect password or id!', 'error');
-                alert("Incorrect password");
+                var passwordDiv = document.getElementById("passwordAlert");
+                passwordDiv.style.display = "block";             
             }
         }
     </script>

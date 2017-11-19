@@ -38,6 +38,11 @@
 <body class="theme-red">
 	
 	<style>
+
+	body
+	{
+		background-color: #e8e8e8;
+	}
 		.sidebar .user-info-lol {
 	    padding: 13px 15px 12px 15px;
 	    white-space: nowrap;
@@ -156,12 +161,12 @@
     	<div style="float: left; width: 40%">
 		<div class="container-fluid">
 			<div class="row clearfix">
-				<div class="card">
+				<div class="card" style="height: 100%;">
 					<div class="body">
 						<div id="gallery-images" class="list-unstyled row clearfix">
 							<div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
 		                        <div class="container1">
-		                            <img class="thumbnail image123" src="images/ACLlogo.png">
+		                            <img class="image123" src="images/ACLlogo.png">
 		                        </div>
 		                    </div>
 		                </div>
@@ -186,12 +191,21 @@
 							</div>
 
 							<div class="body" align="center">
-							<form>
+							<form method="POST" action="/initialbids">
 								<h4><b>Enter the something something</b></h4>
 								<br>
-								<input type="number" name="baseBid">
+								<select class="form-control show-tick" required>
+	                                <option value="">-- Please select --</option>
+	                                <option value="100000">100000</option>
+	                                <option value="101000">101000</option>
+	                                <option value="102000">102000</option>
+	                                <option value="103000">103000</option>
+	                                <option value="104000">104000</option>
+	                                <option value="105000">105000</option>
+	                                <option value="106000">106000</option>
+                            	</select>
 								<br><br>
-								<input type="submit" name="" value="Submit"  onclick="storeAndRedirect();">
+								<input type="submit" value="Submit">
 							</form>
 
 
