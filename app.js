@@ -141,6 +141,13 @@ io.on('connection', function(client) {
 	client.emit('bidding', "Connection successful!");
 	client.on('bidBtnClicked', function(data) {
 		console.log(data);
+		redisClient.get('currentBid', function(err, reply) {
+		    var currBid = parseInt(reply);
+			console.log("Current bid is : "+currBid);
+			currBid+=1000;
+			redisClient.set('currentBid', currBid);
+			io.sockets.emit('bidBtnClicked', currBid);
+		});
 	});
 });
 

@@ -262,7 +262,7 @@
 						</div>
 						<div class="content">
 							<div class="text">CURRENT BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20" id="currBidKaDiv"></div>
 						</div>
 					</div>
 				</div>
@@ -436,6 +436,12 @@
 			});
 			document.getElementById("bidBtn").addEventListener("click", function() {
 				socket.emit('bidBtnClicked', "Bid button has been clicked. Increment bid values and broadcast new current bid and new ranklist.");
+			});
+			
+			socket.on('bidBtnClicked',function(data){
+				document.getElementById("currBidKaDiv").innerHTML=data;
+				console.log(data);
+				//document.getElementById("currBidKaDiv").setAttribute("data-to", data);
 			});
 	</script>
 
