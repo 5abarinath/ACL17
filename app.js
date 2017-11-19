@@ -35,7 +35,17 @@ app.get('/', function(req, res) {
 });
 
 app.post('/initialbids', function(req, res) {
-	
+	let teamID = req.body.token;
+
+	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
+	connection.query(sql, [teamID], function(err, result) {
+		if(err) throw err;
+		res.render('initialbids',{
+					   teamName: result[0].team_name,
+					   teamOwner: result[0].team_owner,
+					   teamLogo: result[0].team_logo});
+	});
+
 });
 
 // POST request to render teamprofile.ejs

@@ -139,6 +139,21 @@
   background: #800000;
 }
 
+.body button {
+  border: none;
+  outline: none;
+  height: 40px;
+  width: 100px;
+  color: #fff;
+  font-size: 16px;
+  background: #FF0000;
+  cursor: pointer;
+}
+
+.body button:hover
+{
+  background: #800000;
+}
 	</style>
 
 	<nav class="navbar">
@@ -166,7 +181,7 @@
 						<div id="gallery-images" class="list-unstyled row clearfix">
 							<div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
 		                        <div class="container1">
-		                            <img class="image123" src="images/ACLlogo.png">
+		                            <img class="image123" src="<%= teamLogo %>">
 		                        </div>
 		                    </div>
 		                </div>
@@ -185,16 +200,16 @@
 						<div class="card">
 							<div class="header">
 								<h1><b>
-									Welcome to ACL '17 ! 
+									Welcome <%= teamOwner %> !
 									</b>
 								</h1>
 							</div>
 
 							<div class="body" align="center">
-							<form method="POST" action="/initialbids">
+							
 								<h4><b>Enter the something something</b></h4>
 								<br>
-								<select class="form-control show-tick" required>
+								<select class="form-control show-tick" id="firstBid" required>
 	                                <option value="">-- Please select --</option>
 	                                <option value="100000">100000</option>
 	                                <option value="101000">101000</option>
@@ -205,9 +220,8 @@
 	                                <option value="106000">106000</option>
                             	</select>
 								<br><br>
-								<input type="submit" value="Submit">
-							</form>
-
+								<center><button name="btn" onclick="setRankAndRedirect();">Submit</button></center>
+							
 
 							</div>
 						</div>
@@ -238,8 +252,28 @@
 
 	</section>
 
+<!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
 
+<!-- Bootstrap Core Js -->
+<script src="plugins/bootstrap/js/bootstrap.js"></script>
 
+<!-- JQuery redirect plugin-->
+<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+
+<!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/pages/examples/sign-in.js"></script>
+    <script src="js/pages/forms/basic-form-elements.js"></script>
+    <script src="js/acl/render-ejs.js"></script>
+    <script src="js/cookies.js"></script>
+
+    <script type="text/javascript">
+    	function setRankAndRedirect(){
+    		renderEjs('teamprofile',getCookie("teamToken") );
+    	}
+
+    </script>
 
 
 </body>
