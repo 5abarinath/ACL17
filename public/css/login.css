@@ -1,0 +1,170 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+.blur-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background: url(../images/bg2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-transition: -webkit-filter 1s;
+  transition: -webkit-filter 1s;
+  transition: filter 1s;
+  transition: filter 1s, -webkit-filter 1s;
+}
+
+.button {
+  position: relative;
+  z-index: 2;
+  top: 200px;
+  left: 40px;
+  color: #222;
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: 2px;
+  font-size: 20px;
+  border: 3px solid;
+  padding: 10px;
+  display: inline;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.loginBox:hover + .blur-background {
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+}
+
+
+.loginBox
+{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 350px;
+  height: 420px;
+  padding: 40px 40px;
+  box-sizing: border-box;
+  background: rgba(0,0,0, .7);
+  z-index: 2;
+  display: inline;
+  cursor: pointer;
+}
+
+h1
+{
+  margin: 0;
+  padding: 0 0 10px;
+  color: #FFFFFF;
+  text-align: center;
+}
+h5
+{
+  margin: 0;
+  padding: 0 0 10px;
+  color: #FFFFFF;
+  text-align: center;
+}
+h2
+{
+  margin: 0;
+  padding: 0 0 10px;
+  color: #FFFFFF;
+  text-align: center;
+}
+.loginBox p
+{
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  color: #fff;
+}
+.loginBox input
+{
+  width: 100%;
+  margin-bottom: 20px;
+}
+.loginBox input[type="text"],
+.loginBox input[type="password"]
+{
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+::placeholder
+{
+  color: rgba(255,255,255,.5);
+}
+.loginBox input[type="submit"]
+{
+  border: none;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+  background: #FF0000;
+  cursor: pointer;
+  border-radius: 20px
+}
+.loginBox input[type="submit"]:hover
+{
+  background: #800000;
+}
+
+.select-field
+{
+  display: inline-block;
+  width: 100%;
+  padding: 0 0 10px;
+  margin: 0px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  text-shadow:0 1px 0 rgba(0,0,0,0.4);
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.select-field:after 
+{
+  content: ""
+  width:0px;
+  height: 0px;
+  border-top: 1px solid #fff;
+  border-left: 9px solid transparent;
+  position: absolute;
+  top: 20px
+  background-color: #222;
+
+}
+.select-field > select {
+  float:left;
+  width: 100%;
+  height:100%;
+  margin: 0px;
+  border:0px;
+  font-size: 16px;
+  color: #bdc3d1;
+  background-color: #222;
+}
+.select-field>select>option{
+  padding: 10px;
+  color: #fff;
+
+}
+option { 
+    background-color: #222; 
+    color:#fff;
+}
