@@ -20,20 +20,15 @@ body
   transition: filter 1s, -webkit-filter 1s;
 }
 
-.button {
-  position: relative;
-  z-index: 2;
-  top: 200px;
-  left: 40px;
-  color: #222;
-  font-family: 'Roboto Mono', monospace;
-  letter-spacing: 2px;
-  font-size: 20px;
-  border: 3px solid;
-  padding: 10px;
-  display: inline;
+.loginBox button {
+  border: none;
+  outline: none;
+  height: 40px;
+  width: 100px;
+  color: #fff;
+  font-size: 16px;
+  background: #FF0000;
   cursor: pointer;
-  background-color: transparent;
 }
 
 .loginBox:hover + .blur-background {
@@ -117,7 +112,7 @@ h2
   cursor: pointer;
   border-radius: 20px
 }
-.loginBox input[type="submit"]:hover
+.loginBox button:hover
 {
   background: #800000;
 }
