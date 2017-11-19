@@ -3,15 +3,13 @@ const redis = require('redis');
 // Create connection with Redis database
 const redisClient = redis.createClient();
 
-// Check connection with MySQL database
-const connection = require('./database');
-
 // Check connection with Redis
 redisClient.on('connect', function() {
 	console.log('Redis Connected');
 	redisClient.set('currentBid', 0);
     redisClient.set('currentRound', 1);
-    // Set the bid values for the first round
+
+// TODO: Set the bid values for the first round
     redisClient.set('baseBid', 100000);
     redisClient.set('maxBid', 125000);
     

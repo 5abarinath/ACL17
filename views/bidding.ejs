@@ -39,55 +39,58 @@
 		}
 
 		.image123 {
-		  display: block;
-		  width: 100%;
-		  height: auto;
+			display: block;
+			width: 100%;
+			height: auto;
 		}
 
 		.overlay123 {
-		  position: absolute;
-		  bottom: 0;
-		  opacity: 0.6;
-		  left: 0;
-		  right: 0;
-		  background-color: #000000;
-		  overflow: hidden;
-		  width: 95%;
-		  height: 15%;
-		  transition: .5s ease;
-		  margin-left: 5px;
-		  margin-right: 5px;
-		  margin-bottom: 5px;
+			position: absolute;
+			bottom: 0;
+			opacity: 0.6;
+			left: 0;
+			right: 0;
+			background-color: #000000;
+			overflow: hidden;
+			width: 95%;
+			height: 15%;
+			transition: .5s ease;
+			margin-left: 5px;
+			margin-right: 5px;
+			margin-bottom: 5px;
 		}
 
 		.container1:hover .overlay123 {
-		  height: 30%;
+			height: 30%;
 		}
 
 		.text123 {
-		  white-space: nowrap; 
-		  background-color: #000000;
-		  color: white;
-		  font-size: 16px;
-		  position: absolute;
-		  overflow: hidden;
-		  top: 50%;
-		  left: 50%;
-		  transform: translate(-50%, -50%);
-		  -ms-transform: translate(-50%, -50%);
+			white-space: nowrap;
+			background-color: #000000;
+			color: white;
+			font-size: 16px;
+			position: absolute;
+			overflow: hidden;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%);
 		}
 	</style>
 </head>
 
 <body class="theme-red">
+	
+
 	<style>
 		.sidebar .user-info-lol {
-	    padding: 13px 15px 12px 15px;
-	    white-space: nowrap;
-	    position: relative;
-	    border-bottom: 1px solid #e9e9e9;
-	    background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
-	    height: 135px; }
+			padding: 13px 15px 12px 15px;
+			white-space: nowrap;
+			position: relative;
+			border-bottom: 1px solid #e9e9e9;
+			background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
+			height: 135px;
+		}
 	</style>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
@@ -130,10 +133,8 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					
-					
-					
-				   </a></li>
+					</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -148,20 +149,12 @@
 					<img src="images/user.png" width="48" height="48" alt="User" />
 				</div>
 				<div class="info-container">
-					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= team_object[0].team_name%></div>
-					<div class="email"><%= team_object[0].team_owner%></div>
-					<!-- <div class="btn-group user-helper-dropdown">
-						<i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-						<ul class="dropdown-menu pull-right">
-							<li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-							<li role="seperator" class="divider"></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-							<li role="seperator" class="divider"></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
-						</ul>
-					</div> -->
+					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<%= team_object[0].team_name%>
+					</div>
+					<div class="email">
+						<%= team_object[0].team_owner%>
+					</div>
 				</div>
 			</div>
 			<!-- #User Info -->
@@ -187,7 +180,8 @@
 			<!-- Footer -->
 			<div class="legal">
 				<div class="copyright">
-					&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
+					&copy; 2017
+					<a href="javascript:void(0);">Ace Cricket League</a>.
 				</div>
 				<div class="version">
 					<b>Version: </b> 1.0.0
@@ -196,7 +190,6 @@
 			<!-- #Footer -->
 		</aside>
 		<!-- #END# Left Sidebar -->
-		
 	</section>
 
 	<section class="content">
@@ -300,13 +293,13 @@
 
 			<div class="row clearfix">
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class = "card">
-						<div class = "body">
-							<button type="button" class="btn bg-red btn-block btn-lg waves-effect" style="height: 50px;">BID</button>
+					<div class="card">
+						<div class="body">
+							<button type="button" class="btn bg-red btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn">BID</button>
 							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" disabled="true">PREMIUM BID</button>
 						</div>
 					</div>
-					<div class="card">	
+					<div class="card">
 						<div class="header">
 							<h2>
 								Ranking
@@ -314,46 +307,46 @@
 						</div>
 						<div class="body">
 							<table id="mainTable" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>Team</th>
-                                        <th>Bid</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+								<thead>
+									<tr>
+										<th>Rank</th>
+										<th>Team</th>
+										<th>Bid</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -361,67 +354,90 @@
 					<div class="card">
 						<div class="header">
 							<h2 id="players-category">
-								<%= group_object[0].group_desc%> [<%= group_object[0].group_name%>]
+								<%= group_object[0].group_desc%> [
+									<%= group_object[0].group_name%>]
 							</h2>
 						</div>
 						<div class="body">
 							<div id="gallery-images" class="list-unstyled row clearfix">
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-		                        	<div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[0].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[0].player_fname +" "+ player_object[0].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[0].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[0].player_fname +" "+ player_object[0].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[1].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[1].player_fname + " "+player_object[1].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[1].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[1].player_fname + " "+player_object[1].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[2].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[2].player_fname + " "+player_object[2].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[2].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[2].player_fname + " "+player_object[2].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[3].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[3].player_fname + " "+player_object[3].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[3].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[3].player_fname + " "+player_object[3].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[4].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[4].player_fname + " "+player_object[4].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[4].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[4].player_fname + " "+player_object[4].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="<%= player_object[5].player_image%>">
-		                        		<div class="overlay123">
-		                        			<div class="text123"><%= player_object[5].player_fname + " "+player_object[5].player_lname%></div>
-		                        		</div>
-		                        	</div>
+									<div class="container1">
+										<img class="thumbnail image123" src="<%= player_object[5].player_image%>">
+										<div class="overlay123">
+											<div class="text123">
+												<%= player_object[5].player_fname + " "+player_object[5].player_lname%>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 	</section>
+
+	<script>
+			var socket = io.connect('localhost:3000');
+			socket.on('bidding', function(data) {
+				console.log(data);
+			});
+			document.getElementById("bidBtn").addEventListener("click", function() {
+				socket.emit('bidBtnClicked', "Bid button has been clicked. Increment bid values and broadcast new current bid and new ranklist.");
+			});
+	</script>
 
 	<!-- Jquery Core Js -->
 	<script src="plugins/jquery/jquery.min.js"></script>
@@ -459,22 +475,22 @@
 	<script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
 	<!-- JQuery Redirect Plugin -->
-    <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+	<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
 
 	<!-- Custom Js -->
 	<script src="js/admin.js"></script>
 	<script src="js/pages/index.js"></script>
 	<script src="js/pages/medias/image-gallery.js"></script>
-    	<script src="js/acl/render-ejs.js"></script>
-  	<script src="js/cookies.js"></script>
+	<script src="js/acl/render-ejs.js"></script>
+	<script src="js/cookies.js"></script>
 
 
 	<!-- Demo Js -->
 	<script src="js/demo.js"></script>
 
 	<!-- Light Gallery Plugin Js -->
-    <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+	<script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 </body>
 
 </html>

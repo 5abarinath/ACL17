@@ -34,6 +34,10 @@ app.get('/', function(req, res) {
 	res.sendFile('index');
 });
 
+app.post('/initialbids', function(req, res) {
+	
+});
+
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
 	let teamID = req.body.token;
@@ -130,6 +134,13 @@ app.post('/bidding', function(req, res) {
 					});
 				});
 			});
+	});
+});
+
+io.on('connection', function(client) {
+	client.emit('bidding', "Connection successful!");
+	client.on('bidBtnClicked', function(data) {
+		console.log(data);
 	});
 });
 
