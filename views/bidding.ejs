@@ -207,7 +207,7 @@
 						</div>
 						<div class="content">
 							<div class="text">CURRENT ROUND</div>
-							<div class="number count-to" data-from="0" data-to="<%= currentRound%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= currentRound%>" data-speed="1000" data-fresh-interval="20" id="div-currRound"></div>
 						</div>
 					</div>
 				</div>
@@ -218,7 +218,7 @@
 						</div>
 						<div class="content">
 							<div class="text">BASE BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= group_object[0].base_bid%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= group_object[0].base_bid%>" data-speed="1000" data-fresh-interval="20" id="div-baseBid"></div>
 						</div>
 					</div>
 				</div>
@@ -229,7 +229,7 @@
 						</div>
 						<div class="content">
 							<div class="text">MAXIMUM BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= group_object[0].max_bid%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= group_object[0].max_bid%>" data-speed="1000" data-fresh-interval="20" id="div-maxBid"></div>
 						</div>
 					</div>
 				</div>
@@ -240,7 +240,7 @@
 						</div>
 						<div class="content">
 							<div class="text">BID INCREMENT</div>
-							<div class="number count-to" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
 						</div>
 					</div>
 				</div>
@@ -251,7 +251,7 @@
 						</div>
 						<div class="content">
 							<div class="text">PREMIUM LEFT</div>
-							<div class="number count-to" data-from="0" data-to="<%= team_object[0].premium_left%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= team_object[0].premium_left%>" data-speed="1000" data-fresh-interval="20" id="div-premLeft"></div>
 						</div>
 					</div>
 				</div>
@@ -262,7 +262,7 @@
 						</div>
 						<div class="content">
 							<div class="text">CURRENT BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20" id="currBidKaDiv"></div>
+							<div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20" id="div-currBid"></div>
 						</div>
 					</div>
 				</div>
@@ -273,7 +273,7 @@
 						</div>
 						<div class="content">
 							<div class="text">YOUR BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= your_bid%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= your_bid%>" data-speed="1000" data-fresh-interval="20" id="div-yourBid"></div>
 						</div>
 					</div>
 				</div>
@@ -284,7 +284,7 @@
 						</div>
 						<div class="content">
 							<div class="text">YOUR RANK</div>
-							<div class="number count-to" data-from="0" data-to="<%= rank%>" data-speed="1000" data-fresh-interval="20"></div>
+							<div class="number count-to" data-from="0" data-to="<%= rank%>" data-speed="1000" data-fresh-interval="20" id="div-yourRank"></div>
 						</div>
 					</div>
 				</div>
@@ -430,17 +430,27 @@
 	</section>
 
 	<script>
-			var socket = io.connect('localhost:3000');
+			var socket = io.connect('192.168.43.96:3000');
+
+			var btnClickFlag = false;
 			socket.on('bidding', function(data) {
 				console.log(data);
 			});
 			document.getElementById("bidBtn").addEventListener("click", function() {
 				socket.emit('bidBtnClicked', "Bid button has been clicked. Increment bid values and broadcast new current bid and new ranklist.");
+				btnClickFlag = true;
 			});
 			
-			socket.on('bidBtnClicked',function(data){
-				document.getElementById("currBidKaDiv").innerHTML=data;
-				console.log(data);
+			socket.on('bidBtnClicked',function(data) {
+				document.getElementById("div-currBid").innerHTML=data;
+
+				if(btnClickFlag) {
+					document.getElementById("div-yourBid").innerHTML = data;				
+					btnClickFlag = false;
+				}
+				// console.log(data);
+				// console.log(btnClickFlag);
+
 				//document.getElementById("currBidKaDiv").setAttribute("data-to", data);
 			});
 	</script>
