@@ -202,6 +202,31 @@ io.on('connection', function(client) {
 			});
 		});
 	});
+
+	client.on('premiumBidBtnClicked', function(data) {
+		redisClient.get('currentBid', function(err, reply) {
+			if(err) throw err;
+			var currBid = parseInt(reply);
+			var team = 'aclteam' + data;
+			redisClient.get('maxBid', function(err1, reply1) {
+				if(err1) throw err1;
+				var maxBid = parseInt(reply1);
+				currBid += 2000;
+				redisClient.set('currentBid', currBid);
+				redisClient.hset(team, 'yourBid', currBid);
+				redisClient.zadd('aclTeamRanks', currBid, team);
+				redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
+					if(err3) throw err3;
+					redisClient.hset(team, 'rank', parseInt(reply3)+1);
+				});
+				redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
+					if(err2) throw err2;
+					var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
+					io.sockets.emit('bidBtnClicked', currObject);	
+				});
+			});
+		});
+	});
 });
 
 // Start server

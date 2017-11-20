@@ -432,10 +432,18 @@
 	<script>
 			var socket = io.connect('localhost:3000');
 
-			var btnClickFlag = false;
+			var btnClickFlag = false, premiumBtnClickFlag = false;
 			document.getElementById("bidBtn").addEventListener("click", function() {
 				socket.emit('bidBtnClicked', getCookie("teamToken"));
 				btnClickFlag = true;
+			});
+
+			document.getElementById("premiumBidBtn").addEventListener("click", function() {
+				var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
+				if(TotalPremiumLeft > 0) {
+					socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
+					premiumBtnClickFlag = true;
+				}
 			});
 			
 			socket.on('bidBtnClicked',function(data) {
@@ -484,6 +492,39 @@
 					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
 				}	
 			});
+
+			socket.on('premiumBidBtnClicked',function(data) {
+				if(premiumBtnClickFlag) {
+					document.getElementById("div-yourBid").innerHTML = data.currentBid;				
+					btnClickFlag = false;
+				}
+
+				var j;
+				var currentTeam = "aclteam" + getCookie("teamToken");
+				for(j=0; j<=10; j+=2) {
+					if(data.ranks[j] == currentTeam)
+						break;
+				}
+				var rank = (j/2)+1;
+				document.getElementById('div-yourRank').innerHTML = rank;
+				for(var i=0; i<=10; i+=2) {
+					if(data.ranks[i] == "aclteam1")
+						data.ranks[i] = "Aman Honda Ryders";
+					else if(data.ranks[i] == "aclteam2")
+						data.ranks[i] = "Ceratec Masters";
+					else if(data.ranks[i] == "aclteam3")
+						data.ranks[i] = "Fitness Mantras";
+					else if(data.ranks[i] == "aclteam4")
+						data.ranks[i] = "Maha Fast Champs";
+					else if(data.ranks[i] == "aclteam5")
+						data.ranks[i] = "Premier Titans";
+					else
+						data.ranks[i] = "Sun Shiners";
+					document.getElementById("team"+i).innerHTML = data.ranks[i];
+					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
+				}
+
+			});
 	</script>
 
 	<!-- Jquery Core Js -->
@@ -524,6 +565,8 @@
 	<!-- JQuery Redirect Plugin -->
 	<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
+	<!-- Sweet Alert Plugin Js -->
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
 	<!-- Custom Js -->
 	<script src="js/admin.js"></script>
