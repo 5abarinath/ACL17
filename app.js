@@ -208,22 +208,23 @@ io.on('connection', function(client) {
 			if(err) throw err;
 			var currBid = parseInt(reply);
 			var team = 'aclteam' + data;
-			redisClient.get('maxBid', function(err1, reply1) {
-				if(err1) throw err1;
-				var maxBid = parseInt(reply1);
-				currBid += 2000;
-				redisClient.set('currentBid', currBid);
-				redisClient.hset(team, 'yourBid', currBid);
-				redisClient.zadd('aclTeamRanks', currBid, team);
-				redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
-					if(err3) throw err3;
-					redisClient.hset(team, 'rank', parseInt(reply3)+1);
-				});
-				redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
-					if(err2) throw err2;
-					var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
-					io.sockets.emit('bidBtnClicked', currObject);	
-				});
+			redisClient.hget(team, 'premLeft', function(err4, reply4) {
+				if(err4) throw err4;
+				var newPrem = (parseInt(reply4)-2000);
+				redisClient.hset(team, 'premLeft', newPrem);
+			});
+			currBid += 2000;
+			redisClient.set('currentBid', currBid);
+			redisClient.hset(team, 'yourBid', currBid);
+			redisClient.zadd('aclTeamRanks', currBid, team);
+			redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
+				if(err3) throw err3;
+				redisClient.hset(team, 'rank', (parseInt(reply3)+1));
+			});
+			redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
+				if(err2) throw err2;
+				var currObject = {"currentBid": currBid, "ranks": reply2};
+				io.sockets.emit('premiumBidBtnClicked', currObject);	
 			});
 		});
 	});

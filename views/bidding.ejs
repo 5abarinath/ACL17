@@ -439,11 +439,15 @@
 			});
 
 			document.getElementById("premiumBidBtn").addEventListener("click", function() {
-				var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
-				if(TotalPremiumLeft > 0) {
+				var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);;
+				if(HTMLTotalPremiumLeft > 0) {
 					socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
 					premiumBtnClickFlag = true;
+					HTMLTotalPremiumLeft -= 2000;
+					document.getElementById("div-premLeft").innerHTML = HTMLTotalPremiumLeft;
 				}
+				else
+					alert("You do not have any premium amount left!");
 			});
 			
 			socket.on('bidBtnClicked',function(data) {
@@ -454,18 +458,24 @@
 				}
 				if(data.disableFlag) {
 					var bbtn = document.getElementById("bidBtn");
-					var pbtn = document.getElementById("premiumBidBtn");
-					var incrDiv = document.getElementById("bidIncrDiv");
-					var incrVal = document.getElementById("bidIncrVal");
 					bbtn.disabled = true;
-					pbtn.disabled = false;
 					bbtn.classList.remove("bg-red");
 					bbtn.classList.add("bg-grey");
-					pbtn.classList.remove("bg-grey");
-					pbtn.classList.add("bg-red");
+					var incrDiv = document.getElementById("bidIncrDiv");
+					var incrVal = document.getElementById("bidIncrVal");
 					incrVal.innerHTML = "2000";
 					incrDiv.classList.remove("bg-orange");
 					incrDiv.classList.add("bg-red");
+					var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
+					var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
+					if(TotalPremiumLeft < 2000 || HTMLTotalPremiumLeft < 2000)
+						alert("You do not have enough premium left!");
+					else {
+						var pbtn = document.getElementById("premiumBidBtn");
+						pbtn.disabled = false;
+						pbtn.classList.remove("bg-grey");
+						pbtn.classList.add("bg-red");
+					}
 				}
 				var j;
 				var currentTeam = "aclteam" + getCookie("teamToken");
@@ -474,7 +484,7 @@
 						break;
 				}
 				var rank = (j/2)+1;
-				document.getElementById('div-yourRank').innerHTML = rank;
+				document.getElementById('div-yourRank').setAttribute("data-to", rank);
 				for(var i=0; i<=10; i+=2) {
 					if(data.ranks[i] == "aclteam1")
 						data.ranks[i] = "Aman Honda Ryders";
@@ -494,11 +504,12 @@
 			});
 
 			socket.on('premiumBidBtnClicked',function(data) {
+				document.getElementById("div-currBid").innerHTML=data.currentBid;
 				if(premiumBtnClickFlag) {
-					document.getElementById("div-yourBid").innerHTML = data.currentBid;				
-					btnClickFlag = false;
+					document.getElementById("div-yourBid").innerHTML = data.currentBid;	
+					var premLeft = document.getElementById			
+					premuimBtnClickFlag = false;
 				}
-
 				var j;
 				var currentTeam = "aclteam" + getCookie("teamToken");
 				for(j=0; j<=10; j+=2) {
@@ -523,7 +534,6 @@
 					document.getElementById("team"+i).innerHTML = data.ranks[i];
 					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
 				}
-
 			});
 	</script>
 
