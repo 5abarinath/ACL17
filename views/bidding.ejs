@@ -484,7 +484,7 @@
 						break;
 				}
 				var rank = (j/2)+1;
-				document.getElementById('div-yourRank').setAttribute("data-to", rank);
+				document.getElementById('div-yourRank').innerHTML = rank;
 				for(var i=0; i<=10; i+=2) {
 					if(data.ranks[i] == "aclteam1")
 						data.ranks[i] = "Aman Honda Ryders";

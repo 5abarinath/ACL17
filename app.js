@@ -59,7 +59,19 @@ app.post('/teamprofile', function(req, res) {
 		//TODO: Amend yourBid in redis: aclteamx if required
 		redisClient.zadd('aclTeamRanks', firstBid, key);
 		redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err, reply){
-			console.log(reply);
+			console.log("Team Ranks: " + reply);
+		});
+
+		redisClient.get('currentBid', function(err, reply) {
+			if(parseInt(firstBid) > parseInt(reply)){
+				redisClient.set('currentBid', firstBid);
+			}
+		});
+
+		redisClient.hgetall(key, function(err, teamObject){
+			teamObject.yourBid = firstBid;
+
+			redisClient.hmset(key, teamObject);
 		});
 	}
 
@@ -82,7 +94,7 @@ app.post('/teamprofile', function(req, res) {
 		if(err) throw err;
 
 		redisClient.zscore('aclTeamRanks', key, function(err1, reply){
-			console.log(reply);
+			console.log("Team Rank", reply);
 			var totalSpent = parseInt(result[0].points_spent) + parseInt(reply);
 
 			redisClient.hgetall("aclteam" + teamID, function(err, object) {
@@ -136,15 +148,26 @@ app.post('/bidding', function(req, res) {
 								redisClient.get('currentBid', function(err, reply) {
 								    currBid = reply;
 
-								    client.get('maxBid', function(err1, reply1) {
+								    redisClient.get('maxBid', function(err1, reply1) {
 									    grp_obj.max_bid = reply1;
 
-										client.get('baseBid', function(err2, reply2) {
+										redisClient.get('baseBid', function(err2, reply2) {
 									    	grp_obj.base_bid = reply2;
 
 									    	team_obj.premium_left = teamObject.premLeft;
 									    	teamRank = teamObject.rank;
 									    	yourBid = teamObject.yourBid;
+
+
+											res.render('bidding.ejs', {
+											currentRound: currRound,
+											group_object: grp_obj,
+											team_object: team_obj,
+											player_object: player_obj,
+											current_bid: currBid,
+											rank: teamRank,
+											your_bid: yourBid,
+											premiumFlag: prem_flag });
 
 									    	if(currBid >= grp_obj.max_bid){
 									    		prem_flag = 1;
@@ -153,15 +176,6 @@ app.post('/bidding', function(req, res) {
 									});
 								});
 							}
-							res.render('bidding.ejs', {
-							currentRound: currRound,
-							group_object: grp_obj,
-							team_object: team_obj,
-							player_object: player_obj,
-							current_bid: currBid,
-							rank: teamRank,
-							your_bid: yourBid,
-							premiumFlag: prem_flag });
 						});
 					});
 				});
@@ -181,24 +195,35 @@ io.on('connection', function(client) {
 				var maxBid = parseInt(reply1);
 				if(currBid < maxBid) {
 					currBid += 1000;
+					console.log("Current Bid: " + currBid);
 					redisClient.set('currentBid', currBid);
-					redisClient.hset(team, 'yourBid', currBid);
-					redisClient.zadd('aclTeamRanks', currBid, team);
-					redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
-						if(err3) throw err3;
-						redisClient.hset(team, 'rank', parseInt(reply3)+1);
+					redisClient.hgetall(team, function(err5, teamObject) {
+						console.log("CurrBid-teamObj.yourBid for " + team + " = " + (currBid - teamObject.yourBid));
+						redisClient.zadd('aclTeamRanks', currBid, team);
+						redisClient.hset(team, 'yourBid', currBid);
+						redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
+							if(err3) throw err3;
+							redisClient.hset(team, 'rank', parseInt(reply3)+1);
+						});
+						if(currBid == maxBid)
+							btnDisable = true;
+
+						redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
+							if(err2) throw err2;
+							var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
+							io.sockets.emit('bidBtnClicked', currObject);	
+						});
 					});
-					if(currBid == maxBid)
-						btnDisable = true;
 				}
 				else {
 					btnDisable = true;
+					redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
+						if(err2) throw err2;
+						var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
+						io.sockets.emit('bidBtnClicked', currObject);	
+					});
 				}
-				redisClient.zrevrange('aclTeamRanks', 0, currBid, "withscores", function(err2, reply2) {
-					if(err2) throw err2;
-					var currObject = {"currentBid": currBid, "disableFlag": btnDisable, "ranks": reply2};
-					io.sockets.emit('bidBtnClicked', currObject);	
-				});
+				
 			});
 		});
 	});
@@ -216,7 +241,7 @@ io.on('connection', function(client) {
 			currBid += 2000;
 			redisClient.set('currentBid', currBid);
 			redisClient.hset(team, 'yourBid', currBid);
-			redisClient.zadd('aclTeamRanks', currBid, team);
+			redisClient.zincr('aclTeamRanks', currBid, team);
 			redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
 				if(err3) throw err3;
 				redisClient.hset(team, 'rank', (parseInt(reply3)+1));
