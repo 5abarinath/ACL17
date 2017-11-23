@@ -430,7 +430,7 @@
 	</section>
 
 	<script>
-			var socket = io.connect('localhost:3000');
+			var socket = io.connect('192.168.0.100:3000');
 
 			var btnClickFlag = false, premiumBtnClickFlag = false;
 			document.getElementById("bidBtn").addEventListener("click", function() {
@@ -439,15 +439,40 @@
 			});
 
 			document.getElementById("premiumBidBtn").addEventListener("click", function() {
-				var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);;
-				if(HTMLTotalPremiumLeft > 0) {
-					socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
-					premiumBtnClickFlag = true;
-					HTMLTotalPremiumLeft -= 2000;
-					document.getElementById("div-premLeft").innerHTML = HTMLTotalPremiumLeft;
+				var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
+				var HTMLTeamPrevBid = parseInt(document.getElementById("div-currBid").innerHTML);
+				var HTMLCurrBid = parseInt(document.getElementById("div-currBid").innerHTML);
+				var HTMLMaxBid = parseInt(document.getElementById("div-maxBid").innerHTML);
+
+				if(HTMLTotalPremiumLeft = 0){
+					alert("Not enough premium funds!");
 				}
-				else
-					alert("You do not have any premium amount left!");
+				else if(HTMLTeamPrevBid < HTMLMaxBid){
+					var premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
+					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
+						alert("Not enough premium funds!");
+					}
+					else {
+						//Do something
+					}
+				}
+				else if(HTMLTeamPrevBid >= HTMLMaxBid){
+					var premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
+					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
+						alert("Not enough premium funds!");
+					}
+					else {
+						//Do something
+					}
+				}
+				// else if(HTMLTotalPremiumLeft > 0) {
+				// 	socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
+				// 	premiumBtnClickFlag = true;
+				// 	HTMLTotalPremiumLeft -= 2000;
+				// 	document.getElementById("div-premLeft").innerHTML = HTMLTotalPremiumLeft;
+				// }
+				// else
+				// 	alert("You do not have any premium amount left!");
 			});
 			
 			socket.on('bidBtnClicked',function(data) {

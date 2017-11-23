@@ -19,7 +19,7 @@ redisClient.on('connect', function() {
 		redisClient.hmset(key, {
 		    'bidFlag': 1,
 		    'rank': 0,
-		    'premLeft': 0,
+		    'premLeft': 150000,
 		    'yourBid': 0
 		});
 		redisClient.zadd('aclTeamRanks', 0, key);

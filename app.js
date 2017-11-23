@@ -232,16 +232,30 @@ io.on('connection', function(client) {
 		redisClient.get('currentBid', function(err, reply) {
 			if(err) throw err;
 			var currBid = parseInt(reply);
+			currBid+=2000
 			var team = 'aclteam' + data;
-			redisClient.hget(team, 'premLeft', function(err4, reply4) {
+			redisClient.hgetall(team, function(err4, teamObject) {
 				if(err4) throw err4;
+
+				redisClient.get('maxBid', function(err2, reply2){
+					var teamPrevBid = teamObject.yourBid;
+					if(teamPrevBid < replay2){  //reply2 = maxBid
+						var premiumCost = currBid - teamObject.yourBid + maxBid - teamObject;
+
+						if(parseInt(teamObject.premium_left) < premiumCost){
+							//Premium Transaction Failed.
+						}
+					}	
+				});
+				
+
 				var newPrem = (parseInt(reply4)-2000);
 				redisClient.hset(team, 'premLeft', newPrem);
 			});
 			currBid += 2000;
 			redisClient.set('currentBid', currBid);
 			redisClient.hset(team, 'yourBid', currBid);
-			redisClient.zincr('aclTeamRanks', currBid, team);
+			redisClient.zincrby('aclTeamRanks', currBid, team);
 			redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
 				if(err3) throw err3;
 				redisClient.hset(team, 'rank', (parseInt(reply3)+1));
@@ -250,6 +264,7 @@ io.on('connection', function(client) {
 				if(err2) throw err2;
 				var currObject = {"currentBid": currBid, "ranks": reply2};
 				io.sockets.emit('premiumBidBtnClicked', currObject);	
+				console.log(currObject);
 			});
 		});
 	});

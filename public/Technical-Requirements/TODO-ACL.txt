@@ -1,24 +1,14 @@
 T0-DO ACL
 
-USER
-1. Login UI + Validation
-	front end: Design, identify user and store team_id locally.
-2. Team Profile Page 
-	front end: Design, set as index.html, send team_id, retrieve and display: team name, team owner, logo, current squad (pname, gid, price, image), total_spent, premium funds left. 
-	back end: receive team_id to identify user and send necessary data.
-	unconfirmed: converting spent points to rupees.
-3. Bidding Page
-	front end: <procrastinated>
-	back end: <procrastinated>
-4. Summary Page
-	front end: 6 tabs. (figure more details out later)
-	back end: fetching requireing data : team name(all), player names, price, total_spent. 
+0. URL in bidding.ejs
+1. Change Base and final bids in redis.js
+2. Download Google Fonts.
+3. Reset Values: 
+	Redis
+		Current Bid: Base Bid + 6000
+		Base Bid, Max Bid
+		Rank: Based on performance
+		BidFlag = 0
+		current round++
 
-GAMEMASTER
-1. Bidding Phase 
-	front end: design, functionality of start/stop button
-	back end: Send required data to front end: Player names, images, curr bid, max bid, base bid, curr_slot, ranking of teams.
-2. Selection Phase
-	front end: design, send player->team pairs to server
-	back end: update player with data fetched, increment slot then force refresh on user page.
- 
+4. Disable Bid Btn in bidding.ejs
