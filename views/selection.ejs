@@ -58,7 +58,10 @@
 		  margin-bottom: 5px;
 		}
 
-
+		.container1:hover .overlay123 {
+		  height: 20%;
+		}
+		
 		.text123 {
 		  white-space: nowrap; 
 		  background-color: #000000;
@@ -75,15 +78,6 @@
 </head>
 
 <body class="theme-red">
-	<style>
-		.sidebar .user-info-lol {
-	    padding: 13px 15px 12px 15px;
-	    white-space: nowrap;
-	    position: relative;
-	    border-bottom: 1px solid #e9e9e9;
-	    background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
-	    height: 135px; }
-	</style>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
 		<div class="loader">
@@ -143,20 +137,7 @@
 					<img src="../images/user.png" width="48" height="48" alt="User" />
 				</div>
 				<div class="info-container">
-					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Team Name</div>
-					<div class="email">Team Owner</div>
-					<!-- <div class="btn-group user-helper-dropdown">
-						<i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-						<ul class="dropdown-menu pull-right">
-							<li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-							<li role="seperator" class="divider"></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-							<li role="seperator" class="divider"></li>
-							<li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
-						</ul>
-					</div> -->
+					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
 				</div>
 			</div>
 			<!-- #User Info -->
@@ -165,13 +146,13 @@
 				<ul class="list">
 					<!-- <li class="header">MAIN NAVIGATION</li> -->
 					<li  >
-						<a href="index.html">
+						<a onClick="renderEjs('gamemaster/control', getCookie('user'));">
 							<i class="material-icons">home</i>
 							<span>Bidding Phase</span>
 						</a>
 					</li>
 					<li class="active">
-						<a href="selection.html">
+						<a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
 							<i class="material-icons">home</i>
 							<span>Selection Phase</span>
 						</a>
@@ -234,9 +215,8 @@
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
-                                				<option value="">Please select</option>
+                           	<select class="form-control show-tick">
+                                <option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
 								<option value="3">Fitness Mantras</option>
@@ -351,8 +331,6 @@
 	<!-- Bootstrap Core Js -->
 	<script src="../plugins/bootstrap/js/bootstrap.js"></script>
 
-	
-
 	<!-- Slimscroll Plugin Js -->
 	<script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
@@ -361,6 +339,9 @@
 
 	<!-- Jquery CountTo Plugin Js -->
 	<script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+
+	<!-- JQuery redirect plugin-->
+	<script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
 
 	<!-- Morris Plugin Js -->
 	<script src="../plugins/raphael/raphael.min.js"></script>
@@ -383,6 +364,8 @@
 	<script src="../js/admin.js"></script>
 	<script src="../js/pages/index.js"></script>
 	<script src="../js/pages/medias/image-gallery.js"></script>
+	<script src="../js/acl/render-ejs.js"></script>
+	<script src="../js/cookies.js"></script>
 
 	<!-- Demo Js -->
 	<script src="../js/demo.js"></script>

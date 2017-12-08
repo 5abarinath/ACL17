@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<title>Game Master</title>
+	<!-- Favicon-->
+	<link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+	<!-- Bootstrap Core Css -->
+	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Waves Effect Css -->
+	<link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+
+	<!-- Animation Css -->
+	<link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+
+	<!-- Morris Chart Css-->
+	<link href="../plugins/morrisjs/morris.css" rel="stylesheet" />
+
+	<!-- Custom Css -->
+	<link href="../css/style.css" rel="stylesheet">
+
+	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+	<link href="../css/themes/all-themes.css" rel="stylesheet" />
+
+	<script src="../socket.io/socket.io.js"></script>
+
+	<style type="text/css">
+		.container1 {
+			position: relative;
+		}
+
+		.image123 {
+		  display: block;
+		  width: 100%;
+		  height: auto;
+		}
+
+		.overlay123 {
+		  position: absolute;
+		  bottom: 0;
+		  opacity: 0.6;
+		  left: 0;
+		  right: 0;
+		  background-color: #000000;
+		  overflow: hidden;
+		  width: 93%;
+		  height: 15%;
+		  transition: .5s ease;
+		  margin-left: 5px;
+		  margin-right: 5px;
+		  margin-bottom: 5px;
+		}
+
+		.container1:hover .overlay123 {
+		  height: 20%;
+		}
+
+		.text123 {
+		  white-space: nowrap; 
+		  background-color: #000000;
+		  color: white;
+		  font-size: 16px;
+		  position: absolute;
+		  overflow: hidden;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  -ms-transform: translate(-50%, -50%);
+		}
+	</style>
+	<script>
+		function buttonClick() {
+			var btn = document.getElementById("the_only_btn");
+			if(btn.innerHTML == "START SLOT"){
+				btn.innerHTML = "END SLOT";
+				btn.classList.remove("bg-green");
+				btn.classList.add("bg-red");
+			}
+			else{
+				btn.innerHTML = "START SLOT";
+				btn.classList.remove("bg-red");
+				btn.classList.add("bg-green");
+			}
+		}
+	</script>
+</head>
+
+<body class="theme-red">
+	<!-- Page Loader -->
+	<div class="page-loader-wrapper">
+		<div class="loader">
+			<div class="preloader">
+				<div class="spinner-layer pl-red">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+			</div>
+			<p>Please wait...</p>
+		</div>
+	</div>
+	<!-- #END# Page Loader -->
+	<!-- Overlay For Sidebars -->
+	<div class="overlay"></div>
+	<!-- #END# Overlay For Sidebars -->
+	<!-- Search Bar -->
+	<div class="search-bar">
+		<div class="search-icon">
+			<i class="material-icons">search</i>
+		</div>
+		<input type="text" placeholder="START TYPING...">
+		<div class="close-search">
+			<i class="material-icons">close</i>
+		</div>
+	</div>
+	<!-- #END# Search Bar -->
+	<!-- Top Bar -->
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+				<a href="javascript:void(0);" class="bars"></a>
+				<a class="navbar-brand">ACE CRICKET LEAGUE 2017</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+				   </a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- #Top Bar -->
+	<section>
+		<!-- Left Sidebar -->
+		<aside id="leftsidebar" class="sidebar">
+			<!-- User Info -->
+			<div class="user-info">
+				<div class="image">
+					<img src="../images/user.png" width="48" height="48" alt="User" />
+				</div>
+				<div class="info-container">
+					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
+					<div class="email"></div>
+				</div>
+			</div>
+			<!-- #User Info -->
+			<!-- Menu -->
+			<div class="menu">
+				<ul class="list">
+					<!-- <li class="header">MAIN NAVIGATION</li> -->
+					<li  class="active">
+						<a onClick="renderEjs('gamemaster/control', getCookie('user'));">
+							<i class="material-icons">home</i>
+							<span>Bidding Phase</span>
+						</a>
+					</li>
+					<li>
+						<a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
+							<i class="material-icons">home</i>
+							<span>Selection Phase</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- #Menu -->
+			<!-- Footer -->
+			<div class="legal">
+				<div class="copyright">
+					&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
+				</div>
+				<div class="version">
+					<b>Version: </b> 1.0.0
+				</div>
+			</div>
+			<!-- #Footer -->
+		</aside>
+		<!-- #END# Left Sidebar -->
+		
+	</section>
+
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="card">
+					<div class="header">
+						<h2>Round <%= curRound %>:	[<%= groupName %>] <%= groupDesc %></h2>
+					</div>
+					<div class="body">
+						<div id="gallery-images" class="list-unstyled row clearfix">
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[0].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[0].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[1].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[1].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[2].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[2].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[3].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[3].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[4].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[4].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+								<div class="container1">
+	                            	<img class="thumbnail image123" src="../<%= player_object[5].player_image %>">
+	                        		<div class="overlay123">
+	                        			<div class="text123"><%= player_object[5].player_name %></div>
+	                        		</div>
+	                        	</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="card">	
+						<div class="header">
+							<h2>
+								Ranking
+							</h2>
+						</div>
+						<div class="body">
+							<table id="mainTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Team</th>
+                                        <th>Bid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td id="team0"></td>
+                                        <td id="price0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td id="team2"></td>
+                                        <td id="price2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td id="team4"></td>
+                                        <td id="price4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td id="team6"></td>
+                                        <td id="price6"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td id="team8"></td>
+                                        <td id="price8"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td id="team10"></td>
+                                        <td id="price10"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<br><br><br><br><br><br><br>
+					<div class="card">
+						<div class="body">
+							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="buttonClick();" id="the_only_btn">START SLOT</button>						
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</section>
+
+	<script>
+		var socket = io('localhost:3000');
+		socket.on('master-ranking', function(data) {
+			console.log(data);
+			for(var i=0; i<=10; i+=2) {
+				if(data[i] == "aclteam1")
+					data[i] = "Aman Honda Ryders";
+				else if(data[i] == "aclteam2")
+					data[i] = "Ceratec Masters";
+				else if(data[i] == "aclteam3")
+					data[i] = "Fitness Mantras";
+				else if(data[i] == "aclteam4")
+					data[i] = "Maha Fast Champs";
+				else if(data[i] == "aclteam5")
+					data[i] = "Premier Titans";
+				else
+					data[i] = "Sun Shiners";
+				document.getElementById("team"+i).innerHTML = data[i];
+				document.getElementById("price"+i).innerHTML = data[i+1];
+			}
+		});
+	</script>
+
+	<!-- Jquery Core Js -->
+	<script src="../plugins/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script src="../plugins/bootstrap/js/bootstrap.js"></script>
+
+	<!-- Select Plugin Js -->
+	<script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script src="../plugins/node-waves/waves.js"></script>
+
+	<!-- Jquery CountTo Plugin Js -->
+	<script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+
+	<!-- JQuery redirect plugin-->
+	<script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
+
+	<!-- Morris Plugin Js -->
+	<script src="../plugins/raphael/raphael.min.js"></script>
+	<script src="../plugins/morrisjs/morris.js"></script>
+
+	<!-- ChartJs -->
+	<script src="../plugins/chartjs/Chart.bundle.js"></script>
+
+	<!-- Flot Charts Plugin Js -->
+	<script src="../plugins/flot-charts/jquery.flot.js"></script>
+	<script src="../plugins/flot-charts/jquery.flot.resize.js"></script>
+	<script src="../plugins/flot-charts/jquery.flot.pie.js"></script>
+	<script src="../plugins/flot-charts/jquery.flot.categories.js"></script>
+	<script src="../plugins/flot-charts/jquery.flot.time.js"></script>
+
+	<!-- Sparkline Chart Plugin Js -->
+	<script src="../plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+	<!-- Custom Js -->
+	<script src="../js/admin.js"></script>
+	<script src="../js/pages/index.js"></script>
+	<script src="../js/pages/medias/image-gallery.js"></script>
+	<script src="../js/acl/render-ejs.js"></script>
+	<script src="../js/cookies.js"></script>
+
+	<!-- Demo Js -->
+	<script src="../js/demo.js"></script>
+
+	<!-- Light Gallery Plugin Js -->
+    <script src="../plugins/light-gallery/js/lightgallery-all.js"></script>
+</body>
+
+</html>

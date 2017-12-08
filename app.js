@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -26,16 +27,85 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname + '/public')));
 
 // Body-Parser middleware
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-// index.html
+// Cookie-parser middleware to handle cookies
+app.use(cookieParser());
+
+// Gamemaster - index.html
+app.get('/gamemaster', function(req, res) {
+	res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/index.html'));
+});
+
+// Gamemaster - Bidding Phase
+app.post('/gamemaster/control', function(req, res) {
+	let sql_round_count = "SELECT COUNT(*) AS no_of_rounds FROM Bidding";
+	let sql_group_data = "SELECT group_name, group_desc FROM Groups WHERE group_id = ?";
+	let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image FROM Players WHERE group_id = ?";
+	connection.query(sql_round_count, function(err, results) {
+		if(err) throw err;
+
+		var round = (results[0].no_of_rounds/6)+1;
+		redisClient.set('currentRound', round);
+
+		connection.query(sql_group_data, [round], function(err1, results1) {
+			if(err1) throw err1;
+
+			var grp_name = results1[0].group_name;
+			var grp_desc = results1[0].group_desc;
+
+			connection.query(sql_player_data, [round], function(err2, results2) {
+				if(err2) throw err2;
+				var plyr_obj = results2;
+
+				res.render('master', {
+					curRound: round,
+					groupName: grp_name,
+					groupDesc: grp_desc,
+					player_object: plyr_obj });
+			});
+		});
+	});	
+});
+
+// Gamemaster - Selection Phase
+app.post('/gamemaster/selection', function(req, res) {
+	let admin = req.body.token;
+
+	if(admin != "gamemaster")
+		res.sendFile(path.join(__dirname + '/public' + '/index.html'));
+
+	res.render('selection');
+});
+
+// Login page
 app.get('/', function(req, res) {
-	res.sendFile('index');
+	res.render('index.ejs', {
+		message: 'No msg'
+	});
+});
+
+// Login form for users
+app.post('/authenticate', function(req, res) {
+	var user = req.body.teamName;
+	var password = req.body.password;
+
+	if((user==1 && password=="ahrsjt117")||(user==2 && password=="cmtvny217")||(user==3 && password=="fmtgkr317")||(user==4 && 				   	password=="mfcjgv417")||(user==5 && password=="pttoyr517")||(user==6 && password=="sstdar617")){
+		//Set cookie in client side accessible to client
+		res.cookie('teamToken', user, { maxAge: 24 * 60 * 60 * 1000, httpOnly: false});
+		res.render('index.ejs', {
+			message: 'Successful'
+		});
+	} else {
+		res.render('index.ejs', {
+			message: 'Invalid password!'
+		});
+	}
 });
 
 app.post('/initialbids', function(req, res) {
-	let teamID = req.body.token;
+	let teamID = req.cookies.teamToken;
 
 	let sql = "SELECT * FROM Bidders WHERE team_id = ?";
 	connection.query(sql, [teamID], function(err, result) {
@@ -49,7 +119,7 @@ app.post('/initialbids', function(req, res) {
 
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
-	let teamID = req.body.token;
+	let teamID = req.cookies.teamToken;
 	let firstBid = req.body.firstBid;
 
 	console.log(firstBid);
@@ -109,14 +179,12 @@ app.post('/teamprofile', function(req, res) {
 						   data: results });
 			});
 		});
-
-		
 	});
 });
 
 // POST request to populate the bidding.ejs script
 app.post('/bidding', function(req, res) {
-	let teamID = req.body.token;
+	let teamID = req.cookies.teamToken;
 
 	teamObject = 0;
 	redisClient.hgetall("aclteam" + teamID, function(err, object) {
@@ -149,16 +217,14 @@ app.post('/bidding', function(req, res) {
 								    currBid = reply;
 
 								    redisClient.get('maxBid', function(err1, reply1) {
-									    grp_obj.max_bid = reply1;
-
+									    grp_obj[0].max_bid = parseInt(reply1);
 										redisClient.get('baseBid', function(err2, reply2) {
-									    	grp_obj.base_bid = reply2;
-
-									    	team_obj.premium_left = teamObject.premLeft;
-									    	teamRank = teamObject.rank;
-									    	yourBid = teamObject.yourBid;
-
-
+											console.log(team_obj);
+											grp_obj[0].base_bid = parseInt(reply2);
+									    		team_obj[0].premium_left = parseInt(teamObject.premLeft);
+									    		console.log(team_obj);
+									    		teamRank = teamObject.rank;
+											yourBid = teamObject.yourBid;
 											res.render('bidding.ejs', {
 											currentRound: currRound,
 											group_object: grp_obj,
@@ -274,5 +340,3 @@ io.on('connection', function(client) {
 server.listen(port, () => {
 	console.log('Server started on port ' + port);
 });
-
-

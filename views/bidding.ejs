@@ -425,15 +425,15 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
 
 	<script>
-			var socket = io.connect('192.168.0.100:3000');
+			var socket = io();
 
 			var btnClickFlag = false, premiumBtnClickFlag = false;
 			document.getElementById("bidBtn").addEventListener("click", function() {
+				console.log(getCookie("teamToken"));
 				socket.emit('bidBtnClicked', getCookie("teamToken"));
 				btnClickFlag = true;
 			});
@@ -601,7 +601,7 @@
 	<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
 	<!-- Sweet Alert Plugin Js -->
-    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
 
 	<!-- Custom Js -->
 	<script src="js/admin.js"></script>
@@ -609,7 +609,6 @@
 	<script src="js/pages/medias/image-gallery.js"></script>
 	<script src="js/acl/render-ejs.js"></script>
 	<script src="js/cookies.js"></script>
-
 
 	<!-- Demo Js -->
 	<script src="js/demo.js"></script>

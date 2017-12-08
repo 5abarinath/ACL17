@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ACL '17</title>
+	<link href="css/login.css" rel="stylesheet">
+	<!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Swal plugin Core Js -->
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+  <div class="loginBox">
+		<h1>ACL '17</h1>
+		<h5>Ace Cricket League,2017</h5>
+		<br><br>
+		<h2>Sign In</h2>
+
+        <form method="POST" action="/authenticate">
+            <p>Username</p><br>
+			<select class="select-field" name="teamName" required>
+                <option value="">-- Please select --</option>
+                <option value="1">Aman Honda Ryders</option>
+                <option value="2">Ceratec Masters</option>
+                <option value="3">Fitness Mantras</option>
+                <option value="4">Maha Fast Champs</option>
+                <option value="5">Premier Titans</option>
+                <option value="6">Sun Shiners</option>
+            </select>
+			<br><br>
+			<p>Password</p>
+			<input type="password" class="form-control" name="password" placeholder="Password" required>
+            <center><input type="submit" value="Login"></input></center>
+            <% if(message == 'Invalid password!') { %>
+                <script>swal('Oops...', 'Incorrect password!', 'error');</script>
+            <% } %>
+            <% if(message == 'Successful') { %>
+                <script>
+                    swal({
+                        title: 'Success!',
+                        text: 'Logging you in...',
+                        icon: 'success',
+                    }).then(
+                        function() {
+                            var formTest = document.createElement('form');                            
+                            formTest.setAttribute("method", "post");
+                            formTest.setAttribute("action", "/initialbids");
+                            document.body.appendChild(formTest);
+                            formTest.submit();
+                        }
+                    );
+                </script>
+            <% } %>
+        </form>
+	</div>
+  <div class="blur-background"></div>
+</div>
+
+<!-- Jquery Core Js -->
+<script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="plugins/bootstrap/js/bootstrap.js"></script>
+
+<!-- Custom Js -->
+<script src="js/admin.js"></script>
+<script src="js/pages/examples/sign-in.js"></script>
+<script src="js/pages/forms/basic-form-elements.js"></script>
+
+</body>
+</html>

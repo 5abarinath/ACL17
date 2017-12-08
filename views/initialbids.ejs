@@ -7,7 +7,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<title>ACL '17</title>
 	<!-- Favicon-->
-	<link rel="icon" href="../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -29,11 +29,14 @@
 	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 	<link href="css/themes/all-themes.css" rel="stylesheet" />
 
+	<script src="/socket.io/socket.io.js"></script>
+
 	<style type="text/css">
 		.container1 {
 			position: relative;
 		}
 	</style>
+</head>
 
 <body class="theme-red">
 	
@@ -156,6 +159,7 @@
 }
 	</style>
 
+
 	<nav class="navbar">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -207,22 +211,20 @@
 
 							<div class="body" align="center">
 							
-								<h4><b>Enter the something something</b></h4>
+								<h4><b>Choose your initial bidding amount</b></h4>
 								<br>
 								<select class="form-control show-tick" id="firstBid" required>
-	                                <option value="">-- Please select --</option>
-	                                <option value="100000">100000</option>
-	                                <option value="101000">101000</option>
-	                                <option value="102000">102000</option>
-	                                <option value="103000">103000</option>
-	                                <option value="104000">104000</option>
-	                                <option value="105000">105000</option>
-	                                <option value="106000">106000</option>
+									<option value="">-- Please select --</option>
+									<option value="100000">100000</option>
+									<option value="101000">101000</option>
+									<option value="102000">102000</option>
+									<option value="103000">103000</option>
+									<option value="104000">104000</option>
+									<option value="105000">105000</option>
+									<option value="106000">106000</option>
                             	</select>
 								<br><br>
-								<center><button name="btn" onclick="setRankAndRedirect();">Submit</button></center>
-							
-
+								<center><button name="btn" onclick="setRankAndRedirect(reDirect);">Submit</button></center>
 							</div>
 						</div>
 
@@ -256,10 +258,10 @@
     <script src="plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- JQuery redirect plugin-->
-<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+    <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
 <!-- Custom Js -->
     <script src="js/admin.js"></script>
@@ -269,12 +271,24 @@
     <script src="js/cookies.js"></script>
 
     <script type="text/javascript">
-    	function setRankAndRedirect(){
-    		var firstBidVal = document.getElementById('firstBid').value;
-    		renderEjs2('teamprofile',getCookie("teamToken"), firstBidVal);
-    	}
-
+    	function setRankAndRedirect(callback){
+			setTimeout(function() {
+				var firstBidVal = document.getElementById('firstBid').value;
+				var teamID = parseInt(getCookie("teamToken"));
+				var socket = io();
+				loginData = {"team_id": teamID, "initial_amount": firstBidVal};
+				socket.emit('login', loginData);
+				callback(firstBidVal, teamID);	
+			}, 100);	
+		};
+		function reDirect(firstBidVal, teamID) {
+			setTimeout(function() {
+				if(firstBidVal == "")
+    				alert("You have not selected an amount!");
+				else
+					renderEjs2('teamprofile', teamID, firstBidVal);
+			}, 50);
+		};
     </script>
-
-
 </body>
+</html>
