@@ -317,7 +317,6 @@
 	<script>
 		var socket = io('localhost:3000');
 		socket.on('master-ranking', function(data) {
-			console.log(data);
 			for(var i=0; i<=10; i+=2) {
 				if(data[i] == "aclteam1")
 					data[i] = "Aman Honda Ryders";

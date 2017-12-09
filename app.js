@@ -120,30 +120,29 @@ app.post('/initialbids', function(req, res) {
 // POST request to render teamprofile.ejs
 app.post('/teamprofile', function(req, res) {
 	let teamID = req.cookies.teamToken;
-	let firstBid = req.body.firstBid;
+	// let firstBid = req.body.firstBid;
 
-	console.log(firstBid);
-	if(!(firstBid == null)){
-		key = "aclteam" + teamID;
+	// console.log(firstBid);
+	// if(!(firstBid == null)){
+	// 	key = "aclteam" + teamID;
 
-		//TODO: Amend yourBid in redis: aclteamx if required
-		redisClient.zadd('aclTeamRanks', firstBid, key);
-		redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err, reply){
-			console.log("Team Ranks: " + reply);
-		});
+	// 	//TODO: Amend yourBid in redis: aclteamx if required
+	// 	redisClient.zadd('aclTeamRanks', firstBid, key);
+	// 	redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err, reply){
+	// 		console.log("Team Ranks: " + reply);
+	// 	});
 
-		redisClient.get('currentBid', function(err, reply) {
-			if(parseInt(firstBid) > parseInt(reply)){
-				redisClient.set('currentBid', firstBid);
-			}
-		});
+	// 	redisClient.get('currentBid', function(err, reply) {
+	// 		if(parseInt(firstBid) > parseInt(reply)){
+	// 			redisClient.set('currentBid', firstBid);
+	// 		}
+	// 	});
 
-		redisClient.hgetall(key, function(err, teamObject){
-			teamObject.yourBid = firstBid;
-
-			redisClient.hmset(key, teamObject);
-		});
-	}
+	// 	redisClient.hgetall(key, function(err, teamObject){
+	// 		teamObject.yourBid = firstBid;
+	// 		redisClient.hmset(key, teamObject);
+	// 	});
+	// }
 
 	var key = "aclteam" + teamID;
 	redisClient.exists(key, function(err, reply) {
@@ -313,8 +312,6 @@ io.on('connection', function(client) {
 						}
 					}	
 				});
-				
-
 				var newPrem = (parseInt(reply4)-2000);
 				redisClient.hset(team, 'premLeft', newPrem);
 			});
@@ -332,6 +329,30 @@ io.on('connection', function(client) {
 				io.sockets.emit('premiumBidBtnClicked', currObject);	
 				console.log(currObject);
 			});
+		});
+	});
+
+	// Gamemaster event to register initial bids
+	client.on('login', function(data) {
+		let teamID = data.team_id;
+		let firstBid = data.initial_amount;
+
+		let key = "aclteam" + teamID;
+
+		redisClient.zadd('aclTeamRanks', firstBid, key);
+		redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err, reply) {
+			io.sockets.emit('master-ranking', reply);
+		});
+
+		redisClient.get('currentBid', function(err, reply) {
+			if(parseInt(firstBid) > parseInt(reply)){
+				redisClient.set('currentBid', firstBid);
+			}
+		});
+
+		redisClient.hgetall(key, function(err, teamObject){
+			teamObject.yourBid = firstBid;
+			redisClient.hmset(key, teamObject);
 		});
 	});
 });

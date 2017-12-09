@@ -268,27 +268,29 @@
     <script src="js/pages/examples/sign-in.js"></script>
     <script src="js/pages/forms/basic-form-elements.js"></script>
     <script src="js/acl/render-ejs.js"></script>
-    <script src="js/cookies.js"></script>
+	<script src="js/cookies.js"></script>
+	<script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
     	function setRankAndRedirect(callback){
 			setTimeout(function() {
 				var firstBidVal = document.getElementById('firstBid').value;
 				var teamID = parseInt(getCookie("teamToken"));
+				if(firstBidVal == "") {
+					swal('Oops...', 'Please select a valid amount!', 'error');
+					return;
+				}
 				var socket = io();
 				loginData = {"team_id": teamID, "initial_amount": firstBidVal};
 				socket.emit('login', loginData);
-				callback(firstBidVal, teamID);	
+				callback(teamID);	
 			}, 100);	
 		};
-		function reDirect(firstBidVal, teamID) {
+		function reDirect(teamID) {
 			setTimeout(function() {
-				if(firstBidVal == "")
-    				alert("You have not selected an amount!");
-				else
-					renderEjs2('teamprofile', teamID, firstBidVal);
+					renderEjs('teamprofile', teamID);
 			}, 50);
 		};
-    </script>
+	</script>
 </body>
 </html>
