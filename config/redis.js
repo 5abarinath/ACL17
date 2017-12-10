@@ -16,7 +16,7 @@ redisClient.on('connect', function() {
 	for(var i=1; i<=6; i++){
 		key = "aclteam" + i;
 		redisClient.hmset(key, {
-		    'bidFlag': 1,
+		    'bidFlag': 0,
 		    'rank': 0,
 		    'premLeft': 150000,
 		    'yourBid': 0

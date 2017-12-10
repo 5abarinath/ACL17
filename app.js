@@ -56,6 +56,7 @@ app.post('/gamemaster/control', function(req, res) {
 			var grp_desc = results1[0].group_desc;
 			var base_bid = results1[0].base_bid;
 			var max_bid = results1[0].max_bid;
+
 			redisClient.set('baseBid', base_bid);
 			redisClient.set('maxBid', max_bid);
 
@@ -114,26 +115,51 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	connection.query(sql_player_assign,[fifthPlayerTeam,fifthPlayerID],function(err, result) {});
 	connection.query(sql_player_assign,[sixthPlayerTeam,sixthPlayerID],function(err, result) {});
 
-	var playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID,fifthPlayerID,sixthPlayerID];
-
-
 	//Updating Players with the prices.
-	for(var i=1; i<=6; i++) {
-		var key = "aclteam" + i;
-		redisClient.hget(key, 'yourBid', function(err,result){
-			if(err)throw err;
+		let playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID, fifthPlayerID, sixthPlayerID];
+		redisClient.hget("aclteam1", 'yourBid', function(err,result){
+			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result.yourBid,playerArray[i-1]],function(err,result){
-				if(err)throw err;
+			connection.query(sql_player_price,[result,playerArray[0]],function(err1,result1){
+				if(err1)throw err1;
 			});
 		});
-	}
-
-
+		redisClient.hget("aclteam2", 'yourBid', function(err,result){
+			if(err) throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result,playerArray[1]],function(err1,result1){
+				if(err1)throw err1;
+			});
+		});
+		redisClient.hget("aclteam3", 'yourBid', function(err,result){
+			if(err) throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result,playerArray[2]],function(err1,result1){
+				if(err1)throw err1;
+			});
+		});
+		redisClient.hget("aclteam4", 'yourBid', function(err,result){
+			if(err) throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result,playerArray[3]],function(err1,result1){
+				if(err1)throw err1;
+			});
+		});
+		redisClient.hget("aclteam5", 'yourBid', function(err,result){
+			if(err) throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result,playerArray[4]],function(err1,result1){
+				if(err1)throw err1;
+			});
+		});
+		redisClient.hget("aclteam6", 'yourBid', function(err,result){
+			if(err) throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result,playerArray[5]],function(err1,result1){
+				if(err1)throw err1;
+			});
+		});
 	res.redirect(307, '/gamemaster/control');
-
-	//console.log(sixthPlayerName);
-	//console.log(sixthPlayerTeam);
 });
 
 
@@ -150,7 +176,7 @@ app.post('/authenticate', function(req, res) {
 	var user = req.body.teamName;
 	var password = req.body.password;
 
-	if((user==1 && password=="ahrsjt117")||(user==2 && password=="cmtvny217")||(user==3 && password=="fmtgkr317")||(user==4 && 				   	password=="mfcjgv417")||(user==5 && password=="pttoyr517")||(user==6 && password=="sstdar617")){
+	if((user==1 && password=="ahrsjt117")||(user==2 && password=="cmtvny217")||(user==3 && password=="fmtgkr317")||(user==4 && password=="mfcjgv417")||(user==5 && password=="pttoyr517")||(user==6 && password=="sstdar617")){
 		//Set cookie in client side accessible to client
 		res.cookie('teamToken', user, { maxAge: 24 * 60 * 60 * 1000, httpOnly: false});
 		res.render('index.ejs', {
@@ -258,7 +284,7 @@ app.post('/bidding', function(req, res) {
 									    team_obj[0].premium_left = parseInt(teamObject.premLeft);
 									    teamRank = teamObject.rank;
 										yourBid = teamObject.yourBid;
-										if(currBid >= grp_obj.max_bid){
+										if(currBid >= grp_obj.max_bid) {
 											prem_flag = 1;
 											res.render('bidding.ejs', {
 												currentRound: currRound,
@@ -268,7 +294,8 @@ app.post('/bidding', function(req, res) {
 												current_bid: currBid,
 												rank: teamRank,
 												your_bid: yourBid,
-												premiumFlag: prem_flag });
+												premiumFlag: prem_flag
+											});
 									    }
 										res.render('bidding.ejs', {
 											currentRound: currRound,
@@ -278,7 +305,8 @@ app.post('/bidding', function(req, res) {
 											current_bid: currBid,
 											rank: teamRank,
 											your_bid: yourBid,
-											premiumFlag: prem_flag });
+											premiumFlag: prem_flag 
+										});
 									});
 								});
 							});
@@ -397,15 +425,12 @@ io.on('connection', function(client) {
 			io.sockets.emit('master-ranking', reply);
 		});
 
+		redisClient.hset(key, 'yourBid', firstBid);
+
 		redisClient.get('currentBid', function(err, reply) {
 			if(parseInt(firstBid) > parseInt(reply)){
 				redisClient.set('currentBid', firstBid);
 			}
-		});
-
-		redisClient.hgetall(key, function(err, teamObject){
-			teamObject.yourBid = firstBid;
-			redisClient.hmset(key, teamObject);
 		});
 	});
 
