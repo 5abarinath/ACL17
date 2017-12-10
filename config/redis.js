@@ -7,11 +7,10 @@ const redisClient = redis.createClient();
 redisClient.on('connect', function() {
 	console.log('Redis Connected');
 	redisClient.set('currentBid', 0);
-    redisClient.set('currentRound', 1);
-
-// TODO: Set the bid values for the first round
-    redisClient.set('baseBid', 100000);
-    redisClient.set('maxBid', 125000);
+	redisClient.set('currentRound', 1);
+	
+	redisClient.set('baseBid', 0);
+	redisClient.set('maxBid', 0);
     
     // Creating the key-value storage for all six teams
 	for(var i=1; i<=6; i++){

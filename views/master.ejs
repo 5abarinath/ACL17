@@ -78,19 +78,22 @@
 		}
 	</style>
 	<script>
+		let socket = io('localhost:3000');
 		function buttonClick() {
 			var btn = document.getElementById("the_only_btn");
 			if(btn.innerHTML == "START SLOT"){
 				btn.innerHTML = "END SLOT";
 				btn.classList.remove("bg-green");
 				btn.classList.add("bg-red");
+				socket.emit('startBidding', "Enable bid button");
 			}
 			else{
 				btn.innerHTML = "START SLOT";
 				btn.classList.remove("bg-red");
 				btn.classList.add("bg-green");
-			}
-		}
+				socket.emit('stopBidding', "Disable bid and premium bid buttons");
+			}			
+		}	
 	</script>
 </head>
 
@@ -315,7 +318,6 @@
 	</section>
 
 	<script>
-		var socket = io('localhost:3000');
 		socket.on('master-ranking', function(data) {
 			for(var i=0; i<=10; i+=2) {
 				if(data[i] == "aclteam1")

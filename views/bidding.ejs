@@ -295,7 +295,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					<div class="card">
 						<div class="body">
-							<button type="button" class="btn bg-red btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn">BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="true">BID</button>
 							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="true">PREMIUM BID</button>
 						</div>
 					</div>
@@ -305,7 +305,7 @@
 								Ranking
 							</h2>
 						</div>
-						<div class="body">
+						<div class="body table-responsive">
 							<table id="mainTable" class="table table-striped">
 								<thead>
 									<tr>
@@ -502,13 +502,16 @@
 						pbtn.classList.add("bg-red");
 					}
 				}
+				$('#mainTable tr').removeClass("bg-orange");
 				var j;
 				var currentTeam = "aclteam" + getCookie("teamToken");
 				for(j=0; j<=10; j+=2) {
-					if(data.ranks[j] == currentTeam)
+					if(data.ranks[j] == currentTeam) {
 						break;
+					}		
 				}
 				var rank = (j/2)+1;
+				document.getElementById('mainTable').rows[rank].className = "bg-orange";	
 				document.getElementById('div-yourRank').innerHTML = rank;
 				for(var i=0; i<=10; i+=2) {
 					if(data.ranks[i] == "aclteam1")
@@ -528,7 +531,7 @@
 				}	
 			});
 
-			socket.on('premiumBidBtnClicked',function(data) {
+			socket.on('premiumBidBtnClicked', function(data) {
 				document.getElementById("div-currBid").innerHTML=data.currentBid;
 				if(premiumBtnClickFlag) {
 					document.getElementById("div-yourBid").innerHTML = data.currentBid;	
@@ -558,6 +561,28 @@
 						data.ranks[i] = "Sun Shiners";
 					document.getElementById("team"+i).innerHTML = data.ranks[i];
 					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
+				}
+			});
+
+			socket.on('startBidding', function(data) {
+				var bbtn = document.getElementById("bidBtn");
+				bbtn.disabled = false;
+				bbtn.classList.remove("bg-grey");
+				bbtn.classList.add("bg-red");
+			});
+
+			socket.on('stopBidding', function(data) {
+				var bbtn = document.getElementById("bidBtn");
+				var pbtn = document.getElementById("premiumBidBtn");
+				bbtn.disabled = true;
+				pbtn.disabled = true;
+				if(bbtn.className == "bg-red") {
+					bbtn.classList.remove("bg-red");
+					bbtn.classList.add("bg-grey");
+				}
+				if(pbtn.className == "bg-red") {
+					pbtn.classList.remove("bg-red");
+					pbtn.classList.add("bg-grey");
 				}
 			});
 	</script>
