@@ -52,6 +52,7 @@
             
             if(user == "gamemaster" && password == "acl2017"){
                 renderEjs('gamemaster/control', user);
+                setCookie('user', user, 1);
             }
             else{
                 alert("Incorrect password");

@@ -171,7 +171,7 @@
 		<!-- #END# Left Sidebar -->
 		
 	</section>
-
+	<form method="POST" action="/gamemaster/assignPlayers">
 	<section class="content">
 		<div class="container-fluid">
 		<div class="row clearfix">
@@ -181,19 +181,26 @@
 						Senior Bowlers [SB-1]
 					</h2>
 				</div>
+				<input type="hidden" name="player1" value="<%= player_obj[0].player_id %>"/>
+				<input type="hidden" name="player2" value="<%= player_obj[1].player_id %>"/>
+				<input type="hidden" name="player3" value="<%= player_obj[2].player_id %>"/>
+				<input type="hidden" name="player4" value="<%= player_obj[3].player_id %>"/>
+				<input type="hidden" name="player5" value="<%= player_obj[4].player_id %>"/>
+				<input type="hidden" name="player6" value="<%= player_obj[5].player_id %>"/>
+				<script><%= console.log(player_obj[5].player_id); %></script>
 				<div class="body">
 					<div id="gallery-images" class="list-unstyled row clearfix">
 								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
 		                        	<div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Player Player Player Player</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[0].player_image %>">
+		                        		<div class="overlay123" id="1">
+		                        			<div class="text123"><%= player_obj[0].player_name %></div>
 		                        		</div>
-							
+										
 		                        	</div>
 						<div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
+                           				<select class="form-control show-tick" name="selectionOne">
                                 				<option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -206,13 +213,13 @@
 								</div>
 								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[1].player_image %>">
+		                        		<div class="overlay123" id="2">
+		                        			<div class="text123"><%= player_obj[1].player_name %></div>
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
-                           	<select class="form-control show-tick">
+                           	<select class="form-control show-tick" name="selectionTwo">
                                 <option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -225,14 +232,14 @@
 								</div>
 								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[2].player_image %>">
+		                        		<div class="overlay123" id="3">
+		                        			<div class="text123"><%= player_obj[2].player_name %></div>
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
+                           				<select class="form-control show-tick" name="selectionThree">
                                 				<option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -245,14 +252,14 @@
 								</div>
 								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[3].player_image %>">
+		                        		<div class="overlay123" id="4">
+		                        			<div class="text123"><%= player_obj[3].player_name %></div>
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
+                           				<select class="form-control show-tick" name="selectionFour">
                                 				<option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -265,14 +272,14 @@
 								</div>
 								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Player</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[4].player_image %>">
+		                        		<div class="overlay123" id="5">
+		                        			<div class="text123"><%= player_obj[4].player_name %></div>
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
+                           				<select class="form-control show-tick" name="selectionFive">
                                 				<option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -285,14 +292,14 @@
 								</div>
 								<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
 			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../images/player.png">
-		                        		<div class="overlay123">
-		                        			<div class="text123">Players</div>
+		                            	<img class="thumbnail image123" src="../<%= player_obj[5].player_image %>">
+		                        		<div class="overlay123" id="6">
+		                        			<div class="text123"><%= player_obj[5].player_name %></div>
 		                        		</div>
 		                        	</div>
 						<div class="form-line">
                             <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick">
+                           				<select class="form-control show-tick" name="selectionSix">
                                 				<option value="">Please select</option>
 								<option value="1">Aman Honda Ryders</option>
 								<option value="2">Ceratec Masters</option>
@@ -320,7 +327,9 @@
 
 			
 		</div>
+
 	</section>
+</form>
 
 	<!-- Jquery Core Js -->
 	<script src="../plugins/jquery/jquery.min.js"></script>
@@ -369,6 +378,11 @@
 
 	<!-- Light Gallery Plugin Js -->
     <script src="../plugins/light-gallery/js/lightgallery-all.js"></script>
+
+    <script type="text/javascript">
+
+    </script>
+
 </body>
 
 </html>

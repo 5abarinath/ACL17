@@ -56,7 +56,6 @@ app.post('/gamemaster/control', function(req, res) {
 			var grp_desc = results1[0].group_desc;
 			var base_bid = results1[0].base_bid;
 			var max_bid = results1[0].max_bid;
-x
 			redisClient.set('baseBid', base_bid);
 			redisClient.set('maxBid', max_bid);
 
@@ -79,10 +78,65 @@ app.post('/gamemaster/selection', function(req, res) {
 	let admin = req.body.token;
 
 	if(admin != "gamemaster")
-		res.sendFile(path.join(__dirname + '/public' + '/index.html'));
-
-	res.render('selection');
+		res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/index.html'));
+	let groupID = redisClient.get('currentRound');
+	let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE group_id = ?";
+	connection.query(sql_player_data,[groupID],function(err,result){
+		if(err) throw err;
+		var player_object = result;
+		res.render('selection', {
+			player_obj:player_object
+			 });
+		});
 });
+
+//Assigning Players after the Slot is Over, and Submit is clicked
+app.post('/gamemaster/assignPlayers', function(req,res){
+	var firstPlayerID = req.body.player1;
+	var firstPlayerTeam = req.body.selectionOne;
+	var secondPlayerID = req.body.player2;
+	var secondPlayerTeam = req.body.selectionTwo;
+	var thirdPlayerID = req.body.player3;
+	var thirdPlayerTeam = req.body.selectionThree;
+	var fourthPlayerID = req.body.player4;
+	var fourthPlayerTeam = req.body.selectionFour;
+	var fifthPlayerID = req.body.player5;
+	var fifthPlayerTeam = req.body.selectionFive;
+	var sixthPlayerID = req.body.player6;
+	var sixthPlayerTeam = req.body.selectionSix;
+
+	//Adding Players to their respective Teams
+	let sql_player_assign = "UPDATE Players SET team_id = ? WHERE player_id=?";
+	connection.query(sql_player_assign,[firstPlayerTeam,firstPlayerID],function(err, result) {});
+	connection.query(sql_player_assign,[secondPlayerTeam,secondPlayerID],function(err, result) {});
+	connection.query(sql_player_assign,[thirdPlayerTeam,thirdPlayerID],function(err, result) {});
+	connection.query(sql_player_assign,[fourthPlayerTeam,fourthPlayerID],function(err, result) {});
+	connection.query(sql_player_assign,[fifthPlayerTeam,fifthPlayerID],function(err, result) {});
+	connection.query(sql_player_assign,[sixthPlayerTeam,sixthPlayerID],function(err, result) {});
+
+	var playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID,fifthPlayerID,sixthPlayerID];
+
+
+	//Updating Players with the prices.
+	for(var i=1; i<=6; i++) {
+		var key = "aclteam" + i;
+		redisClient.hget(key, 'yourBid', function(err,result){
+			if(err)throw err;
+			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
+			connection.query(sql_player_price,[result.yourBid,playerArray[i-1]],function(err,result){
+				if(err)throw err;
+			});
+		});
+	}
+
+
+	res.redirect(307, '/gamemaster/control');
+
+	//console.log(sixthPlayerName);
+	//console.log(sixthPlayerTeam);
+});
+
+
 
 // Login page
 app.get('/', function(req, res) {
