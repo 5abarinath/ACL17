@@ -284,7 +284,8 @@ app.post('/bidding', function(req, res) {
 									    team_obj[0].premium_left = parseInt(teamObject.premLeft);
 									    teamRank = teamObject.rank;
 										yourBid = teamObject.yourBid;
-										if(currBid >= grp_obj.max_bid) {
+
+										if(currBid >= grp_obj[0].max_bid){
 											prem_flag = 1;
 											res.render('bidding.ejs', {
 												currentRound: currRound,
@@ -375,31 +376,35 @@ io.on('connection', function(client) {
 	});
 
 	client.on('premiumBidBtnClicked', function(data) {
+		var flagBeingSentFromPremiumBtnOnClick = data.flag;
+		var team = 'aclteam' + data.teamId;
 		redisClient.get('currentBid', function(err, reply) {
 			if(err) throw err;
 			var currBid = parseInt(reply);
-			currBid+=2000
-			var team = 'aclteam' + data;
+			currBid+=2000;
 			redisClient.hgetall(team, function(err4, teamObject) {
 				if(err4) throw err4;
 
-				redisClient.get('maxBid', function(err2, reply2){
+				redisClient.get('maxBid', function(err2, maxBidForCurrRound){
 					var teamPrevBid = teamObject.yourBid;
-					if(teamPrevBid < replay2){  //reply2 = maxBid
-						var premiumCost = currBid - teamObject.yourBid + maxBid - teamObject;
 
-						if(parseInt(teamObject.premium_left) < premiumCost){
-							//Premium Transaction Failed.
-						}
-					}	
+					if(flagBeingSentFromPremiumBtnOnClick == 0){
+						//previous team bid < max bid. premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
+						var premiumSpent = currBid - parseInt(maxBidForCurrRound);
+						var newPremium = teamObject.premium_left - premiumSpent;
+						redisClient.hset(team, 'premLeft', newPremium);
+					}
+					else if(flagBeingSentFromPremiumBtnOnClick == 1){
+						//team is already in premium. premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
+						var premiumSpent = currBid - teamPrevBid; 
+						var newPremium = teamObject.premium_left - premiumSpent;
+						redisClient.hset(team, 'premLeft', newPremium);
+					}
 				});
-				var newPrem = (parseInt(reply4)-2000);
-				redisClient.hset(team, 'premLeft', newPrem);
 			});
-			currBid += 2000;
 			redisClient.set('currentBid', currBid);
 			redisClient.hset(team, 'yourBid', currBid);
-			redisClient.zincrby('aclTeamRanks', currBid, team);
+			redisClient.zadd('aclTeamRanks', currBid, team);
 			redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
 				if(err3) throw err3;
 				redisClient.hset(team, 'rank', (parseInt(reply3)+1));

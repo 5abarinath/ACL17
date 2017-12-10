@@ -444,7 +444,7 @@
 				var HTMLCurrBid = parseInt(document.getElementById("div-currBid").innerHTML);
 				var HTMLMaxBid = parseInt(document.getElementById("div-maxBid").innerHTML);
 
-				if(HTMLTotalPremiumLeft = 0){
+				if(HTMLTotalPremiumLeft == 0){
 					alert("Not enough premium funds!");
 				}
 				else if(HTMLTeamPrevBid < HTMLMaxBid){
@@ -453,7 +453,8 @@
 						alert("Not enough premium funds!");
 					}
 					else {
-						//Do something
+						var jsObject = {teamId: getCookie("teamToken"), flag: 0};
+						socket.emit('premiumBidBtnClicked', jsObject);
 					}
 				}
 				else if(HTMLTeamPrevBid >= HTMLMaxBid){
@@ -462,7 +463,8 @@
 						alert("Not enough premium funds!");
 					}
 					else {
-						//Do something
+						var jsObject = {teamId: getCookie("teamToken"), flag: 1};
+						socket.emit('premiumBidBtnClicked', jsObject);
 					}
 				}
 				// else if(HTMLTotalPremiumLeft > 0) {
@@ -533,11 +535,11 @@
 
 			socket.on('premiumBidBtnClicked', function(data) {
 				document.getElementById("div-currBid").innerHTML=data.currentBid;
-				if(premiumBtnClickFlag) {
-					document.getElementById("div-yourBid").innerHTML = data.currentBid;	
-					var premLeft = document.getElementById			
-					premuimBtnClickFlag = false;
-				}
+				// if(premiumBtnClickFlag) {
+				// 	document.getElementById("div-yourBid").innerHTML = data.currentBid;	
+				// 	var premLeft = document.getElementById			
+				// 	premuimBtnClickFlag = false;
+				// }
 				var j;
 				var currentTeam = "aclteam" + getCookie("teamToken");
 				for(j=0; j<=10; j+=2) {
@@ -546,6 +548,7 @@
 				}
 				var rank = (j/2)+1;
 				document.getElementById('div-yourRank').innerHTML = rank;
+				document.getElementById('div-yourBid').innerHTML = data.ranks[j+1];
 				for(var i=0; i<=10; i+=2) {
 					if(data.ranks[i] == "aclteam1")
 						data.ranks[i] = "Aman Honda Ryders";
