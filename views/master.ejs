@@ -78,7 +78,7 @@
 		}
 	</style>
 	<script>
-		let socket = io('localhost:3000');
+		var socket = io('localhost:3000');
 		function buttonClick() {
 			var btn = document.getElementById("the_only_btn");
 			if(btn.innerHTML == "START SLOT"){
@@ -93,7 +93,61 @@
 				btn.classList.add("bg-green");
 				socket.emit('stopBidding', "Disable bid and premium bid buttons");
 			}			
-		}	
+		}
+		socket.on('master-ranking', function(data) {
+			for(var i=0; i<=10; i+=2) {
+				if(data[i] == "aclteam1")
+					data[i] = "Aman Honda Ryders";
+				else if(data[i] == "aclteam2")
+					data[i] = "Ceratec Masters";
+				else if(data[i] == "aclteam3")
+					data[i] = "Fitness Mantras";
+				else if(data[i] == "aclteam4")
+					data[i] = "Maha Fast Champs";
+				else if(data[i] == "aclteam5")
+					data[i] = "Premier Titans";
+				else
+					data[i] = "Sun Shiners";
+				document.getElementById("team"+i).innerHTML = data[i];
+				document.getElementById("price"+i).innerHTML = data[i+1];
+			}
+		});	
+		socket.on('bidBtnClicked', function(data) {
+			for(var i=0; i<=10; i+=2) {
+				if(data.ranks[i] == "aclteam1")
+					data.ranks[i] = "Aman Honda Ryders";
+				else if(data.ranks[i] == "aclteam2")
+					data.ranks[i] = "Ceratec Masters";
+				else if(data.ranks[i] == "aclteam3")
+					data.ranks[i] = "Fitness Mantras";
+				else if(data.ranks[i] == "aclteam4")
+					data.ranks[i] = "Maha Fast Champs";
+				else if(data.ranks[i] == "aclteam5")
+					data.ranks[i] = "Premier Titans";
+				else
+					data.ranks[i] = "Sun Shiners";
+				document.getElementById("team"+i).innerHTML = data.ranks[i];
+				document.getElementById("price"+i).innerHTML = data.ranks[i+1];
+			}
+		});	
+		socket.on('premiumBidBtnClicked', function(data) {
+			for(var i=0; i<=10; i+=2) {
+				if(data.ranks[i] == "aclteam1")
+					data.ranks[i] = "Aman Honda Ryders";
+				else if(data.ranks[i] == "aclteam2")
+					data.ranks[i] = "Ceratec Masters";
+				else if(data.ranks[i] == "aclteam3")
+					data.ranks[i] = "Fitness Mantras";
+				else if(data.ranks[i] == "aclteam4")
+					data.ranks[i] = "Maha Fast Champs";
+				else if(data.ranks[i] == "aclteam5")
+					data.ranks[i] = "Premier Titans";
+				else
+					data.ranks[i] = "Sun Shiners";
+				document.getElementById("team"+i).innerHTML = data.ranks[i];
+				document.getElementById("price"+i).innerHTML = data.ranks[i+1];
+			}
+		});	
 	</script>
 </head>
 
@@ -316,27 +370,6 @@
 			</div>	
 		</div>
 	</section>
-
-	<script>
-		socket.on('master-ranking', function(data) {
-			for(var i=0; i<=10; i+=2) {
-				if(data[i] == "aclteam1")
-					data[i] = "Aman Honda Ryders";
-				else if(data[i] == "aclteam2")
-					data[i] = "Ceratec Masters";
-				else if(data[i] == "aclteam3")
-					data[i] = "Fitness Mantras";
-				else if(data[i] == "aclteam4")
-					data[i] = "Maha Fast Champs";
-				else if(data[i] == "aclteam5")
-					data[i] = "Premier Titans";
-				else
-					data[i] = "Sun Shiners";
-				document.getElementById("team"+i).innerHTML = data[i];
-				document.getElementById("price"+i).innerHTML = data[i+1];
-			}
-		});
-	</script>
 
 	<!-- Jquery Core Js -->
 	<script src="../plugins/jquery/jquery.min.js"></script>

@@ -16,11 +16,11 @@
 <body>
 <header>
 	<img src="images/ACLlogo.png" class="img-fluid" alt="Cinque Terre" width=10vh height=auto hspace="20" > 
-
+	
   <h1>Welcome to ACL 2017 !</h1>
   <h3><%= teamOwner %> </h3>
   <div style="clear: left;"/>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <svg xmlns="svg/2000/svg.html" viewBox="0 0 100 100" preserveAspectRatio="none">
     <polygon points="0,100 100,0 100,100"/>
   </svg>
 </header>
@@ -38,7 +38,6 @@
 		<option value="53000">53000</option>
 		<option value="54000">54000</option>
 		<option value="55000">55000</option>
-		<option value="56000">56000</option>
     </select>
 	<br><br>
 	<button name="btn" onclick="setRankAndRedirect(reDirect);" style="margin-left: 25%">Submit</button>
@@ -77,25 +76,22 @@
 
     <script type="text/javascript">
     	function setRankAndRedirect(callback){
-			setTimeout(function() {
-				var firstBidVal = document.getElementById('firstBid').value;
-				var teamID = parseInt(getCookie("teamToken"));
-				if(firstBidVal == "") {
-					swal('Oops...', 'Please select a valid amount!', 'error');
-					return;
-				}
-				var socket = io();
-				loginData = {"team_id": teamID, "initial_amount": firstBidVal};
-				socket.emit('login', loginData);
-				callback(teamID);	
-			}, 100);	
-		};
+			var firstBidVal = document.getElementById('firstBid').value;
+			var teamID = parseInt(getCookie("teamToken"));
+			if(firstBidVal == "") {
+				swal('Oops...', 'Please select a valid amount!', 'error');
+				return;
+			}
+			var socket = io();	
+			loginData = {"team_id": teamID, "initial_amount": firstBidVal};
+			socket.emit('login', loginData);
+			callback(teamID);	
+		}
 		function reDirect(teamID) {
 			setTimeout(function() {
 					renderEjs('teamprofile', teamID);
-			}, 50);
+			}, 1000);
 		};
 	</script>
-
-</body>
+</body>	
 </html>
