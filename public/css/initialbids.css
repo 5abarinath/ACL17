@@ -71,7 +71,7 @@ svg {
 
 section img{
   position: absolute;
-  top: 23%;
+  top: 28%;
   left: 73%;
 }
 
@@ -116,7 +116,40 @@ section button:hover{
 }
 
 
-
+.legal {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 15px;
+    overflow: hidden;
+    background-color: #D3D3D3 }
+.legal .copyright {
+      font-size: 13px;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+.legal .copyright a {
+        font-weight: bold;
+        text-decoration: none; 
+        color: #ff0000}
+.legal .version {
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-top: 5px;
+      font-size: 13px; }
+.legal .rules {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 2%;
+  margin-right: 3%;
+}
 
 
 
