@@ -32,49 +32,68 @@
 	<link href="../css/themes/all-themes.css" rel="stylesheet" />
 
 	<style type="text/css">
-		.container1 {
-			position: relative;
-		}
+	.container1 {
+		position: relative;
+	}
 
-		.image123 {
-		  display: block;
-		  width: 100%;
-		  height: auto;
-		}
+	.image123 {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
 
-		.overlay123 {
-		  position: absolute;
-		  bottom: 0;
-		  opacity: 0.6;
-		  left: 0;
-		  right: 0;
-		  background-color: #000000;
-		  overflow: hidden;
-		  width: 95%;
-		  height: 15%;
-		  transition: .5s ease;
-		  margin-left: 5px;
-		  margin-right: 5px;
-		  margin-bottom: 5px;
-		}
+	.overlay123 {
+		position: absolute;
+		bottom: 0;
+		opacity: 0.6;
+		left: 0;
+		right: 0;
+		background-color: #000000;
+		overflow: hidden;
+		width: 95%;
+		height: 15%;
+		transition: .5s ease;
+		margin-left: 5px;
+		margin-right: 5px;
+		margin-bottom: 5px;
+	}
 
-		.container1:hover .overlay123 {
-		  height: 20%;
-		}
-		
-		.text123 {
-		  white-space: nowrap; 
-		  background-color: #000000;
-		  color: white;
-		  font-size: 16px;
-		  position: absolute;
-		  overflow: hidden;
-		  top: 50%;
-		  left: 50%;
-		  transform: translate(-50%, -50%);
-		  -ms-transform: translate(-50%, -50%);
-		}
-	</style>
+	.container1:hover .overlay123 {
+		height: 20%;
+	}
+
+	.text123 {
+		white-space: nowrap; 
+		background-color: #000000;
+		color: white;
+		font-size: 16px;
+		position: absolute;
+		overflow: hidden;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+	}
+</style>
+<script>
+		var teamRankingArray = "<%= teamRankings %>";
+		var actualTeamRankingArray = teamRankingArray.split(',');
+		for(var i=0; i<=10; i+=2) {
+			if(actualTeamRankingArray[i] == "aclteam1")
+				actualTeamRankingArray[i] = "Aman Honda Ryders";
+			else if(actualTeamRankingArray[i] == "aclteam2")
+				actualTeamRankingArray[i] = "Ceratec Masters";
+			else if(actualTeamRankingArray[i] == "aclteam3")
+				actualTeamRankingArray[i] = "Fitness Mantras";
+			else if(actualTeamRankingArray[i] == "aclteam4")
+				actualTeamRankingArray[i] = "Maha Fast Champs";
+			else if(actualTeamRankingArray[i] == "aclteam5")
+				actualTeamRankingArray[i] = "Premier Titans";
+			else
+				actualTeamRankingArray[i] = "Sun Shiners";
+			document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
+			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
+	</script>
 </head>
 
 <body class="theme-red">
@@ -119,222 +138,268 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-				   </a></li>
-				</ul>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<!-- #Top Bar -->
+<section>
+	<!-- Left Sidebar -->
+	<aside id="leftsidebar" class="sidebar">
+		<!-- User Info -->
+		<div class="user-info">
+			<div class="image">
+				<img src="../images/user.png" width="48" height="48" alt="User" />
+			</div>
+			<div class="info-container">
+				<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
 			</div>
 		</div>
-	</nav>
-	<!-- #Top Bar -->
-	<section>
-		<!-- Left Sidebar -->
-		<aside id="leftsidebar" class="sidebar">
-			<!-- User Info -->
-			<div class="user-info">
-				<div class="image">
-					<img src="../images/user.png" width="48" height="48" alt="User" />
-				</div>
-				<div class="info-container">
-					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
-				</div>
+		<!-- #User Info -->
+		<!-- Menu -->
+		<div class="menu">
+			<ul class="list">
+				<!-- <li class="header">MAIN NAVIGATION</li> -->
+				<li  >
+					<a onClick="renderEjs('gamemaster/control', getCookie('user'));">
+						<i class="material-icons">home</i>
+						<span>Bidding Phase</span>
+					</a>
+				</li>
+				<li class="active">
+					<a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
+						<i class="material-icons">home</i>
+						<span>Selection Phase</span>
+					</a>
+				</li>
+				<li>
+					<a onClick="renderEjs('gamemaster/teamsummary', getCookie('user'));">
+						<i class="material-icons">home</i>
+						<span>Summary</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- #Menu -->
+		<!-- Footer -->
+		<div class="legal">
+			<div class="copyright">
+				&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
 			</div>
-			<!-- #User Info -->
-			<!-- Menu -->
-			<div class="menu">
-				<ul class="list">
-					<!-- <li class="header">MAIN NAVIGATION</li> -->
-					<li  >
-						<a onClick="renderEjs('gamemaster/control', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Bidding Phase</span>
-						</a>
-					</li>
-					<li class="active">
-						<a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Selection Phase</span>
-						</a>
-					</li>
-					<li>
-						<a onClick="renderEjs('gamemaster/teamsummary', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Summary</span>
-						</a>
-					</li>
-				</ul>
+			<div class="version">
+				<b>Version: </b> 1.0.0
 			</div>
-			<!-- #Menu -->
-			<!-- Footer -->
-			<div class="legal">
-				<div class="copyright">
-					&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
-				</div>
-				<div class="version">
-					<b>Version: </b> 1.0.0
-				</div>
-			</div>
-			<!-- #Footer -->
-		</aside>
-		<!-- #END# Left Sidebar -->
-		
-	</section>
-	<form method="POST" action="/gamemaster/assignPlayers">
+		</div>
+		<!-- #Footer -->
+	</aside>
+	<!-- #END# Left Sidebar -->
+
+</section>
+<form method="POST" action="/gamemaster/assignPlayers">
 	<section class="content">
 		<div class="container-fluid">
-		<div class="row clearfix">
-			<div class="card">
-				<div class="header">
-					<h2 id="players-category">
-						Senior Bowlers [SB-1]
-					</h2>
+			<div class="row clearfix">
+				<div class="card">
+					<div class="header">
+						<h2>Round <%= curRound %>:	[<%= groupName %>] <%= groupDesc %></h2>
+					</div>
+					<input type="hidden" name="player1" value="<%= player_obj[0].player_id %>"/>
+					<input type="hidden" name="player2" value="<%= player_obj[1].player_id %>"/>
+					<input type="hidden" name="player3" value="<%= player_obj[2].player_id %>"/>
+					<input type="hidden" name="player4" value="<%= player_obj[3].player_id %>"/>
+					<input type="hidden" name="player5" value="<%= player_obj[4].player_id %>"/>
+					<input type="hidden" name="player6" value="<%= player_obj[5].player_id %>"/>
+					<div class="body">
+						<div id="gallery-images" class="list-unstyled row clearfix">
+							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[0].player_image %>">
+									<div class="overlay123" id="1">
+										<div class="text123"><%= player_obj[0].player_name %></div>
+									</div>
+
+								</div>
+								<div class="form-line">
+									<!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
+									<select class="form-control show-tick" name="selectionOne" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[1].player_image %>">
+									<div class="overlay123" id="2">
+										<div class="text123"><%= player_obj[1].player_name %></div>
+									</div>
+								</div>
+								<div class="form-line">
+									<select class="form-control show-tick" name="selectionTwo" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[2].player_image %>">
+									<div class="overlay123" id="3">
+										<div class="text123"><%= player_obj[2].player_name %></div>
+									</div>
+								</div>
+								<div class="form-line">
+									<!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
+									<select class="form-control show-tick" name="selectionThree" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[3].player_image %>">
+									<div class="overlay123" id="4">
+										<div class="text123"><%= player_obj[3].player_name %></div>
+									</div>
+								</div>
+								<div class="form-line">
+									<!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
+									<select class="form-control show-tick" name="selectionFour" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[4].player_image %>">
+									<div class="overlay123" id="5">
+										<div class="text123"><%= player_obj[4].player_name %></div>
+									</div>
+								</div>
+								<div class="form-line">
+									<!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
+									<select class="form-control show-tick" name="selectionFive" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+								<div class="container1">
+									<img class="thumbnail image123" src="../<%= player_obj[5].player_image %>">
+									<div class="overlay123" id="6">
+										<div class="text123"><%= player_obj[5].player_name %></div>
+									</div>
+								</div>
+								<div class="form-line">
+									<!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
+									<select class="form-control show-tick" name="selectionSix" required>
+										<option value="">Please select</option>
+										<option value="1">Aman Honda Ryders</option>
+										<option value="2">Ceratec Masters</option>
+										<option value="3">Fitness Mantras</option>
+										<option value="4">Maha Fast Champs</option>
+										<option value="5">Premier Titans</option>
+										<option value="6">Sun Shiners</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+								<button class="btn btn-block bg-red waves-effect" type="submit" style="width: 60;">SUBMIT</button>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+							</div>
+						</div>
+					</div>
 				</div>
-				<input type="hidden" name="player1" value="<%= player_obj[0].player_id %>"/>
-				<input type="hidden" name="player2" value="<%= player_obj[1].player_id %>"/>
-				<input type="hidden" name="player3" value="<%= player_obj[2].player_id %>"/>
-				<input type="hidden" name="player4" value="<%= player_obj[3].player_id %>"/>
-				<input type="hidden" name="player5" value="<%= player_obj[4].player_id %>"/>
-				<input type="hidden" name="player6" value="<%= player_obj[5].player_id %>"/>
-				<div class="body">
-					<div id="gallery-images" class="list-unstyled row clearfix">
-								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-		                        	<div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[0].player_image %>">
-		                        		<div class="overlay123" id="1">
-		                        			<div class="text123"><%= player_obj[0].player_name %></div>
-		                        		</div>
-										
-		                        	</div>
-						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick" name="selectionOne" required>
-                                				<option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
-								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[1].player_image %>">
-		                        		<div class="overlay123" id="2">
-		                        			<div class="text123"><%= player_obj[1].player_name %></div>
-		                        		</div>
-		                        	</div>
-						<div class="form-line">
-                           	<select class="form-control show-tick" name="selectionTwo" required>
-                                <option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
-								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[2].player_image %>">
-		                        		<div class="overlay123" id="3">
-		                        			<div class="text123"><%= player_obj[2].player_name %></div>
-		                        		</div>
-		                        	</div>
-						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick" name="selectionThree" required>
-                                				<option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
-								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[3].player_image %>">
-		                        		<div class="overlay123" id="4">
-		                        			<div class="text123"><%= player_obj[3].player_name %></div>
-		                        		</div>
-		                        	</div>
-						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick" name="selectionFour" required>
-                                				<option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
-								<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[4].player_image %>">
-		                        		<div class="overlay123" id="5">
-		                        			<div class="text123"><%= player_obj[4].player_name %></div>
-		                        		</div>
-		                        	</div>
-						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick" name="selectionFive" required>
-                                				<option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
-								<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-			                        <div class="container1">
-		                            	<img class="thumbnail image123" src="../<%= player_obj[5].player_image %>">
-		                        		<div class="overlay123" id="6">
-		                        			<div class="text123"><%= player_obj[5].player_name %></div>
-		                        		</div>
-		                        	</div>
-						<div class="form-line">
-                            <!-- <input type="text" class="form-control" name="username" placeholder="Team Name" required autofocus> -->
-                           				<select class="form-control show-tick" name="selectionSix" required>
-                                				<option value="">Please select</option>
-								<option value="1">Aman Honda Ryders</option>
-								<option value="2">Ceratec Masters</option>
-								<option value="3">Fitness Mantras</option>
-								<option value="4">Maha Fast Champs</option>
-								<option value="5">Premier Titans</option>
-								<option value="6">Sun Shiners</option>
-							</select>
-                       				</div>
-								</div>
+				<div class="card">
+					<div class="header">
+						<h2>
+							Ranking
+						</h2>
+					</div>
+					<div class="body table-responsive">
+						<table id="mainTable" class="table table-striped">
+							<thead>
+								<tr>
+									<th>Rank</th>
+									<th>Team</th>
+									<th>Bid</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td id="team0"></td>
+									<td id="price0"></td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td id="team2"></td>
+									<td id="price2"></td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td id="team4"></td>
+									<td id="price4"></td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td id="team6"></td>
+									<td id="price6"></td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td id="team8"></td>
+									<td id="price8"></td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td id="team10"></td>
+									<td id="price10"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<br><br><br>
-				<div class="row">
-                        		<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-                        		</div>
-                        		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            		<button class="btn btn-block bg-red waves-effect" type="submit" style="width: 60;">SUBMIT</button>
-                       			</div>
-                        		<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-                        	</div>
-                    </div>
 			</div>
-		</div>
-			
+		</section>
+	</form>
 
-			
-		</div>
-
-	</section>
-</form>
+	
 
 	<!-- Jquery Core Js -->
 	<script src="../plugins/jquery/jquery.min.js"></script>
@@ -382,12 +447,14 @@
 	<script src="../js/demo.js"></script>
 
 	<!-- Light Gallery Plugin Js -->
-    <script src="../plugins/light-gallery/js/lightgallery-all.js"></script>
+	<script src="../plugins/light-gallery/js/lightgallery-all.js"></script>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
 
-    </script>
+	</script>
 
-</body>
 
-</html>
+
+	</body>
+
+	</html>

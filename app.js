@@ -84,16 +84,30 @@ app.post('/gamemaster/selection', function(req, res) {
 	connection.query(sql_round_count, function(err, results){
 		let groupID = (results[0].no_of_rounds/6)+1;
 		let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE group_id = ?";
-		connection.query(sql_player_data,[groupID],function(err,result){
-			if(err) throw err;
-			var player_object = result;
-			res.render('selection', {
-				player_obj:player_object
+		connection.query(sql_player_data,[groupID],function(err2,result2){
+			if(err2) throw err2;
+			var player_object = result2;
+			let sql_group_data = "SELECT group_name, group_desc, base_bid, max_bid FROM Groups WHERE group_id = ?";
+			connection.query(sql_group_data,[groupID],function(err1,res1){
+				if(err1) throw err1;
+				var grp_name = res1[0].group_name;
+				var grp_desc = res1[0].group_desc;
+
+				redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err3, reply3) {
+					if(err3) throw err3;
+					console.log("TAG: SAIF, thisisthespot");
+					console.log(reply3);
+					res.render('selection', {
+						curRound: groupID,
+						player_obj:player_object,
+						groupDesc: grp_desc,
+						teamRankings: reply3,
+						groupName:grp_name
+					});
+				});
 			});
 		});
-
 		redisClient.set('currentRound',groupID);
-		
 	});
 });
 
