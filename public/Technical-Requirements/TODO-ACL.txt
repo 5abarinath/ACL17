@@ -1,14 +1,9 @@
 T0-DO ACL
 
-0. URL in bidding.ejs
-1. Change Base and final bids in redis.js
-2. Download Google Fonts.
-3. Reset Values: 
-	Redis
-		Current Bid: Base Bid + 6000
-		Base Bid, Max Bid
-		Rank: Based on performance
-		BidFlag = 0
-		current round++
+1. Dummy Value in Group 2
+2. Fix Start Bid at 1000 (Current Bid is 0)
+3. Preset Rankings and bids are showing one less.
+4. Only one Team Profile
+5. Insert Premium into Database
+6. Show Ranking on Selection Page
 
-4. Disable Bid Btn in bidding.ejs
