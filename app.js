@@ -87,9 +87,10 @@ app.post('/gamemaster/selection', function(req, res) {
 		var player_object = result;
 		res.render('selection', {
 			player_obj:player_object
-			 });
 		});
+	});
 });
+
 
 //Assigning Players after the Slot is Over, and Submit is clicked
 app.post('/gamemaster/assignPlayers', function(req,res){
@@ -179,6 +180,51 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 });
 
 
+//Game Master - Summary Page
+app.post('/gamemaster/teamsummary',function(req,res){
+	let sql_team_members = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE team_id = ?";
+	var team1,team2,team3,team4,team5,team6
+	//For Aman Honda
+	connection.query(sql_team_members,['1'],function(err1,result1){
+		if(err1)throw err1;
+		var player_object1 = result1;
+		//For Ceratec Masters
+		connection.query(sql_team_members,['2'],function(err2,result2){
+			if(err2)throw err2;
+			var player_object2 = result2;
+			//For Fitness Mantras
+			connection.query(sql_team_members,['3'],function(err3,result3){
+				if(err3)throw err3;
+				var player_object3 = result3;
+				//For Maha Fast Champs
+				connection.query(sql_team_members,['4'],function(err4,result4){
+					if(err4)throw err4;
+					var player_object4 = result4;
+					//For Premier Titans
+					connection.query(sql_team_members,['5'],function(err5,result5){
+						if(err5)throw err5;
+						var player_object5 = result5;
+						//For Sun Shiners
+						connection.query(sql_team_members,['6'],function(err6,result6){
+							if(err6)throw err6;
+							var player_object6 = result6;
+							res.render('teamsummary.ejs', {
+								player_obj_1:player_object1,
+								player_obj_2:player_object2,
+								player_obj_3:player_object3,
+								player_obj_4:player_object4,
+								player_obj_5:player_object5,
+								player_obj_6:player_object6
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+});
+
+
 
 // Login page
 app.get('/', function(req, res) {
@@ -212,9 +258,9 @@ app.post('/initialbids', function(req, res) {
 	connection.query(sql, [teamID], function(err, result) {
 		if(err) throw err;
 		res.render('initialbids',{
-					   teamName: result[0].team_name,
-					   teamOwner: result[0].team_owner,
-					   teamLogo: result[0].team_logo});
+			teamName: result[0].team_name,
+			teamOwner: result[0].team_owner,
+			teamLogo: result[0].team_logo});
 	});
 });
 
@@ -226,7 +272,7 @@ app.post('/teamprofile', function(req, res) {
 	redisClient.exists(key, function(err, reply) {
 		if (reply != 1) {
 			console.log("Redis entry" + key + "doesnt exist");	    	  
-	    }
+		}
 	});
 	
 	var results;
@@ -248,12 +294,12 @@ app.post('/teamprofile', function(req, res) {
 				var teamObject = object;
 
 				res.render('teamprofile', { 
-						   teamName: result[0].team_name,
-						   teamOwner: result[0].team_owner,
-						   teamLogo: result[0].team_logo,
-						   pointsSpent: totalSpent,
-						   premiumLeft: teamObject.premLeft,
-						   data: results });
+					teamName: result[0].team_name,
+					teamOwner: result[0].team_owner,
+					teamLogo: result[0].team_logo,
+					pointsSpent: totalSpent,
+					premiumLeft: teamObject.premLeft,
+					data: results });
 			});
 		});
 	});
@@ -297,8 +343,8 @@ app.post('/bidding', function(req, res) {
 									grp_obj[0].max_bid = parseInt(reply1);
 									redisClient.get('baseBid', function(err2, reply2) {
 										grp_obj[0].base_bid = parseInt(reply2);
-									    team_obj[0].premium_left = parseInt(teamObject.premLeft);
-									    teamRank = teamObject.rank;
+										team_obj[0].premium_left = parseInt(teamObject.premLeft);
+										teamRank = teamObject.rank;
 										yourBid = teamObject.yourBid;
 
 										redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err3, reply3) {
