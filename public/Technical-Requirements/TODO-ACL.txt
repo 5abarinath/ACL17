@@ -6,4 +6,4 @@ T0-DO ACL
 4. Only one Team Profile
 5. Insert Premium into Database
 6. Show Ranking on Selection Page
-
+7. CurrentRound not updating in Redis after each round

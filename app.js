@@ -77,17 +77,23 @@ app.post('/gamemaster/control', function(req, res) {
 // Gamemaster - Selection Phase
 app.post('/gamemaster/selection', function(req, res) {
 	let admin = req.body.token;
-
 	if(admin != "gamemaster")
 		res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/index.html'));
-	let groupID = redisClient.get('currentRound');
-	let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE group_id = ?";
-	connection.query(sql_player_data,[groupID],function(err,result){
-		if(err) throw err;
-		var player_object = result;
-		res.render('selection', {
-			player_obj:player_object
+
+	let sql_round_count = "SELECT COUNT(*) AS no_of_rounds FROM Bidding";
+	connection.query(sql_round_count, function(err, results){
+		let groupID = (results[0].no_of_rounds/6)+1;
+		let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE group_id = ?";
+		connection.query(sql_player_data,[groupID],function(err,result){
+			if(err) throw err;
+			var player_object = result;
+			res.render('selection', {
+				player_obj:player_object
+			});
 		});
+
+		redisClient.set('currentRound',groupID);
+		
 	});
 });
 
@@ -117,7 +123,6 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	connection.query(sql_player_assign,[sixthPlayerTeam,sixthPlayerID],function(err, result) {});
 
 	//Updating Players with the prices.
-
 	redisClient.get('currentRound', function(err20, groupIdResp) {
 		let playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID, fifthPlayerID, sixthPlayerID];
 		redisClient.hget("aclteam1", 'yourBid', function(err,result){
@@ -193,6 +198,9 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			// console.log("TAG:117 By: Sabari Inside: /gamemaster/assignPlayers \n" + reply30);
 			// console.log("End log 117");
 		});
+
+
+		
 	});
 
 	res.redirect(307, '/gamemaster/control');
