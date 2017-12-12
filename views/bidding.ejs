@@ -28,6 +28,9 @@
 	<!-- Custom Css -->
 	<link href="css/style.css" rel="stylesheet">
 
+	<!-- Sweet Alert Plugin Js -->
+    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
+
 	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 	<link href="css/themes/all-themes.css" rel="stylesheet" />
 
@@ -299,8 +302,8 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					<div class="card">
 						<div class="body">
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="true">BID</button>
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="true">PREMIUM BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false">BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="false">PREMIUM BID</button>
 						</div>
 					</div>
 					<div class="card">
@@ -449,33 +452,37 @@
 				var HTMLMaxBid = parseInt(document.getElementById("div-maxBid").innerHTML);
 
 				if(HTMLTotalPremiumLeft == 0){
-					alert("Not enough premium funds!");
+					// alert("Not enough premium funds!");
+					swal('Oops...', 'Not enough premium funds!', 'error');
 				}
 				else if(HTMLTeamPrevBid < HTMLMaxBid){
 					var premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
 					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
-						alert("Not enough premium funds!");
+						// alert("Not enough premium funds!");
+						swal('Oops...', 'Not enough premium funds!', 'error');
 					}
 					else {
 						var jsObject = {teamId: getCookie("teamToken"), flag: 0};
 						socket.emit('premiumBidBtnClicked', jsObject);
+						var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
+						var newprem = prem - premiumSpent;
+						document.getElementById('div-premLeft').innerHTML = newprem;
 					}
-					var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
-					var newprem = prem - premiumSpent;
-					document.getElementById('div-premLeft').innerHTML = newprem;
+					
 				}
 				else if(HTMLTeamPrevBid >= HTMLMaxBid){
 					var premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
 					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
-						alert("Not enough premium funds!");
+						// alert("Not enough premium funds!");
+						swal('Oops...', 'Not enough premium funds!', 'error');
 					}
 					else {
 						var jsObject = {teamId: getCookie("teamToken"), flag: 1};
 						socket.emit('premiumBidBtnClicked', jsObject);
+						var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
+						var newprem = prem - premiumSpent;
+						document.getElementById('div-premLeft').innerHTML = newprem;
 					}
-					var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
-					var newprem = prem - premiumSpent;
-					document.getElementById('div-premLeft').innerHTML = newprem;
 				}
 				// else if(HTMLTotalPremiumLeft > 0) {
 				// 	socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
@@ -506,7 +513,7 @@
 					var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
 					var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
 					if(TotalPremiumLeft < 2000 || HTMLTotalPremiumLeft < 2000)
-						alert("You do not have enough premium left!");
+						swal('Oops...', 'Not enough premium funds!', 'error');
 					else {
 						var pbtn = document.getElementById("premiumBidBtn");
 						pbtn.disabled = false;
@@ -603,36 +610,66 @@
 	</script>
 
 <script>
-		var teamRankingArray = "<%= teamRankings %>";
+	var stringBtnFlag = "<%= bidFlag %>";
+	var stringPremFlag = "<%= premiumFlag %>";
+	var intBtnFlag = parseInt(stringBtnFlag);
+	var intPremFlag = parseInt(stringPremFlag);
+	var btn_used_for_bid = document.getElementById('bidBtn');
+	var btn_used_for_premium = document.getElementById('premiumBidBtn');
+	if(intBtnFlag == 1 && intPremFlag == 0){
+		btn_used_for_bid.disabled = false;
+		btn_used_for_premium.disabled = true;
+		btn_used_for_bid.classList.remove("bg-grey");
+		btn_used_for_bid.classList.add("bg-red");
+		btn_used_for_premium.classList.remove("bg-red");
+		btn_used_for_premium.classList.add("bg-grey");
+	} else if(intBtnFlag == 1 && intPremFlag == 1){
+		btn_used_for_bid.disabled = true;
+		btn_used_for_premium.disabled = false;
+		btn_used_for_bid.classList.remove("bg-red");
+		btn_used_for_bid.classList.add("bg-grey");
+		btn_used_for_premium.classList.remove("bg-grey");
+		btn_used_for_premium.classList.add("bg-red");
+	} 
+	else if (intBtnFlag == 0) {
+		btn_used_for_bid.disabled = true;
+		btn_used_for_premium.disabled = true;
+		btn_used_for_bid.classList.remove("bg-red");
+		btn_used_for_bid.classList.add("bg-grey");
+		btn_used_for_premium.classList.remove("bg-red");
+		btn_used_for_premium.classList.add("bg-grey");
+	}
 
-		var actualTeamRankingArray = teamRankingArray.split(',');
+	var teamRankingArray = "<%= teamRankings %>";
 
-		var j;
-		var currentTeam = "aclteam" + getCookie("teamToken");
-		for(j=0; j<=10; j+=2) {
-			if(actualTeamRankingArray[j] == currentTeam) {
-				break;
-			}		
-		}
-		var rank = (j/2)+1;
-		// document.getElementById('mainTable').rows[rank].className = "bg-orange";	
-		document.getElementById('div-yourRank').innerHTML = rank;
-		for(var i=0; i<=10; i+=2) {
-			if(actualTeamRankingArray[i] == "aclteam1")
-				actualTeamRankingArray[i] = "Aman Honda Ryders";
-			else if(actualTeamRankingArray[i] == "aclteam2")
-				actualTeamRankingArray[i] = "Ceratec Masters";
-			else if(actualTeamRankingArray[i] == "aclteam3")
-				actualTeamRankingArray[i] = "Fitness Mantras";
-			else if(actualTeamRankingArray[i] == "aclteam4")
-				actualTeamRankingArray[i] = "Maha Fast Champs";
-			else if(actualTeamRankingArray[i] == "aclteam5")
-				actualTeamRankingArray[i] = "Premier Titans";
-			else
-				actualTeamRankingArray[i] = "Sun Shiners";
-			document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
-			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
-		}
+	var actualTeamRankingArray = teamRankingArray.split(',');
+
+	var j;
+	var currentTeam = "aclteam" + getCookie("teamToken");
+	for(j=0; j<=10; j+=2) {
+		if(actualTeamRankingArray[j] == currentTeam) {
+			break;
+		}		
+	}
+	var rank = (j/2)+1;
+	// document.getElementById('mainTable').rows[rank].className = "bg-orange";	
+	document.getElementById('div-yourRank').innerHTML = rank;
+	for(var i=0; i<=10; i+=2) {
+		if(actualTeamRankingArray[i] == "aclteam1")
+			actualTeamRankingArray[i] = "Aman Honda Ryders";
+		else if(actualTeamRankingArray[i] == "aclteam2")
+			actualTeamRankingArray[i] = "Ceratec Masters";
+		else if(actualTeamRankingArray[i] == "aclteam3")
+			actualTeamRankingArray[i] = "Fitness Mantras";
+		else if(actualTeamRankingArray[i] == "aclteam4")
+			actualTeamRankingArray[i] = "Maha Fast Champs";
+		else if(actualTeamRankingArray[i] == "aclteam5")
+			actualTeamRankingArray[i] = "Premier Titans";
+		else
+			actualTeamRankingArray[i] = "Sun Shiners";
+		document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
+		document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
+	}
 </script>
 
 	<!-- Jquery Core Js -->
@@ -672,9 +709,6 @@
 
 	<!-- JQuery Redirect Plugin -->
 	<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
-
-	<!-- Sweet Alert Plugin Js -->
-    <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
 
 	<!-- Custom Js -->
 	<script src="js/admin.js"></script>

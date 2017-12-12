@@ -174,6 +174,25 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["6", result, groupIdResp], function(errr, respp){});
 		});
+
+		redisClient.zrevrange('aclTeamRanks', 0, 15000000, function(err2, rankingArray) {
+			if(err2) throw err2;
+
+			let sql_group_base_bid = "SELECT base_bid FROM Groups WHERE group_id = ?";
+			connection.query(sql_group_base_bid, [groupIdResp], function(err50, reply50){
+				var baseBidForNextRound = reply50[0].base_bid;
+				var nextRound = groupIdResp++;
+				for(var i=0; i<6; i++) {
+					var teamCodeInSortedSet = rankingArray[i];
+					redisClient.zadd('aclTeamRanks', baseBidForNextRound + i * 1000, teamCodeInSortedSet);
+				}
+			});
+		});
+
+		redisClient.zrevrange('aclTeamRanks', 0, 15000000, "withscores", function(err30, reply30){
+			// console.log("TAG:117 By: Sabari Inside: /gamemaster/assignPlayers \n" + reply30);
+			// console.log("End log 117");
+		});
 	});
 
 	res.redirect(307, '/gamemaster/control');
@@ -287,7 +306,7 @@ app.post('/teamprofile', function(req, res) {
 		if(err) throw err;
 
 		redisClient.zscore('aclTeamRanks', key, function(err1, reply){
-			console.log("Team Rank", reply);
+			// console.log("Team Rank", reply);
 			var totalSpent = parseInt(result[0].points_spent) + parseInt(reply);
 
 			redisClient.hgetall("aclteam" + teamID, function(err, object) {
@@ -335,9 +354,11 @@ app.post('/bidding', function(req, res) {
 						if(err3) throw err3;
 						player_obj = result3;
 
+						console.log("\nTAG: 100Sabari\nBidFlag = " + teamObject.bidFlag + "\nEnd: 100Sabari");
 						if(teamObject.bidFlag == 1){
 							redisClient.get('currentBid', function(err, reply) {
 								currBid = reply;
+								var disableBtn = false;
 
 								redisClient.get('maxBid', function(err1, reply1) {
 									grp_obj[0].max_bid = parseInt(reply1);
@@ -361,7 +382,9 @@ app.post('/bidding', function(req, res) {
 													rank: teamRank,
 													your_bid: yourBid,
 													teamRankings: reply3,
-													premiumFlag: prem_flag
+													premiumFlag: prem_flag,
+													bidFlag: teamObject.bidFlag,
+													disableBtn: disableBtn
 												});
 											}
 											res.render('bidding.ejs', {
@@ -373,7 +396,9 @@ app.post('/bidding', function(req, res) {
 												rank: teamRank,
 												your_bid: yourBid,
 												teamRankings: reply3,
-												premiumFlag: prem_flag 
+												premiumFlag: prem_flag,
+												bidFlag: teamObject.bidFlag,
+												disableBtn: disableBtn
 											});
 										});
 									});
@@ -381,6 +406,7 @@ app.post('/bidding', function(req, res) {
 							});
 						}
 						else {
+							var disableBtn = true;
 							redisClient.zrevrange('aclTeamRanks', 0, 15000000, "withscores", function(err4, reply4) {
 								res.render('bidding.ejs', {
 									currentRound: currRound,
@@ -391,7 +417,9 @@ app.post('/bidding', function(req, res) {
 									rank: 0,
 									your_bid: 0,
 									teamRankings: reply4,
-									premiumFlag: prem_flag });
+									premiumFlag: prem_flag,
+									bidFlag: teamObject.bidFlag,
+									disableBtn: disableBtn });
 							});
 						}
 					});
@@ -413,10 +441,10 @@ io.on('connection', function(client) {
 				var maxBid = parseInt(reply1);
 				if(currBid < maxBid) {
 					currBid += 1000;
-					console.log("Current Bid: " + currBid);
+					// console.log("Current Bid: " + currBid);
 					redisClient.set('currentBid', currBid);
 					redisClient.hgetall(team, function(err5, teamObject) {
-						console.log("CurrBid-teamObj.yourBid for " + team + " = " + (currBid - teamObject.yourBid));
+						// console.log("CurrBid-teamObj.yourBid for " + team + " = " + (currBid - teamObject.yourBid));
 						redisClient.zadd('aclTeamRanks', currBid, team);
 						redisClient.hset(team, 'yourBid', currBid);
 						redisClient.zrevrank('aclTeamRanks', team, function(err3, reply3) {
@@ -458,19 +486,26 @@ io.on('connection', function(client) {
 
 				redisClient.get('maxBid', function(err2, maxBidForCurrRound){
 					var teamPrevBid = teamObject.yourBid;
-
+					console.log("\nTAG: 117Sabari\nteamPrevBid = " + teamPrevBid);
+					console.log("oldPremLeft = " + teamObject.premLeft);
 					if(flagBeingSentFromPremiumBtnOnClick == 0){
 						//previous team bid < max bid. premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
 						var premiumSpent = currBid - parseInt(maxBidForCurrRound);
-						var newPremium = teamObject.premium_left - premiumSpent;
+						var newPremium = teamObject.premLeft - premiumSpent;
 						redisClient.hset(team, 'premLeft', newPremium);
+						redisClient.hgetall(team, function(err, object) {
+							console.log("\nTAG: 117Sabari\nflagBeingSentFromPremiumBtnOnClick = 0\n" + object.premLeft + "\nEND 117Sabari\n");
+						});
 					}
 					else if(flagBeingSentFromPremiumBtnOnClick == 1){
 						//team is already in premium. premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
 						var premiumSpent = currBid - teamPrevBid; 
-						var newPremium = teamObject.premium_left - premiumSpent;
+						var newPremium = teamObject.premLeft - premiumSpent;
 						redisClient.hset(team, 'premLeft', newPremium);	
-						//client.emit('updatePremiumValue', newPremium);
+						// client.emit('updatePremiumValue', newPremium);
+						redisClient.hgetall(team, function(err, object) {
+							console.log("flagBeingSentFromPremiumBtnOnClick = 1\n" + object.premLeft + "\nEND 117Sabari\n");
+						});
 					}
 				});
 			});
@@ -485,7 +520,7 @@ io.on('connection', function(client) {
 				if(err2) throw err2;
 				var currObject = {"currentBid": currBid, "ranks": reply2};
 				io.sockets.emit('premiumBidBtnClicked', currObject);
-				console.log(currObject);
+				// console.log(currObject);
 			});
 		});
 	});
@@ -495,7 +530,7 @@ io.on('connection', function(client) {
 		let teamID = data.team_id;
 		let firstBid = data.initial_amount;
 
-		console.log('TAG:VISHVA after login socket' + firstBid);
+		// console.log('TAG:VISHVA after login socket' + firstBid);
 
 		let key = "aclteam" + teamID;
 
