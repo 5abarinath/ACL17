@@ -148,6 +148,15 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["1", result, groupIdResp], function(errr, respp){});
 		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam1",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,1],function(err2,res2){});
+		});
+
+
+
 		redisClient.hget("aclteam2", 'yourBid', function(err,result){
 			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
@@ -157,6 +166,13 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["2", result, groupIdResp], function(errr, respp){});
 		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam2",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,2],function(err2,res2){});
+		});
+
 		redisClient.hget("aclteam3", 'yourBid', function(err,result){
 			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
@@ -166,6 +182,13 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["3", result, groupIdResp], function(errr, respp){});
 		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam3",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,3],function(err2,res2){});
+		});
+
 		redisClient.hget("aclteam4", 'yourBid', function(err,result){
 			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
@@ -175,6 +198,13 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["4", result, groupIdResp], function(errr, respp){});
 		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam4",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,4],function(err2,res2){});
+		});
+
 		redisClient.hget("aclteam5", 'yourBid', function(err,result){
 			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
@@ -184,6 +214,13 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["5", result, groupIdResp], function(errr, respp){});
 		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam5",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,5],function(err2,res2){});
+		});
+
 		redisClient.hget("aclteam6", 'yourBid', function(err,result){
 			if(err) throw err;
 			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
@@ -192,6 +229,12 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
 			connection.query(sql_bidding_entry, ["6", result, groupIdResp], function(errr, respp){});
+		});
+		//PREMIUM INTO DATABASE
+		redisClient.hget("aclteam6",'premLeft',function(err,result){
+			if(err) throw err;
+			let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+			connection.query(sql_prem_left,[result,6],function(err2,res2){});
 		});
 
 		redisClient.zrevrange('aclTeamRanks', 0, 15000000, function(err2, rankingArray) {
