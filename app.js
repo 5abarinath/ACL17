@@ -201,7 +201,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 //Game Master - Summary Page
 app.post('/gamemaster/teamsummary',function(req,res){
-	let sql_team_members = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE team_id = ?";
+	let sql_team_members = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id, price FROM Players WHERE team_id = ?";
 	var team1,team2,team3,team4,team5,team6
 	//For Aman Honda
 	connection.query(sql_team_members,['1'],function(err1,result1){
