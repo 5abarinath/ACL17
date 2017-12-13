@@ -616,6 +616,12 @@
 	var intPremFlag = parseInt(stringPremFlag);
 	var btn_used_for_bid = document.getElementById('bidBtn');
 	var btn_used_for_premium = document.getElementById('premiumBidBtn');
+
+	// if(intPremFlag = 1)
+	// 	document.getElementById('div-bidIncre').innerHTML = 2000;
+	// else
+	// 	document.getElementById("div-bidIncre").innerHTML = 1000;
+
 	if(intBtnFlag == 1 && intPremFlag == 0){
 		btn_used_for_bid.disabled = false;
 		btn_used_for_premium.disabled = true;
