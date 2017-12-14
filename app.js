@@ -266,7 +266,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 		
 	});
 
-	res.redirect(307, '/gamemaster/control');
+res.redirect(307, '/gamemaster/control');
 });
 
 
@@ -274,6 +274,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 app.post('/gamemaster/teamsummary',function(req,res){
 	let sql_team_members = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id, price FROM Players WHERE team_id = ?";
 	var team1,team2,team3,team4,team5,team6
+	let sql_team_data = "SELECT team_name, team_logo FROM Bidders";
 	//For Aman Honda
 	connection.query(sql_team_members,['1'],function(err1,result1){
 		if(err1)throw err1;
@@ -298,13 +299,17 @@ app.post('/gamemaster/teamsummary',function(req,res){
 						connection.query(sql_team_members,['6'],function(err6,result6){
 							if(err6)throw err6;
 							var player_object6 = result6;
-							res.render('teamsummary.ejs', {
-								player_obj_1:player_object1,
-								player_obj_2:player_object2,
-								player_obj_3:player_object3,
-								player_obj_4:player_object4,
-								player_obj_5:player_object5,
-								player_obj_6:player_object6
+							connection.query(sql_team_data,function(err,result){
+								var team_data = result;
+								res.render('teamsummary.ejs', {
+									player_obj_1:player_object1,
+									player_obj_2:player_object2,
+									player_obj_3:player_object3,
+									player_obj_4:player_object4,
+									player_obj_5:player_object5,
+									player_obj_6:player_object6,
+									teams:team_data
+								});
 							});
 						});
 					});
