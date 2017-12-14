@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2017 at 12:08 PM
+-- Generation Time: Dec 14, 2017 at 12:43 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -42,12 +42,12 @@ CREATE TABLE `Bidders` (
 --
 
 INSERT INTO `Bidders` (`team_id`, `team_name`, `team_owner`, `team_logo`, `points_spent`, `premium_left`) VALUES
-(1, 'Aman Honda Ryders', 'Team owner 1', '/images/download.jpg', 0, 120000),
-(2, 'Ceratec Masters', 'Team owner 2', '/images/download.jpg', 0, 150000),
-(3, 'Fitness Mantra', 'Team owner 3', '/images/download.jpg', 0, 150000),
-(4, 'Maha Fast Champs', 'Team owner 4', '/images/download.jpg', 0, 150000),
-(5, 'JLV Agro', 'Team owner 5', '/images/download.jpg', 0, 150000),
-(6, 'Sun Shiners', 'Team owner 6', '/images/download.jpg', 0, 150000);
+(1, 'Aman Honda Ryders', 'Team owner 1', '/images/teams/amanhonda.png', 0, 150000),
+(2, 'Ceratec Masters', 'Team owner 2', '/images/teams/ceratec.png', 0, 150000),
+(3, 'Fitness Mantra', 'Team owner 3', '/images/teams/fitness.png', 0, 150000),
+(4, 'Maha Fast Champs', 'Team owner 4', '/images/teams/mahafast.png', 0, 150000),
+(5, 'JLV Agro', 'Team owner 5', '/images/teams/jlvagro.png', 0, 150000),
+(6, 'Sun Shiners', 'Team owner 6', '/images/teams/sun.png', 0, 150000);
 
 -- --------------------------------------------------------
 
@@ -116,24 +116,24 @@ CREATE TABLE `Players` (
 --
 
 INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, `player_image`, `team_id`, `price`) VALUES
-(1, 1, 'Karan', 'Garg', 'images/players/Juniors/JAR1/1.png', 1, 0),
-(2, 1, 'Nikhil', 'Agarwal', 'images/players/Juniors/JAR1/2.png', 2, 0),
-(3, 1, 'Monty', 'Gupta', 'images/players/Juniors/JAR1/3.png', 3, 0),
-(4, 1, 'Prateek', 'Gupta', 'images/players/Juniors/JAR1/4.png', 4, 0),
-(5, 1, 'Yash', 'Agarwal', 'images/players/Juniors/JAR1/5.png', 5, 0),
-(6, 1, 'Yash', 'Gupta', 'images/players/Juniors/JAR1/6.png', 6, 0),
-(7, 2, 'Anand', 'Agarwal', 'images/players/Seniors/SAR2/1.png', 1, 0),
-(8, 2, 'Anil', 'Agarwal', 'images/players/Seniors/SAR2/2.png', 2, 0),
-(9, 2, 'Dinesh', 'Agarwal', 'images/players/Seniors/SAR2/3.png', 3, 0),
-(10, 2, 'Rajesh', 'Agarwal', 'images/players/Seniors/SAR2/4.png', 4, 0),
-(11, 2, 'Vikas', 'Bansal', 'images/players/Seniors/SAR2/5.png', 5, 0),
+(1, 1, 'Karan', 'Garg', 'images/players/Juniors/JAR1/1.png', 0, 0),
+(2, 1, 'Nikhil', 'Agarwal', 'images/players/Juniors/JAR1/2.png', 0, 0),
+(3, 1, 'Monty', 'Gupta', 'images/players/Juniors/JAR1/3.png', 0, 0),
+(4, 1, 'Prateek', 'Gupta', 'images/players/Juniors/JAR1/4.png', 0, 0),
+(5, 1, 'Yash', 'Agarwal', 'images/players/Juniors/JAR1/5.png', 0, 0),
+(6, 1, 'Yash', 'Gupta', 'images/players/Juniors/JAR1/6.png', 0, 0),
+(7, 2, 'Anand', 'Agarwal', 'images/players/Seniors/SAR2/1.png', 0, 0),
+(8, 2, 'Anil', 'Agarwal', 'images/players/Seniors/SAR2/2.png', 0, 0),
+(9, 2, 'Dinesh', 'Agarwal', 'images/players/Seniors/SAR2/3.png', 0, 0),
+(10, 2, 'Rajesh', 'Agarwal', 'images/players/Seniors/SAR2/4.png', 0, 0),
+(11, 2, 'Vikas', 'Bansal', 'images/players/Seniors/SAR2/5.png', 0, 0),
 (12, 3, 'Narendra', 'Agarwal', 'images/players/Seniors/SAS1/1.png', 0, 0),
 (13, 3, 'Ravi', 'Agarwal', 'images/players/Seniors/SAS1/2.png', 0, 0),
 (14, 3, 'Sunil', 'Garg', 'images/players/Seniors/SAS1/3.png', 0, 0),
 (15, 3, 'Surendra', 'Garg', 'images/players/Seniors/SAS1/4.png', 0, 0),
 (16, 3, 'Suresh', 'Mittal', 'images/players/Seniors/SAS1/5.png', 0, 0),
 (17, 3, 'Suresh', 'Agarwal', 'images/players/Seniors/SAS1/6.png', 0, 0),
-(18, 2, 'Saif', 'Lakhani', 'images/players/Seniors/SAR2/6', 6, 0),
+(18, 2, 'Saif', 'Lakhani', 'images/players/Seniors/SAR2/6', 0, 0),
 (19, 4, 'Akash', 'Agarwal', 'images/players/Juniors/JBT1/1.png', 0, 0),
 (20, 4, 'Ankush', 'Agarwal', 'images/players/Juniors/JBT1/2.png', 0, 0),
 (21, 4, 'Hiten', 'Agarwal', 'images/players/Juniors/JBT1/3.png', 0, 0),
