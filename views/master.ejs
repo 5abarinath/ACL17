@@ -377,6 +377,28 @@
 		</div>
 	</section>
 
+	<script>
+		var teamRankingArray = "<%= teamRankings %>";
+		console.log(teamRankingArray);
+		var actualTeamRankingArray = teamRankingArray.split(',');
+		for(var i=0; i<=10; i+=2) {
+			if(actualTeamRankingArray[i] == "aclteam1")
+				actualTeamRankingArray[i] = "Aman Honda Ryders";
+			else if(actualTeamRankingArray[i] == "aclteam2")
+				actualTeamRankingArray[i] = "Ceratec Masters";
+			else if(actualTeamRankingArray[i] == "aclteam3")
+				actualTeamRankingArray[i] = "Fitness Mantras";
+			else if(actualTeamRankingArray[i] == "aclteam4")
+				actualTeamRankingArray[i] = "Maha Fast Champs";
+			else if(actualTeamRankingArray[i] == "aclteam5")
+				actualTeamRankingArray[i] = "Premier Titans";
+			else
+				actualTeamRankingArray[i] = "Sun Shiners";
+			document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
+			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
+		}
+	</script>
+
 	<!-- Jquery Core Js -->
 	<script src="../plugins/jquery/jquery.min.js"></script>
 

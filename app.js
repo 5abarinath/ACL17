@@ -64,11 +64,15 @@ app.post('/gamemaster/control', function(req, res) {
 				if(err2) throw err2;
 				var plyr_obj = results2;
 
-				res.render('master', {
-					curRound: round,
-					groupName: grp_name,
-					groupDesc: grp_desc,
-					player_object: plyr_obj });
+				redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err3, reply3) {
+
+					res.render('master', {
+						curRound: round,
+						groupName: grp_name,
+						groupDesc: grp_desc,
+						player_object: plyr_obj,
+						teamRankings: reply3 });
+				});
 			});
 		});
 	});	
@@ -95,8 +99,6 @@ app.post('/gamemaster/selection', function(req, res) {
 
 				redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err3, reply3) {
 					if(err3) throw err3;
-					console.log("TAG: SAIF, thisisthespot");
-					console.log(reply3);
 					res.render('selection', {
 						curRound: groupID,
 						player_obj:player_object,
