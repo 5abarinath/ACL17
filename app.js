@@ -43,6 +43,8 @@ app.post('/gamemaster/control', function(req, res) {
 	let sql_round_count = "SELECT COUNT(*) AS no_of_rounds FROM Bidding";
 	let sql_group_data = "SELECT group_name, group_desc, base_bid, max_bid FROM Groups WHERE group_id = ?";
 	let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image FROM Players WHERE group_id = ?";
+	let sql_net_expense = "SELECT SUM(bid_price) AS net_bid FROM Bidding";
+	let sql_prem_spent = "SELECT SUM(premium_left) AS net_prem FROM Bidders";
 	connection.query(sql_round_count, function(err, results) {
 		if(err) throw err;
 
@@ -64,16 +66,33 @@ app.post('/gamemaster/control', function(req, res) {
 				if(err2) throw err2;
 				var plyr_obj = results2;
 
-				redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err3, reply3) {
+				connection.query(sql_net_expense,function(err3,reply3){
+					if(err3) throw err3;
+					var net_expense = reply3[0].net_bid;
+					connection.query(sql_prem_spent,function(err4,reply4){
+						if(err4) throw err4;
+						var premium_spent = (150000*6)-reply4[0].net_prem;
 
-					res.render('master', {
-						curRound: round,
-						groupName: grp_name,
-						groupDesc: grp_desc,
-						player_object: plyr_obj,
-						teamRankings: reply3 });
+						redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err5, reply5) {
+
+							res.render('master', {
+								curRound: round,
+								groupName: grp_name,
+								groupDesc: grp_desc,
+								baseBid : base_bid,
+								maxBid : max_bid,
+								player_object: plyr_obj,
+								teamRankings: reply5,
+								netExpense : net_expense,
+								premSpent : premium_spent });
+						});
+					});
+
 				});
+
 			});
+
+
 		});
 	});	
 });

@@ -1,12 +1,16 @@
 T0-DO ACL
 
-1. Dummy Value in Group 2
-2. Fix Start Bid at 1000 (Current Bid is 0)
-3. Preset Rankings and bids are showing one less.
-4. Only one Team Profile
-5. Insert Premium into Database
-6. Show Ranking on Selection Page
-7. CurrentRound not updating in Redis after each round
+1. Check null values on bidding page load
+2. Wait three seconds after start slot
+3. Premium not tallying
+4. Caption images
+5. Sound Effects
+6. Icon Changes for indicators
+7. New Page : Retrieval.
+8. Remove Team Owner and increase team logo size
+9. Font sizes everywhere.
+
+
 
 
 1. JAR1
@@ -33,3 +37,13 @@ SAS 2 Not Present
 SAR3 Present but not in list
 SAS 3 Not Present
 MA 1 Not Present
+
+Current Round
+Base Bid
+Max Bid
+Current Bid
+Total Spent
+Total Premium Spent
+Category
+Bid Increment
+
