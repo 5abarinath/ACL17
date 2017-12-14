@@ -7,3 +7,29 @@ T0-DO ACL
 5. Insert Premium into Database
 6. Show Ranking on Selection Page
 7. CurrentRound not updating in Redis after each round
+
+
+1. JAR1
+2. SAR2
+3. SAS1
+4. JBT1
+5. SBW
+6. JBT2
+7. JAR3
+8. SBT1
+9. JBW
+10. SAR1
+11. JAS
+12. SBT2
+13. JAR2
+14. **SAR3
+
+
+
+
+Group 2 Dummy
+Group 8 dr.
+SAS 2 Not Present
+SAR3 Present but not in list
+SAS 3 Not Present
+MA 1 Not Present
