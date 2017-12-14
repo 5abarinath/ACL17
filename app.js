@@ -290,7 +290,7 @@ app.post('/gamemaster/teamsummary',function(req,res){
 				connection.query(sql_team_members,['4'],function(err4,result4){
 					if(err4)throw err4;
 					var player_object4 = result4;
-					//For Premier Titans
+					//For Premier Titans (JLV Agro)
 					connection.query(sql_team_members,['5'],function(err5,result5){
 						if(err5)throw err5;
 						var player_object5 = result5;
