@@ -1,14 +1,14 @@
 T0-DO ACL
 
-1. Check null values on bidding page load
-2. Wait three seconds after start slot
-3. Premium not tallying
-4. Caption images
-5. Sound Effects
-6. Icon Changes for indicators
-7. New Page : Retrieval.
-8. Remove Team Owner and increase team logo size
-9. Font sizes everywhere.
+1. Check null values on bidding page load (Done)
+2. Wait three seconds after start slot	(SL)
+3. Premium not tallying	(Fixed) (Problem caused because saif was a lazy ass during testing)
+4. Caption images	(Done) 
+5. Sound Effects	(SL)
+6. Icon Changes for indicators (Done)
+7. New Page : Retrieval. (SL)
+8. Remove Team Owner and increase team logo size. 
+9. Font sizes everywhere. 
 
 
 

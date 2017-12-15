@@ -449,7 +449,7 @@ app.post('/bidding', function(req, res) {
 						if(err3) throw err3;
 						player_obj = result3;
 
-						console.log("\nTAG: 100Sabari\nBidFlag = " + teamObject.bidFlag + "\nEnd: 100Sabari");
+						// console.log("\nTAG: 100Sabari\nBidFlag = " + teamObject.bidFlag + "\nEnd: 100Sabari");
 						if(teamObject.bidFlag == 1){
 							redisClient.get('currentBid', function(err, reply) {
 								currBid = reply;
@@ -581,15 +581,15 @@ io.on('connection', function(client) {
 
 				redisClient.get('maxBid', function(err2, maxBidForCurrRound){
 					var teamPrevBid = teamObject.yourBid;
-					console.log("\nTAG: 117Sabari\nteamPrevBid = " + teamPrevBid);
-					console.log("oldPremLeft = " + teamObject.premLeft);
+					// console.log("\nTAG: 117Sabari\nteamPrevBid = " + teamPrevBid);
+					// console.log("oldPremLeft = " + teamObject.premLeft);
 					if(flagBeingSentFromPremiumBtnOnClick == 0){
 						//previous team bid < max bid. premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
 						var premiumSpent = currBid - parseInt(maxBidForCurrRound);
 						var newPremium = teamObject.premLeft - premiumSpent;
 						redisClient.hset(team, 'premLeft', newPremium);
 						redisClient.hgetall(team, function(err, object) {
-							console.log("\nTAG: 117Sabari\nflagBeingSentFromPremiumBtnOnClick = 0\n" + object.premLeft + "\nEND 117Sabari\n");
+							// console.log("\nTAG: 117Sabari\nflagBeingSentFromPremiumBtnOnClick = 0\n" + object.premLeft + "\nEND 117Sabari\n");
 						});
 					}
 					else if(flagBeingSentFromPremiumBtnOnClick == 1){
@@ -599,7 +599,7 @@ io.on('connection', function(client) {
 						redisClient.hset(team, 'premLeft', newPremium);	
 						// client.emit('updatePremiumValue', newPremium);
 						redisClient.hgetall(team, function(err, object) {
-							console.log("flagBeingSentFromPremiumBtnOnClick = 1\n" + object.premLeft + "\nEND 117Sabari\n");
+							// console.log("flagBeingSentFromPremiumBtnOnClick = 1\n" + object.premLeft + "\nEND 117Sabari\n");
 						});
 					}
 				});
