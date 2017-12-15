@@ -659,6 +659,7 @@ io.on('connection', function(client) {
 			redisClient.hset(key, 'bidFlag', 0);
 		}
 		client.broadcast.emit('stopBidding', 'Disable bidding');
+		//data.redirect(307, '/gamemaster/selection');
 	});
 });
 

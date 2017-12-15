@@ -111,12 +111,16 @@
 				btn.classList.remove("bg-green");
 				btn.classList.add("bg-red");
 				socket.emit('startBidding', "Enable bid button");
+				btn.disabled = true;
+				setTimeout(function(){btn.disabled = false;},1000);
 			}
 			else{
 				btn.innerHTML = "START SLOT";
 				btn.classList.remove("bg-red");
 				btn.classList.add("bg-green");
 				socket.emit('stopBidding', "Disable bid and premium bid buttons");
+				btn.disabled = true;
+				setTimeout(function(){btn.disabled = false;},1000);
 			}			
 		}
 		socket.on('master-ranking', function(data) {
