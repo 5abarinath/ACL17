@@ -41,7 +41,7 @@
 		.image123 {
 		  display: block;
 		  width: 100%;
-		  height: 200px;
+		  height: 150px;
 		}
 
 		.overlay123 {
@@ -125,6 +125,11 @@
 				setTimeout(function(){btn.disabled = false;},1000);
 			}			
 		}
+
+
+		
+
+
 		socket.on('master-ranking', function(data) {
 			for(var i=0; i<=10; i+=2) {
 				if(data[i] == "aclteam1")
@@ -134,7 +139,7 @@
 				else if(data[i] == "aclteam3")
 					data[i] = "Fitness Mantras";
 				else if(data[i] == "aclteam4")
-					data[i] = "Maha Fast Champs";
+					data[i] = "Mahafast Champs";
 				else if(data[i] == "aclteam5")
 					data[i] = "JLV Agro";
 				else
@@ -153,7 +158,7 @@
 				else if(data.ranks[i] == "aclteam3")
 					data.ranks[i] = "Fitness Mantras";
 				else if(data.ranks[i] == "aclteam4")
-					data.ranks[i] = "Maha Fast Champs";
+					data.ranks[i] = "Mahafast Champs";
 				else if(data.ranks[i] == "aclteam5")
 					data.ranks[i] = "JLV Agro";
 				else
@@ -172,7 +177,7 @@
 				else if(data.ranks[i] == "aclteam3")
 					data.ranks[i] = "Fitness Mantras";
 				else if(data.ranks[i] == "aclteam4")
-					data.ranks[i] = "Maha Fast Champs";
+					data.ranks[i] = "Mahafast Champs";
 				else if(data.ranks[i] == "aclteam5")
 					data.ranks[i] = "JLV Agro";
 				else
@@ -390,16 +395,6 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					<div class="card">
 						<div class="body">
-							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="buttonClick();" id="the_only_btn">START SLOT</button>						
-						</div>
-					</div>
-					<div class="card">	
-						<div class="header">
-							<h2>
-								Ranking
-							</h2>
-						</div>
-						<div class="body">
 							<table id="mainTable" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -441,6 +436,12 @@
                                     </tr>
                                 </tbody>
                             </table>
+						</div>
+					</div>
+					<div class="card">
+						<div class="body">
+							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="buttonClick();" id="the_only_btn">START SLOT</button>
+							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="refreshPages();" id="refresh_pages_button">REFRESH PAGES</button>	
 						</div>
 					</div>
 				</div>
@@ -502,6 +503,8 @@
 							</div>
 						</div>
 					</div>
+
+
 				</div>
 				<!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<br><br><br><br><br><br><br>
@@ -523,13 +526,18 @@
 			else if(actualTeamRankingArray[i] == "aclteam3")
 				actualTeamRankingArray[i] = "Fitness Mantras";
 			else if(actualTeamRankingArray[i] == "aclteam4")
-				actualTeamRankingArray[i] = "Maha Fast Champs";
+				actualTeamRankingArray[i] = "Mahafast Champs";
 			else if(actualTeamRankingArray[i] == "aclteam5")
 				actualTeamRankingArray[i] = "JLV Agro";
 			else
 				actualTeamRankingArray[i] = "Sun Shiners";
 			document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
 			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
+		}
+
+
+		function refreshPages() {
+			socket.emit('refreshPages','Refresh Client Bidding Pages');
 		}
 	</script>
 

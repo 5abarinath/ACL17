@@ -149,7 +149,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	var sixthPlayerTeam = req.body.selectionSix;
 
 	//Adding Players to their respective Teams
-	let sql_player_assign = "UPDATE Players SET team_id = ? WHERE player_id = ?";
+	let sql_player_assign = "UPDATE Players SET team_id = ? WHERE player_id = ?"; 
 	connection.query(sql_player_assign,[firstPlayerTeam,firstPlayerID],function(err, result) {});
 	connection.query(sql_player_assign,[secondPlayerTeam,secondPlayerID],function(err, result) {});
 	connection.query(sql_player_assign,[thirdPlayerTeam,thirdPlayerID],function(err, result) {});
@@ -162,8 +162,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 		let playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID, fifthPlayerID, sixthPlayerID];
 		redisClient.hget("aclteam1", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[0]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 1, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -180,8 +180,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 		redisClient.hget("aclteam2", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[1]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 2, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -196,8 +196,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 		redisClient.hget("aclteam3", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[2]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 3, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -212,8 +212,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 		redisClient.hget("aclteam4", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[3]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 4, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -228,8 +228,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 		redisClient.hget("aclteam5", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[4]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 5, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -244,8 +244,8 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 
 		redisClient.hget("aclteam6", 'yourBid', function(err,result){
 			if(err) throw err;
-			let sql_player_price = "UPDATE Players SET price = ? WHERE player_id = ?";
-			connection.query(sql_player_price,[result,playerArray[5]],function(err1,result1){
+			let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
+			connection.query(sql_player_price,[result, 6, groupIdResp],function(err1,result1){
 				if(err1)throw err1;
 			});
 			let sql_bidding_entry = "INSERT INTO Bidding(team_id, bid_price, group_id) VALUES(?, ?, ?)";
@@ -285,6 +285,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 		
 	});
 
+//client.broadcast.emit('refreshPage', 'Refresh Images and values');
 res.redirect(307, '/gamemaster/control');
 });
 
@@ -652,6 +653,8 @@ io.on('connection', function(client) {
 		client.broadcast.emit('startBidding', 'Enable bid button');
 	});
 
+
+
 	client.on('stopBidding', function(data) {
 		redisClient.set('currentBid', 0);
 		for(var i=1; i<=6; i++){
@@ -660,6 +663,11 @@ io.on('connection', function(client) {
 		}
 		client.broadcast.emit('stopBidding', 'Disable bidding');
 		//data.redirect(307, '/gamemaster/selection');
+	});
+
+
+	client.on('refreshPages',function(data){
+		client.broadcast.emit('refreshClients',"Refresh All Clients");
 	});
 });
 

@@ -202,10 +202,6 @@
 
 	<section class="content">
 		<div class="container-fluid">
-			<div class="block-header">
-				<h2>DASHBOARD</h2>
-			</div>
-
 			<!-- Widgets -->
 			<div class="row clearfix">
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -304,7 +300,7 @@
 					<div class="card">
 						<div class="body">
 							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;">BID</button>
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="false">PREMIUM BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;" disabled="false">PREMIUM BID</button>
 						</div>
 					</div>
 					<div class="card">
@@ -594,6 +590,14 @@
 				bbtn.classList.add("bg-red");
 			});
 
+
+			socket.on('refreshClients',function(data){
+				var teamID = parseInt(getCookie("teamToken"));
+				document.body.innerHTML += '<form id="dynForm" action="/bidding" method="post"><input type="hidden" id="dummyinput" name="q" value="a"></form>';
+				document.getElementById("dummyinput").value=teamID;
+				document.getElementById("dynForm").submit();
+			});
+
 			socket.on('stopBidding', function(data) {
 				var bbtn = document.getElementById("bidBtn");
 				var pbtn = document.getElementById("premiumBidBtn");
@@ -608,6 +612,7 @@
 					pbtn.classList.add("bg-grey");
 				}
 			});
+
 	</script>
 
 <script>

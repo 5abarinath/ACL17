@@ -1,7 +1,7 @@
 T0-DO ACL
 
 1. Check null values on bidding page load (Done)
-2. Wait three seconds after start slot	(SL)
+2. Wait three seconds after start slot	(Done)
 3. Premium not tallying	(Fixed) (Problem caused because saif was a lazy ass during testing)
 4. Caption images	(Done) 
 5. Sound Effects	(SL)
