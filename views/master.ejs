@@ -106,6 +106,8 @@
 		var socket = io('localhost:3000');
 		function buttonClick() {
 			var btn = document.getElementById("the_only_btn");
+			document.getElementById('sound1').play();
+			document.getElementById('sound1').currentTime = 0;
 			if(btn.innerHTML == "START SLOT"){
 				btn.innerHTML = "END SLOT";
 				btn.classList.remove("bg-green");
@@ -184,6 +186,8 @@
 </head>
 
 <body class="theme-red">
+
+	<audio id="sound1" src="../sounds/startEndSlot.mp3" preload="auto"></audio>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
 		<div class="loader">
@@ -289,10 +293,6 @@
 
 	<section class="content">
 		<div class="container-fluid">
-			<div class="block-header">
-				<h2>DASHBOARD</h2>
-			</div>
-
 			<!-- Widgets -->
 			<div class="row clearfix">
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">

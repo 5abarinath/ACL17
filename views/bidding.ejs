@@ -88,6 +88,7 @@
 
 <body class="theme-red">
 	
+	<audio id="sound1" src="../sounds/bidbtn.mp3" preload="auto"></audio>
 
 	<style>
 		.sidebar .user-info-lol {
@@ -304,7 +305,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					<div class="card">
 						<div class="body">
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false">BID</button>
+							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;">BID</button>
 							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" disabled="false">PREMIUM BID</button>
 						</div>
 					</div>
