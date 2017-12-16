@@ -2490,7 +2490,7 @@ section.content {
   -ms-border-radius: 2px;
   border-radius: 2px;
   border: none;
-  font-size: 13px;
+  font-size: 15px;
   outline: none; }
   .btn:not(.btn-link):not(.btn-circle):hover {
     outline: none; }
@@ -4543,7 +4543,8 @@ section.content {
 .table tbody tr td, .table tbody tr th {
   padding: 10px;
   border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee; }
+  border-bottom: 1px solid #eee;
+  font-size: 17px }
 
 .table tbody tr.primary td, .table tbody tr.primary th {
   background-color: #1f91f3;
@@ -4567,7 +4568,8 @@ section.content {
 
 .table thead tr th {
   padding: 10px;
-  border-bottom: 1px solid #eee; }
+  border-bottom: 1px solid #eee; 
+  font-size: 18px}
 
 .table-bordered {
   border-top: 1px solid #eee; }
@@ -7539,7 +7541,7 @@ fieldset[disabled] .form-control {
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
-        font-size: 14px;
+        font-size: 20px;
         max-width: 200px;
         color: #fff; }
       .sidebar .user-info .info-container .email {
