@@ -146,7 +146,7 @@
 					data[i] = "Sun Shiners";
 				document.getElementById("team"+i).innerHTML = data[i];
 				document.getElementById("price"+i).innerHTML = data[i+1];
-				document.getElementById("div-currBid").innerHTML = data.currentBid;
+				document.getElementById("div-currBid").innerHTML = data[1];
 			}
 		});	
 		socket.on('bidBtnClicked', function(data) {

@@ -53,7 +53,7 @@ app.post('/gamemaster/control', function(req, res) {
 
 		connection.query(sql_group_data, [round], function(err1, results1) {
 			if(err1) throw err1;
-
+			console.log("TAG : Saif "+results1);
 			var grp_name = results1[0].group_name;
 			var grp_desc = results1[0].group_desc;
 			var base_bid = results1[0].base_bid;
@@ -628,6 +628,12 @@ io.on('connection', function(client) {
 
 		// console.log('TAG:VISHVA after login socket' + firstBid);
 
+		redisClient.get('currentBid', function(err, reply) {
+			if(parseInt(firstBid) > parseInt(reply)){
+				redisClient.set('currentBid', firstBid);
+			}
+		});
+
 		let key = "aclteam" + teamID;
 
 		redisClient.zadd('aclTeamRanks', firstBid, key);
@@ -636,12 +642,6 @@ io.on('connection', function(client) {
 		});
 
 		redisClient.hset(key, 'yourBid', firstBid);
-
-		redisClient.get('currentBid', function(err, reply) {
-			if(parseInt(firstBid) > parseInt(reply)){
-				redisClient.set('currentBid', firstBid);
-			}
-		});
 	});
 
 	client.on('startBidding', function(data) {
