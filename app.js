@@ -53,7 +53,6 @@ app.post('/gamemaster/control', function(req, res) {
 
 		connection.query(sql_group_data, [round], function(err1, results1) {
 			if(err1) throw err1;
-			console.log("TAG : Saif "+results1);
 			var grp_name = results1[0].group_name;
 			var grp_desc = results1[0].group_desc;
 			var base_bid = results1[0].base_bid;
