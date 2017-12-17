@@ -37,6 +37,12 @@
 	<!-- Jquery Core Js -->
 	<script src="../plugins/jquery/jquery.min.js"></script>
 
+	<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById('sound1').play();
+		}
+	</script>
+
 	<style type="text/css">
 	.container1 {
 		position: relative;
@@ -113,6 +119,8 @@
 </head>
 
 <body class="theme-red">
+
+	<audio id="sound1" src="../sounds/startEndSlot.mp3" preload="auto"></audio>
 	<!-- Page Loader -->
 	<div class="page-loader-wrapper">
 		<div class="loader">
