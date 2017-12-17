@@ -37,7 +37,7 @@ node_modules/
 jspm_packages/
 
 #image resources
-public/images/
+#public/images/
 
 # Typescript v1 declaration files
 typings/
