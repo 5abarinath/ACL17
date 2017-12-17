@@ -134,13 +134,13 @@ h2
 }
 .select-field:after 
 {
-  content: ""
+  content: "";
   width:0px;
   height: 0px;
   border-top: 1px solid #fff;
   border-left: 9px solid transparent;
   position: absolute;
-  top: 20px
+  top: 20px;
   background-color: #222;
 
 }

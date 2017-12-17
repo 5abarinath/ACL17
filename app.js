@@ -307,7 +307,7 @@ app.post('/gamemaster/teamsummary',function(req,res){
 			connection.query(sql_team_members,['3'],function(err3,result3){
 				if(err3)throw err3;
 				var player_object3 = result3;
-				//For Maha Fast Champs
+				//For MahaFast Champs
 				connection.query(sql_team_members,['4'],function(err4,result4){
 					if(err4)throw err4;
 					var player_object4 = result4;
