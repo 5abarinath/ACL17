@@ -275,18 +275,14 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 				redisClient.set('currentBid', baseBidForNextRound + 5000);
 			});
 		});
-
-		redisClient.zrevrange('aclTeamRanks', 0, 15000000, "withscores", function(err30, reply30){
-			// console.log("TAG:117 By: Sabari Inside: /gamemaster/assignPlayers \n" + reply30);
-			// console.log("End log 117");
-		});
-
-
-		
 	});
 
-//client.broadcast.emit('refreshPage', 'Refresh Images and values');
-res.redirect(307, '/gamemaster/control');
+	redisClient.get('currentRound', function(err, reply) {
+		if(parseInt(reply) < 15) 
+			res.redirect(307, '/gamemaster/control');
+		else 
+			res.redirect(307, '/gamemaster/teamsummary');
+	});
 });
 
 
@@ -661,7 +657,7 @@ io.on('connection', function(client) {
 			key = "aclteam" + i;
 			redisClient.hset(key, 'bidFlag', 0);
 		}
-		client.broadcast.emit('stopBidding', 'Disable bidding');
+		io.sockets.emit('stopBidding', 'Disable bidding');
 		//data.redirect(307, '/gamemaster/selection');
 	});
 

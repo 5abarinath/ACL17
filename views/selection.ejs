@@ -31,6 +31,12 @@
 	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 	<link href="../css/themes/all-themes.css" rel="stylesheet" />
 
+	<!-- Swal Js. We can use all swals for user interaction -->
+	<script src="../plugins/sweetalert/dist/sweetalert.min.js"></script>
+
+	<!-- Jquery Core Js -->
+	<script src="../plugins/jquery/jquery.min.js"></script>
+
 	<style type="text/css">
 	.container1 {
 		position: relative;
@@ -177,7 +183,7 @@
 	<!-- #END# Left Sidebar -->
 
 </section>
-<form method="POST" action="/gamemaster/assignPlayers">
+<form method="POST" action="/gamemaster/assignPlayers" id="selectPlayers">
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row clearfix">
@@ -191,6 +197,7 @@
 					<input type="hidden" name="player4" value="<%= player_obj[3].player_id %>"/>
 					<input type="hidden" name="player5" value="<%= player_obj[4].player_id %>"/>
 					<input type="hidden" name="player6" value="<%= player_obj[5].player_id %>"/>
+
 					<div class="body">
 						<div id="gallery-images" class="list-unstyled row clearfix">
 							<div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
@@ -322,7 +329,7 @@
 								<button class="btn btn-block bg-red waves-effect" type="submit" style="width: 60;">SUBMIT</button>
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-							</div>
+							</div>	
 						</div>
 					</div>
 				</div>
@@ -397,11 +404,34 @@
 			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
 		}
 	</script>
-	
-	
 
-	<!-- Jquery Core Js -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+	<script>
+		document.querySelector("#selectPlayers").addEventListener('submit', function(e) {
+			e.preventDefault();
+			var form = this;
+			
+    		swal({
+        		title: "Are you sure?",
+        		text: "You will not be able to undo this action!",
+        		icon: "warning",
+        		buttons: true,
+				dangerMode: true
+			})
+			.then((isConfirm) => {
+				if(isConfirm) {
+					swal({
+                		title: 'Alloted!',
+                		text: 'Players are successfully alloted!',
+                		icon: 'success'
+					});
+					form.submit();
+				}
+				else {
+            		swal("Cancelled", "Players not alloted!", "error");
+        		}
+			});
+		});
+	</script>
 
 	<!-- Bootstrap Core Js -->
 	<script src="../plugins/bootstrap/js/bootstrap.js"></script>

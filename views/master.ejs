@@ -74,7 +74,7 @@
 		  -ms-transform: translate(-50%, -50%);
 		}
 
-		.caption: {
+		.caption {
   			white-space: nowrap; 
 		    background-color: #000000;
 		    color: white;
@@ -97,7 +97,7 @@
 
 		figcaption {
 			font-size: 18px;
-			padding-top: : 10px;
+			padding-top: 10px;
 			background-color: #1a1a1a;
 			color: #ffffff;
 		}
@@ -126,9 +126,21 @@
 			}			
 		}
 
+		socket.on('stopBidding', function(data) {
+			var selectionForm = document.createElement("form");
+			selectionForm.setAttribute("method", "POST");
+			selectionForm.setAttribute("action", "/gamemaster/selection");
 
-		
+			var hiddenField = document.createElement("input");
+			hiddenField.setAttribute("type", "hidden");
+			hiddenField.setAttribute("name", "token");
+			hiddenField.setAttribute("value", "gamemaster");
 
+			selectionForm.appendChild(hiddenField);
+
+			document.body.appendChild(selectionForm);
+			selectionForm.submit();
+		});
 
 		socket.on('master-ranking', function(data) {
 			for(var i=0; i<=10; i+=2) {

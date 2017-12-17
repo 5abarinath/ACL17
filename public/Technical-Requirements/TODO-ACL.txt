@@ -1,4 +1,3 @@
-Antares01
 T0-DO ACL
 
 1. Check null values on bidding page load (Done)
@@ -9,7 +8,7 @@ T0-DO ACL
 6. Icon Changes for indicators (Done)
 7. New Page : Retrieval. (SL)
 8. Remove Team Owner and increase team logo size. 
-9. Font sizes everywhere. 
+9. Font sizes everywhere.
 
 
 Maha Fast becomes MahaFast
@@ -20,6 +19,7 @@ Offline
 After rnd 14 redirect to summary
 Sas2 removed , sas3=sar3 , ma1 image today
 Group2 images today
+Change redirection code in app.js (/gamemaster/assignplayers) to 16 rounds
 
 1. JAR1
 2. SAR2
