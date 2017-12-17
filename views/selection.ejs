@@ -423,8 +423,10 @@
                 		title: 'Alloted!',
                 		text: 'Players are successfully alloted!',
                 		icon: 'success'
+					})
+					.then((isConfirm) => {
+						form.submit();
 					});
-					form.submit();
 				}
 				else {
             		swal("Cancelled", "Players not alloted!", "error");
