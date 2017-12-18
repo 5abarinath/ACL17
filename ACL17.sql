@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2017 at 12:43 PM
+-- Generation Time: Dec 18, 2017 at 08:34 PM
 -- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -93,7 +93,9 @@ INSERT INTO `Groups` (`group_id`, `group_name`, `group_desc`, `base_bid`, `max_b
 (10, 'SAR - 1', 'Senior All Rounders - 1', 90000, 105000),
 (11, 'JAS', 'Junior Assets', 40000, 50000),
 (12, 'SBT - 2', 'Senior Batsmen', 70000, 90000),
-(13, 'JAR - 2', 'Junior All Rounders - 2', 90000, 105000);
+(13, 'JAR - 2', 'Junior All Rounders - 2', 90000, 105000),
+(14, 'MA - 1', 'Mixed Assets - 1', 90000, 105000),
+(15, 'SAR - 3', 'Senior All Rounders - 3', 90000, 105000);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,7 @@ INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, 
 (6, 1, 'Yash', 'Gupta', 'images/players/Juniors/JAR1/6.png', 0, 0),
 (7, 2, 'Anand', 'Agarwal', 'images/players/Seniors/SAR2/1.png', 0, 0),
 (8, 2, 'Anil', 'Agarwal', 'images/players/Seniors/SAR2/2.png', 0, 0),
-(9, 2, 'Dinesh', 'Agarwal', 'images/players/Seniors/SAR2/3.png', 0, 0),
+(9, 2, 'Vijay', 'Garg', 'images/players/Seniors/SAR2/3.png', 0, 0),
 (10, 2, 'Rajesh', 'Agarwal', 'images/players/Seniors/SAR2/4.png', 0, 0),
 (11, 2, 'Vikas', 'Bansal', 'images/players/Seniors/SAR2/5.png', 0, 0),
 (12, 3, 'Narendra', 'Agarwal', 'images/players/Seniors/SAS1/1.png', 0, 0),
@@ -133,7 +135,7 @@ INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, 
 (15, 3, 'Surendra', 'Garg', 'images/players/Seniors/SAS1/4.png', 0, 0),
 (16, 3, 'Suresh', 'Mittal', 'images/players/Seniors/SAS1/5.png', 0, 0),
 (17, 3, 'Suresh', 'Agarwal', 'images/players/Seniors/SAS1/6.png', 0, 0),
-(18, 2, 'Saif', 'Lakhani', 'images/players/Seniors/SAR2/6', 0, 0),
+(18, 2, 'Anand', 'Mittal', 'images/players/Seniors/SAR2/6.png', 0, 0),
 (19, 4, 'Akash', 'Agarwal', 'images/players/Juniors/JBT1/1.png', 0, 0),
 (20, 4, 'Ankush', 'Agarwal', 'images/players/Juniors/JBT1/2.png', 0, 0),
 (21, 4, 'Hiten', 'Agarwal', 'images/players/Juniors/JBT1/3.png', 0, 0),
@@ -159,15 +161,15 @@ INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, 
 (41, 7, 'Ritesh', 'Agarwal', 'images/players/Juniors/JAR3/5.png', 0, 0),
 (42, 7, 'Vinay', 'Gupta', 'images/players/Juniors/JAR3/6.png', 0, 0),
 (43, 8, 'Sanjay', 'Goel', 'images/players/Seniors/SBT1/5.png', 0, 0),
-(44, 8, 'Rajesh', 'Mittal', 'images/players/Seniors/SBT1/2.png', 0, 0),
+(44, 8, 'Dr. Rajesh', 'Mittal', 'images/players/Seniors/SBT1/2.png', 0, 0),
 (45, 8, 'Sandeep', 'Jain', 'images/players/Seniors/SBT1/3.png', 0, 0),
 (46, 8, 'Sanjay', 'Bansal', 'images/players/Seniors/SBT1/4.png', 0, 0),
-(47, 8, 'Amit', 'Gupta', 'images/players/Seniors/SBT1/1.png', 0, 0),
+(47, 8, 'Ashok', 'Mittal', 'images/players/Seniors/SBT1/1.png', 0, 0),
 (48, 8, 'Vijay', 'Garg', 'images/players/Seniors/SBT1/6.png', 0, 0),
 (49, 9, 'Ishaan', 'Garg', 'images/players/Juniors/JBW/1.png', 0, 0),
 (50, 9, 'Kapil', 'Agarwal', 'images/players/Juniors/JBW/2.png', 0, 0),
 (51, 9, 'Rohit', 'Goyal', 'images/players/Juniors/JBW/3.png', 0, 0),
-(52, 9, 'Shubham', 'Garg', 'images/players/Juniors/JBW/4.png', 0, 0),
+(52, 9, 'Sunny', 'Gupta', 'images/players/Juniors/JBW/4.png', 0, 0),
 (53, 9, 'Vipul', 'Gupta', 'images/players/Juniors/JBW/5.png', 0, 0),
 (54, 9, 'Yash', 'Mittal', 'images/players/Juniors/JBW/6.png', 0, 0),
 (55, 10, 'Amul', 'Agarwal', 'images/players/Seniors/SAR1/1.png', 0, 0),
@@ -179,10 +181,10 @@ INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, 
 (61, 11, 'Aman', 'Agarwal', 'images/players/Juniors/JAS/1.png', 0, 0),
 (62, 11, 'Pratik', 'Agarwal', 'images/players/Juniors/JAS/2.png', 0, 0),
 (63, 11, 'Rituj', 'Agarwal', 'images/players/Juniors/JAS/3.png', 0, 0),
-(64, 11, 'Shounak', 'Agarwal', 'images/players/Juniors/JAS/4.png', 0, 0),
-(65, 11, 'Sunny', 'Gupta', 'images/players/Juniors/JAS/5.png', 0, 0),
+(64, 11, 'Pradeep', 'Agarwal', 'images/players/Juniors/JAS/4.png', 0, 0),
+(65, 11, 'Shubham', 'Garg', 'images/players/Juniors/JAS/5.png', 0, 0),
 (66, 11, 'Yash', 'Mittal', 'images/players/Juniors/JAS/6.png', 0, 0),
-(67, 12, 'Ashok', 'Mittal', 'images/players/Seniors/SBT2/1.png', 0, 0),
+(67, 12, 'Amit', 'Gupta', 'images/players/Seniors/SBT2/1.png', 0, 0),
 (68, 12, 'Mahendra', 'Goyal', 'images/players/Seniors/SBT2/2.png', 0, 0),
 (69, 12, 'Mohan', 'Gupta', 'images/players/Seniors/SBT2/3.png', 0, 0),
 (70, 12, 'Mukesh', 'Agarwal', 'images/players/Seniors/SBT2/4.png', 0, 0),
@@ -193,7 +195,19 @@ INSERT INTO `Players` (`player_id`, `group_id`, `player_fname`, `player_lname`, 
 (75, 13, 'Punit', 'Agarwal', 'images/players/Juniors/JAR2/3.png', 0, 0),
 (76, 13, 'Ritesh', 'Agarwal', 'images/players/Juniors/JAR2/4.png', 0, 0),
 (77, 13, 'Rohan', 'Goel', 'images/players/Juniors/JAR2/5.png', 0, 0),
-(78, 13, 'Varun', 'Mittal', 'images/players/Juniors/JAR2/6.png', 0, 0);
+(78, 13, 'Varun', 'Mittal', 'images/players/Juniors/JAR2/6.png', 0, 0),
+(79, 14, 'Devesh', 'Agarwal', 'images/players/Mixed/MA1/1.png', 0, 0),
+(80, 14, 'Hrithik', 'Mittal', 'images/players/Mixed/MA1/2.png', 0, 0),
+(81, 14, 'Krishant', 'Agarwal', 'images/players/Mixed/MA1/3.png', 0, 0),
+(82, 14, 'Mayank', 'Garg', 'images/players/Mixed/MA1/4.png', 0, 0),
+(83, 14, 'Mohanlal', 'Agarwal', 'images/players/Mixed/MA1/5.png', 0, 0),
+(84, 14, 'Pravin', 'Agarwal', 'images/players/Mixed/MA1/6.png', 0, 0),
+(85, 15, 'Ajay', 'Agarwal', 'images/players/Seniors/SAR3/1.png', 0, 0),
+(86, 15, 'Amithabh', 'Agarwal', 'images/players/Seniors/SAR3/2.png', 0, 0),
+(87, 15, 'Dilip', 'Gupta', 'images/players/Seniors/SAR3/3.png', 0, 0),
+(88, 15, 'Dinesh', 'Agarwal', 'images/players/Seniors/SAR3/4.png', 0, 0),
+(89, 15, 'Satpal', 'Mittal', 'images/players/Seniors/SAR3/5.png', 0, 0),
+(90, 15, 'Vinod', 'Gupta', 'images/players/Seniors/SAR3/6.png', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -231,14 +245,12 @@ ALTER TABLE `Players`
 -- AUTO_INCREMENT for table `Bidding`
 --
 ALTER TABLE `Bidding`
-  MODIFY `bid_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
-
+  MODIFY `bid_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 --
 -- AUTO_INCREMENT for table `Players`
 --
 ALTER TABLE `Players`
-  MODIFY `player_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
-COMMIT;
+  MODIFY `player_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
