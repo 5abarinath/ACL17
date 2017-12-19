@@ -260,7 +260,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 		redisClient.zrevrange('aclTeamRanks', 0, 15000000, function(err2, rankingArray) {
 			if(err2) throw err2;
 			var nextRound = parseInt(groupIdResp) + 1;
-			console.log("TAG: 1Sabari Next Round:" + nextRound);
+			// console.log("TAG: 1Sabari Next Round:" + nextRound);
 			let sql_group_base_bid = "SELECT base_bid FROM Groups WHERE group_id = ?";
 			connection.query(sql_group_base_bid, [nextRound], function(err50, reply50){
 				var baseBidForNextRound = reply50[0].base_bid;
@@ -268,9 +268,9 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 					var teamCodeInSortedSet = rankingArray[i];
 					redisClient.zadd('aclTeamRanks', baseBidForNextRound + i * 1000, teamCodeInSortedSet);
 					redisClient.hset(teamCodeInSortedSet, 'yourBid', baseBidForNextRound + i * 1000);
-					console.log(teamCodeInSortedSet + " " + baseBidForNextRound + i * 1000);
+					// console.log(teamCodeInSortedSet + " " + baseBidForNextRound + i * 1000);
 				}
-				console.log("End 1Sabari");
+				// console.log("End 1Sabari");
 				redisClient.set('currentBid', baseBidForNextRound + 5000);
 			});
 		});
