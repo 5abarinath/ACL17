@@ -277,7 +277,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	});
 
 	redisClient.get('currentRound', function(err, reply) {
-		if(parseInt(reply) < 15) 
+		if(parseInt(reply) < 15)
 			res.redirect(307, '/gamemaster/control');
 		else 
 			res.redirect(307, '/gamemaster/teamsummary');

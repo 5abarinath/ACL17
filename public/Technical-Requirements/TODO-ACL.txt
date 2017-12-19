@@ -16,7 +16,6 @@ Dollar ko rupee
 Compress images
 Equate the min and max jar1  125000
 Offline
-After rnd 14 redirect to summary
 Sas2 removed , sas3=sar3 , ma1 image today
 Group2 images today
 Change redirection code in app.js (/gamemaster/assignplayers) to 16 rounds
