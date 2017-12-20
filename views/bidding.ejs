@@ -46,7 +46,6 @@
 		.image123 {
 			display: block;
 			width: 100%;
-			/* height: 200px; */
 		}
 
 		.overlay123 {
@@ -603,14 +602,10 @@
 				var pbtn = document.getElementById("premiumBidBtn");
 				bbtn.disabled = true;
 				pbtn.disabled = true;
-				if(bbtn.className == "bg-red") {
-					bbtn.classList.remove("bg-red");
-					bbtn.classList.add("bg-grey");
-				}
-				if(pbtn.className == "bg-red") {
-					pbtn.classList.remove("bg-red");
-					pbtn.classList.add("bg-grey");
-				}
+				bbtn.classList.remove("bg-red");
+				bbtn.classList.add("bg-grey");
+				pbtn.classList.remove("bg-red");
+				pbtn.classList.add("bg-grey");
 			});
 
 	</script>

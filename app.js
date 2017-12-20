@@ -279,7 +279,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	redisClient.get('currentRound', function(err, reply) {
 		if(parseInt(reply) < 15)
 			res.redirect(307, '/gamemaster/control');
-		else 
+		else
 			res.redirect(307, '/gamemaster/teamsummary');
 	});
 });
@@ -478,19 +478,21 @@ app.post('/bidding', function(req, res) {
 													disableBtn: disableBtn
 												});
 											}
-											res.render('bidding.ejs', {
-												currentRound: currRound,
-												group_object: grp_obj,
-												team_object: team_obj,
-												player_object: player_obj,
-												current_bid: currBid,
-												rank: teamRank,
-												your_bid: yourBid,
-												teamRankings: reply3,
-												premiumFlag: prem_flag,
-												bidFlag: teamObject.bidFlag,
-												disableBtn: disableBtn
-											});
+											else {
+												res.render('bidding.ejs', {
+													currentRound: currRound,
+													group_object: grp_obj,
+													team_object: team_obj,
+													player_object: player_obj,
+													current_bid: currBid,
+													rank: teamRank,
+													your_bid: yourBid,
+													teamRankings: reply3,
+													premiumFlag: prem_flag,
+													bidFlag: teamObject.bidFlag,
+													disableBtn: disableBtn
+												});
+											}
 										});
 									});
 								});
