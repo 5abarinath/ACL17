@@ -46,7 +46,10 @@ app.post('/gamemaster/control', function(req, res) {
 	let sql_net_expense = "SELECT SUM(bid_price) AS net_bid FROM Bidding";
 	let sql_prem_spent = "SELECT SUM(premium_left) AS net_prem FROM Bidders";
 	connection.query(sql_round_count, function(err, results) {
-		if(err) throw err;
+		if(err) {
+			console.log(err);
+			throw err;
+		}
 
 		var round = (results[0].no_of_rounds/6)+1;
 		redisClient.set('currentRound', round);
@@ -64,7 +67,6 @@ app.post('/gamemaster/control', function(req, res) {
 			connection.query(sql_player_data, [round], function(err2, results2) {
 				if(err2) throw err2;
 				var plyr_obj = results2;
-
 				connection.query(sql_net_expense,function(err3,reply3){
 					if(err3) throw err3;
 					var net_expense = reply3[0].net_bid;
@@ -155,7 +157,7 @@ app.post('/gamemaster/assignPlayers', function(req,res){
 	connection.query(sql_player_assign,[fourthPlayerTeam,fourthPlayerID],function(err, result) {});
 	connection.query(sql_player_assign,[fifthPlayerTeam,fifthPlayerID],function(err, result) {});
 	connection.query(sql_player_assign,[sixthPlayerTeam,sixthPlayerID],function(err, result) {});
-
+	
 	//Updating Players with the prices.
 	redisClient.get('currentRound', function(err20, groupIdResp) {
 		let playerArray = [firstPlayerID, secondPlayerID, thirdPlayerID, fourthPlayerID, fifthPlayerID, sixthPlayerID];
@@ -659,6 +661,7 @@ io.on('connection', function(client) {
 			redisClient.hset(key, 'bidFlag', 0);
 		}
 		io.sockets.emit('stopBidding', 'Disable bidding');
+		commitPremiumsToDatabase();
 		//data.redirect(307, '/gamemaster/selection');
 	});
 
@@ -667,6 +670,40 @@ io.on('connection', function(client) {
 		client.broadcast.emit('refreshClients',"Refresh All Clients");
 	});
 });
+
+function commitPremiumsToDatabase(){
+	redisClient.hget("aclteam1",'premLeft',function(err,result){
+		if(err) throw err;
+		console.log("Premium left for player 1 --> "+result)
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,1],function(err2,res2){});
+	});
+	redisClient.hget("aclteam2",'premLeft',function(err,result){
+		if(err) throw err;
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,2],function(err2,res2){});
+	});
+	redisClient.hget("aclteam3",'premLeft',function(err,result){
+		if(err) throw err;
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,3],function(err3,res3){});
+	});
+	redisClient.hget("aclteam4",'premLeft',function(err,result){
+		if(err) throw err;
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,4],function(err4,res4){});
+	});
+	redisClient.hget("aclteam5",'premLeft',function(err,result){
+		if(err) throw err;
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,5],function(err5,res5){});
+	});
+	redisClient.hget("aclteam6",'premLeft',function(err,result){
+		if(err) throw err;
+		let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
+		connection.query(sql_prem_left,[result,6],function(err6,res6){});
+	});
+}
 
 // Start server
 server.listen(port, () => {
