@@ -1,0 +1,20 @@
+Changes for now:
+1. Captains round is blocked. - No selection
+2. In case browser crashes, app should restart in last stored state.
+3. UI Changes:
+    3.1 Header year Changes*
+    3.2 Nav menu year Change*
+    3.3 Add ACL and Ace logo to header*
+    3.4 Login page change year*
+    3.5 Title of pages*
+    3.6 Favicon*
+4. Reset db.sql
+
+
+* - in gamemaster pages too
+
+
+Future:
+1. Clean app.js
+2. Move functionality of "Refresh Pages" to "Submit" in selection phase.
+3. Players table should have a "reserved".

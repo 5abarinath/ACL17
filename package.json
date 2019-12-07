@@ -4,6 +4,7 @@
   "description": "An auction software made for the bidding of players in an annual cricketing tournament called Ace Cricket League.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

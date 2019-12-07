@@ -62,3 +62,6 @@ typings/
 
 #DS Store
 .DS_Store
+
+# Nodeenv directory
+env/
