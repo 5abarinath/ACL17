@@ -703,7 +703,7 @@ function commitPremiumsToDatabase(){
 								throw err;
 							}
 							let sql_prem_left = "UPDATE Bidders SET premium_left = ELT(team_id, ?, ?, ?, ?, ?, ?) WHERE team_id IN (1, 2, 3, 4, 5, 6);"; 
-							connection.query(sql_prem_left, [resul1, result2, result3, result4, result5, result6], function(err, sqlResult) {
+							connection.query(sql_prem_left, [result1, result2, result3, result4, result5, result6], function(err, sqlResult) {
 								if(err) throw err;
 							});
 						});
