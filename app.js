@@ -712,37 +712,6 @@ function commitPremiumsToDatabase(){
 			});
 		});
 	});
-	// redisClient.hget("aclteam1",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	console.log("Premium left for player 1 --> "+result)
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,1],function(err2,res2){});
-	// });
-	// redisClient.hget("aclteam2",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,2],function(err2,res2){});
-	// });
-	// redisClient.hget("aclteam3",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,3],function(err3,res3){});
-	// });
-	// redisClient.hget("aclteam4",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,4],function(err4,res4){});
-	// });
-	// redisClient.hget("aclteam5",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,5],function(err5,res5){});
-	// });
-	// redisClient.hget("aclteam6",'premLeft',function(err,result){
-	// 	if(err) throw err;
-	// 	let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
-	// 	connection.query(sql_prem_left,[result,6],function(err6,res6){});
-	// });
 }
 
 // Start server
