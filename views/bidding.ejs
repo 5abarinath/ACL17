@@ -2,732 +2,732 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>ACL '17</title>
-	<!-- Favicon-->
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>ACL '19</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<!-- Google Fonts -->
-	<link href="../css/fonts.css" rel="stylesheet" type="text/css">
-	<link href="../css/material-icons.css" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="../css/material-icons.css" rel="stylesheet" type="text/css">
 
-	<!-- Bootstrap Core Css -->
-	<link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-	<!-- Waves Effect Css -->
-	<link href="plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
 
-	<!-- Animation Css -->
-	<link href="plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="plugins/animate-css/animate.css" rel="stylesheet" />
 
-	<!-- Morris Chart Css-->
-	<link href="plugins/morrisjs/morris.css" rel="stylesheet" />
+    <!-- Morris Chart Css-->
+    <link href="plugins/morrisjs/morris.css" rel="stylesheet" />
 
-	<!-- Custom Css -->
-	<link href="css/style.css" rel="stylesheet">
+    <!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
 
-	<!-- Sweet Alert Plugin Js -->
+    <!-- Sweet Alert Plugin Js -->
     <script src="plugins/sweetalert/dist/sweetalert.min.js"></script>
 
-	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-	<link href="css/themes/all-themes.css" rel="stylesheet" />
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/all-themes.css" rel="stylesheet" />
 
-	<script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
-	<script src="js/cookies.js"></script>
+    <script src="js/cookies.js"></script>
 
-	<style type="text/css">
-		.container1 {
-			position: relative;
-		}
-
-		.image123 {
-			display: block;
-			width: 100%;
-		}
-
-		.overlay123 {
-			position: absolute;
-			bottom: 0;
-			opacity: 0.6;
-			left: 0;
-			right: 0;
-			background-color: #000000;
-			overflow: hidden;
-			width: 95%;
-			height: 15%;
-			transition: .5s ease;
-			margin-left: 5px;
-			margin-right: 5px;
-			margin-bottom: 5px;
-		}
-
-		.container1:hover .overlay123 {
-			height: 30%;
-		}
-
-		.text123 {
-			white-space: nowrap;
-			background-color: #000000;
-			color: white;
-			font-size: 16px;
-			position: absolute;
-			overflow: hidden;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			-ms-transform: translate(-50%, -50%);
-		}
-		
-	</style>
+    <style type="text/css">
+        .container1 {
+            position: relative;
+        }
+        
+        .image123 {
+            display: block;
+            width: 100%;
+        }
+        
+        .overlay123 {
+            position: absolute;
+            bottom: 0;
+            opacity: 0.6;
+            left: 0;
+            right: 0;
+            background-color: #000000;
+            overflow: hidden;
+            width: 95%;
+            height: 15%;
+            transition: .5s ease;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .container1:hover .overlay123 {
+            height: 30%;
+        }
+        
+        .text123 {
+            white-space: nowrap;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 
 
 
 <body class="theme-red">
-	
-	<audio id="sound1" src="../sounds/bidbtn.mp3" preload="auto"></audio>
 
-	<style>
-		.sidebar .user-info-lol {
-			padding: 13px 15px 12px 15px;
-			white-space: nowrap;
-			position: relative;
-			border-bottom: 1px solid #e9e9e9;
-			background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
-			height: 135px;
-		}
-	</style>
-	<!-- Page Loader -->
-	<div class="page-loader-wrapper">
-		<div class="loader">
-			<div class="preloader">
-				<div class="spinner-layer pl-red">
-					<div class="circle-clipper left">
-						<div class="circle"></div>
-					</div>
-					<div class="circle-clipper right">
-						<div class="circle"></div>
-					</div>
-				</div>
-			</div>
-			<p>Please wait...</p>
-		</div>
-	</div>
-	<!-- #END# Page Loader -->
-	<!-- Overlay For Sidebars -->
-	<div class="overlay"></div>
-	<!-- #END# Overlay For Sidebars -->
-	<!-- Search Bar -->
-	<div class="search-bar">
-		<div class="search-icon">
-			<i class="material-icons">search</i>
-		</div>
-		<input type="text" placeholder="START TYPING...">
-		<div class="close-search">
-			<i class="material-icons">close</i>
-		</div>
-	</div>
-	<!-- #END# Search Bar -->
-	<!-- Top Bar -->
-	<nav class="navbar">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-				<a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand">ACE CRICKET LEAGUE 2017</a>
-			</div>
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- #Top Bar -->
-	<section>
-		<!-- Left Sidebar -->
-		<aside id="leftsidebar" class="sidebar">
-			<!-- User Info -->
-			<div class="user-info" style="height: 200px">
-				<div>
-					<div class="image">
-						<img src="<%= team_object[0].team_logo%>" width="100" height="100" alt="User" />
-					</div>
-					<div class="info-container">
-						<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<%= team_object[0].team_name%>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- #User Info -->
-			<!-- Menu -->
-			<div class="menu">
-				<ul class="list">
-					<!-- <li class="header">MAIN NAVIGATION</li> -->
-					<li>
-						<a onClick="renderEjs('teamprofile', getCookie('teamToken'));">
-							<i class="material-icons">home</i>
-							<span>Team Profile</span>
-						</a>
-					</li>
-					<li class="active">
-						<a onClick="renderEjs('bidding', getCookie('teamToken'));">
-							<i class="material-icons">home</i>
-							<span>Bidding</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<!-- #Menu -->
-			<!-- Footer -->
-			<div class="legal">
-				<div class="copyright">
-					&copy; 2017
-					<a href="javascript:void(0);">Ace Cricket League</a>.
-				</div>
-				<div class="version">
-					<b>Version: </b> 1.0.0
-				</div>
-			</div>
-			<!-- #Footer -->
-		</aside>
-		<!-- #END# Left Sidebar -->
-	</section>
+    <audio id="sound1" src="../sounds/bidbtn.mp3" preload="auto"></audio>
 
-	<section class="content">
-		<div class="container-fluid">
-			<!-- Widgets -->
-			<div class="row clearfix">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-pink hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">place</i>
-						</div>
-						<div class="content">
-							<div class="text">CURRENT ROUND</div>
-							<div class="number count-to" data-from="0" data-to="<%= currentRound%>" data-speed="1000" data-fresh-interval="20" id="div-currRound"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-cyan hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">arrow_downward</i>
-						</div>
-						<div class="content">
-							<div class="text">BASE BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= group_object[0].base_bid%>" data-speed="1000" data-fresh-interval="20" id="div-baseBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-light-green hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">arrow_upward</i>
-						</div>
-						<div class="content">
-							<div class="text">MAXIMUM BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= group_object[0].max_bid%>" data-speed="1000" data-fresh-interval="20" id="div-maxBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-orange hover-expand-effect" id="bidIncrDiv">
-						<div class="icon">
-							<i class="material-icons">trending_up</i>
-						</div>
-						<div class="content">
-							<div class="text">BID INCREMENT</div>
-							<div class="number count-to" id="bidIncrVal" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-pink hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">credit_card</i>
-						</div>
-						<div class="content">
-							<div class="text">PREMIUM LEFT</div>
-							<div class="number count-to" data-from="0" data-to="<%= team_object[0].premium_left%>" data-speed="1000" data-fresh-interval="20" id="div-premLeft"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-cyan hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">flare</i>
-						</div>
-						<div class="content">
-							<div class="text">CURRENT BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20" id="div-currBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-light-green hover-expand-effect">
-						<div class="icon">
-							<center><img class="material-icons" align="middle" style="margin-top: 18px" src="../images/rupee.png"></center>
-						</div>
-						<div class="content">
-							<div class="text">YOUR BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= your_bid%>" data-speed="1000" data-fresh-interval="20" id="div-yourBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-orange hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">star</i>
-						</div>
-						<div class="content">
-							<div class="text">YOUR RANK</div>
-							<div class="number count-to" data-from="0" data-to="<%= rank%>" data-speed="1000" data-fresh-interval="20" id="div-yourRank"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- #END# Widgets -->
+    <style>
+        .sidebar .user-info-lol {
+            padding: 13px 15px 12px 15px;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid #e9e9e9;
+            background: url("../images/MahaFastChamps.png") no-repeat no-repeat;
+            height: 135px;
+        }
+    </style>
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand">ACE CRICKET LEAGUE 2019</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info" style="height: 200px">
+                <div>
+                    <div class="image">
+                        <img src="<%= team_object[0].team_logo%>" width="100" height="100" alt="User" />
+                    </div>
+                    <div class="info-container">
+                        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= team_object[0].team_name%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <!-- <li class="header">MAIN NAVIGATION</li> -->
+                    <li>
+                        <a onClick="renderEjs('teamprofile', getCookie('teamToken'));">
+                            <i class="material-icons">home</i>
+                            <span>Team Profile</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a onClick="renderEjs('bidding', getCookie('teamToken'));">
+                            <i class="material-icons">home</i>
+                            <span>Bidding</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2019
+                    <a href="javascript:void(0);">Ace Cricket League</a>.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 1.0.0
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+    </section>
 
-			<div class="row clearfix">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="card">
-						<div class="body">
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;">BID</button>
-							<button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;" disabled="false">PREMIUM BID</button>
-						</div>
-					</div>
-					<div class="card">
-						<div class="header">
-							<h2>
-								Ranking
-							</h2>
-						</div>
-						<div class="body table-responsive">
-							<table id="mainTable" class="table table-striped">
-								<thead>
-									<tr>
-										<th>Rank</th>
-										<th>Team</th>
-										<th>Bid</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td id="team0"></td>
-										<td id="price0"></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td id="team2"></td>
-										<td id="price2"></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td id="team4"></td>
-										<td id="price4"></td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td id="team6"></td>
-										<td id="price6"></td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td id="team8"></td>
-										<td id="price8"></td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td id="team10"></td>
-										<td id="price10"></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-					<div class="card">
-						<div class="header">
-							<h2 id="players-category">
-								<%= group_object[0].group_desc%> [
-									<%= group_object[0].group_name%>]
-							</h2>
-						</div>
-						<div class="body">
-							<div id="gallery-images" class="list-unstyled row clearfix">
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[0].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[0].player_fname +" "+ player_object[0].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[1].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[1].player_fname + " "+player_object[1].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[2].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[2].player_fname + " "+player_object[2].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[3].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[3].player_fname + " "+player_object[3].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[4].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[4].player_fname + " "+player_object[4].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<img class="thumbnail image123" src="<%= player_object[5].player_image%>">
-										<div class="overlay123">
-											<div class="text123">
-												<%= player_object[5].player_fname + " "+player_object[5].player_lname%>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Widgets -->
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">place</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CURRENT ROUND</div>
+                            <div class="number count-to" data-from="0" data-to="<%= currentRound%>" data-speed="1000" data-fresh-interval="20" id="div-currRound"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">BASE BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= group_object[0].base_bid%>" data-speed="1000" data-fresh-interval="20" id="div-baseBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">arrow_upward</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">MAXIMUM BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= group_object[0].max_bid%>" data-speed="1000" data-fresh-interval="20" id="div-maxBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect" id="bidIncrDiv">
+                        <div class="icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">BID INCREMENT</div>
+                            <div class="number count-to" id="bidIncrVal" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">credit_card</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PREMIUM LEFT</div>
+                            <div class="number count-to" data-from="0" data-to="<%= team_object[0].premium_left%>" data-speed="1000" data-fresh-interval="20" id="div-premLeft"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">flare</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CURRENT BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= current_bid%>" data-speed="1000" data-fresh-interval="20" id="div-currBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <center><img class="material-icons" align="middle" style="margin-top: 18px" src="../images/rupee.png"></center>
+                        </div>
+                        <div class="content">
+                            <div class="text">YOUR BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= your_bid%>" data-speed="1000" data-fresh-interval="20" id="div-yourBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">star</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">YOUR RANK</div>
+                            <div class="number count-to" data-from="0" data-to="<%= rank%>" data-speed="1000" data-fresh-interval="20" id="div-yourRank"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Widgets -->
 
-	<script>
-			var socket = io();
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <button type="button" class="btn bg-grey btn-block btn-lg waves-effect" style="height: 50px;" id="bidBtn" disabled="false" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;">BID</button>
+                            <button type="button" class="btn bg-grey btn-block btn-lg waves-effect" id="premiumBidBtn" style="height: 50px;" onclick="document.getElementById('sound1').play();document.getElementById('sound1').currentTime = 0;" disabled="false">PREMIUM BID</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Ranking
+                            </h2>
+                        </div>
+                        <div class="body table-responsive">
+                            <table id="mainTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Team</th>
+                                        <th>Bid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td id="team0"></td>
+                                        <td id="price0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td id="team2"></td>
+                                        <td id="price2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td id="team4"></td>
+                                        <td id="price4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td id="team6"></td>
+                                        <td id="price6"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td id="team8"></td>
+                                        <td id="price8"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td id="team10"></td>
+                                        <td id="price10"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2 id="players-category">
+                                <%= group_object[0].group_desc%> [
+                                    <%= group_object[0].group_name%>]
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div id="gallery-images" class="list-unstyled row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[0].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[0].player_fname +" "+ player_object[0].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[1].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[1].player_fname + " "+player_object[1].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[2].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[2].player_fname + " "+player_object[2].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[3].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[3].player_fname + " "+player_object[3].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[4].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[4].player_fname + " "+player_object[4].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <img class="thumbnail image123" src="<%= player_object[5].player_image%>">
+                                        <div class="overlay123">
+                                            <div class="text123">
+                                                <%= player_object[5].player_fname + " "+player_object[5].player_lname%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			var btnClickFlag = false, premiumBtnClickFlag = false;
-			document.getElementById("bidBtn").addEventListener("click", function() {
-				console.log(getCookie("teamToken"));
-				socket.emit('bidBtnClicked', getCookie("teamToken"));
-				btnClickFlag = true;
-			});
+    <script>
+        var socket = io();
 
-			document.getElementById("premiumBidBtn").addEventListener("click", function() {
-				var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
-				var HTMLTeamPrevBid = parseInt(document.getElementById("div-yourBid").innerHTML);
-				var HTMLCurrBid = parseInt(document.getElementById("div-currBid").innerHTML);
-				var HTMLMaxBid = parseInt(document.getElementById("div-maxBid").innerHTML);
+        var btnClickFlag = false,
+            premiumBtnClickFlag = false;
+        document.getElementById("bidBtn").addEventListener("click", function() {
+            console.log(getCookie("teamToken"));
+            socket.emit('bidBtnClicked', getCookie("teamToken"));
+            btnClickFlag = true;
+        });
 
-				if(HTMLTotalPremiumLeft == 0){
-					// alert("Not enough premium funds!");
-					swal('Oops...', 'Not enough premium funds!', 'error');
-				}
-				else if(HTMLTeamPrevBid < HTMLMaxBid){
-					var premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
-					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
-						// alert("Not enough premium funds!");
-						swal('Oops...', 'Not enough premium funds!', 'error');
-					}
-					else {
-						var jsObject = {teamId: getCookie("teamToken"), flag: 0};
-						socket.emit('premiumBidBtnClicked', jsObject);
-						var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
-						var newprem = prem - premiumSpent;
-						document.getElementById('div-premLeft').innerHTML = newprem;
-					}
-					
-				}
-				else if(HTMLTeamPrevBid >= HTMLMaxBid){
-					var premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
-					if((HTMLTotalPremiumLeft - premiumSpent) < 0){
-						// alert("Not enough premium funds!");
-						swal('Oops...', 'Not enough premium funds!', 'error');
-					}
-					else {
-						var jsObject = {teamId: getCookie("teamToken"), flag: 1};
-						socket.emit('premiumBidBtnClicked', jsObject);
-						var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
-						var newprem = prem - premiumSpent;
-						document.getElementById('div-premLeft').innerHTML = newprem;
-					}
-				}
-				// else if(HTMLTotalPremiumLeft > 0) {
-				// 	socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
-				// 	premiumBtnClickFlag = true;
-				// 	HTMLTotalPremiumLeft -= 2000;
-				// 	document.getElementById("div-premLeft").innerHTML = HTMLTotalPremiumLeft;
-				// }
-				// else
-				// 	alert("You do not have any premium amount left!");
-			});
-			
-			socket.on('bidBtnClicked',function(data) {
-				document.getElementById("div-currBid").innerHTML=data.currentBid;
-				if(btnClickFlag) {
-					document.getElementById("div-yourBid").innerHTML = data.currentBid;				
-					btnClickFlag = false;
-				}
-				if(data.disableFlag) {
-					var bbtn = document.getElementById("bidBtn");
-					bbtn.disabled = true;
-					bbtn.classList.remove("bg-red");
-					bbtn.classList.add("bg-grey");
-					var incrDiv = document.getElementById("bidIncrDiv");
-					var incrVal = document.getElementById("bidIncrVal");
-					incrVal.innerHTML = "2000";
-					incrDiv.classList.remove("bg-orange");
-					incrDiv.classList.add("bg-red");
-					var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
-					var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
-					if(TotalPremiumLeft < 2000 || HTMLTotalPremiumLeft < 2000)
-						swal('Oops...', 'Not enough premium funds!', 'error');
-					else {
-						var pbtn = document.getElementById("premiumBidBtn");
-						pbtn.disabled = false;
-						pbtn.classList.remove("bg-grey");
-						pbtn.classList.add("bg-red");
-					}
-				}
-				$('#mainTable tr').removeClass("bg-orange");
-				var j;
-				var currentTeam = "aclteam" + getCookie("teamToken");
-				for(j=0; j<=10; j+=2) {
-					if(data.ranks[j] == currentTeam) {
-						break;
-					}		
-				}
-				var rank = (j/2)+1;
-				document.getElementById('mainTable').rows[rank].className = "bg-orange";	
-				document.getElementById('div-yourRank').innerHTML = rank;
-				for(var i=0; i<=10; i+=2) {
-					if(data.ranks[i] == "aclteam1")
-						data.ranks[i] = "Aman Honda Ryders";
-					else if(data.ranks[i] == "aclteam2")
-						data.ranks[i] = "Ceratec Masters";
-					else if(data.ranks[i] == "aclteam3")
-						data.ranks[i] = "Fitness Mantras";
-					else if(data.ranks[i] == "aclteam4")
-						data.ranks[i] = "Mahafast Champs";
-					else if(data.ranks[i] == "aclteam5")
-						data.ranks[i] = "JLV Agro";
-					else
-						data.ranks[i] = "Sun Shiners";
-					document.getElementById("team"+i).innerHTML = data.ranks[i];
-					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
-				}	
-			});
+        document.getElementById("premiumBidBtn").addEventListener("click", function() {
+            var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
+            var HTMLTeamPrevBid = parseInt(document.getElementById("div-yourBid").innerHTML);
+            var HTMLCurrBid = parseInt(document.getElementById("div-currBid").innerHTML);
+            var HTMLMaxBid = parseInt(document.getElementById("div-maxBid").innerHTML);
 
-			socket.on('premiumBidBtnClicked', function(data) {
-				document.getElementById("div-currBid").innerHTML=data.currentBid;
-				// if(premiumBtnClickFlag) {
-				// 	document.getElementById("div-yourBid").innerHTML = data.currentBid;	
-				// 	var premLeft = document.getElementById			
-				// 	premuimBtnClickFlag = false;
-				// }
-				$('#mainTable tr').removeClass("bg-orange");
-				var j;
-				var currentTeam = "aclteam" + getCookie("teamToken");
-				for(j=0; j<=10; j+=2) {
-					if(data.ranks[j] == currentTeam)
-						break;
-				}
-				var rank = (j/2)+1;
-				document.getElementById('mainTable').rows[rank].className = "bg-orange";
-				document.getElementById('div-yourRank').innerHTML = rank;
-				document.getElementById('div-yourBid').innerHTML = data.ranks[j+1];
-				for(var i=0; i<=10; i+=2) {
-					if(data.ranks[i] == "aclteam1")
-						data.ranks[i] = "Aman Honda Ryders";
-					else if(data.ranks[i] == "aclteam2")
-						data.ranks[i] = "Ceratec Masters";
-					else if(data.ranks[i] == "aclteam3")
-						data.ranks[i] = "Fitness Mantras";
-					else if(data.ranks[i] == "aclteam4")
-						data.ranks[i] = "Mahafast Champs";
-					else if(data.ranks[i] == "aclteam5")
-						data.ranks[i] = "JLV Agro";
-					else
-						data.ranks[i] = "Sun Shiners";
-					document.getElementById("team"+i).innerHTML = data.ranks[i];
-					document.getElementById("price"+i).innerHTML = data.ranks[i+1];
-				}
-			});
+            if (HTMLTotalPremiumLeft == 0) {
+                // alert("Not enough premium funds!");
+                swal('Oops...', 'Not enough premium funds!', 'error');
+            } else if (HTMLTeamPrevBid < HTMLMaxBid) {
+                var premiumSpent = HTMLCurrBid - HTMLMaxBid + 2000;
+                if ((HTMLTotalPremiumLeft - premiumSpent) < 0) {
+                    // alert("Not enough premium funds!");
+                    swal('Oops...', 'Not enough premium funds!', 'error');
+                } else {
+                    var jsObject = {
+                        teamId: getCookie("teamToken"),
+                        flag: 0
+                    };
+                    socket.emit('premiumBidBtnClicked', jsObject);
+                    var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
+                    var newprem = prem - premiumSpent;
+                    document.getElementById('div-premLeft').innerHTML = newprem;
+                }
 
-			socket.on('startBidding', function(data) {
-				var bbtn = document.getElementById("bidBtn");
-				bbtn.disabled = false;
-				bbtn.classList.remove("bg-grey");
-				bbtn.classList.add("bg-red");
-			});
+            } else if (HTMLTeamPrevBid >= HTMLMaxBid) {
+                var premiumSpent = HTMLCurrBid - HTMLTeamPrevBid + 2000;
+                if ((HTMLTotalPremiumLeft - premiumSpent) < 0) {
+                    // alert("Not enough premium funds!");
+                    swal('Oops...', 'Not enough premium funds!', 'error');
+                } else {
+                    var jsObject = {
+                        teamId: getCookie("teamToken"),
+                        flag: 1
+                    };
+                    socket.emit('premiumBidBtnClicked', jsObject);
+                    var prem = parseInt(document.getElementById('div-premLeft').innerHTML);
+                    var newprem = prem - premiumSpent;
+                    document.getElementById('div-premLeft').innerHTML = newprem;
+                }
+            }
+            // else if(HTMLTotalPremiumLeft > 0) {
+            // 	socket.emit('premiumBidBtnClicked', getCookie("teamToken"));
+            // 	premiumBtnClickFlag = true;
+            // 	HTMLTotalPremiumLeft -= 2000;
+            // 	document.getElementById("div-premLeft").innerHTML = HTMLTotalPremiumLeft;
+            // }
+            // else
+            // 	alert("You do not have any premium amount left!");
+        });
+
+        socket.on('bidBtnClicked', function(data) {
+            document.getElementById("div-currBid").innerHTML = data.currentBid;
+            if (btnClickFlag) {
+                document.getElementById("div-yourBid").innerHTML = data.currentBid;
+                btnClickFlag = false;
+            }
+            if (data.disableFlag) {
+                var bbtn = document.getElementById("bidBtn");
+                bbtn.disabled = true;
+                bbtn.classList.remove("bg-red");
+                bbtn.classList.add("bg-grey");
+                var incrDiv = document.getElementById("bidIncrDiv");
+                var incrVal = document.getElementById("bidIncrVal");
+                incrVal.innerHTML = "2000";
+                incrDiv.classList.remove("bg-orange");
+                incrDiv.classList.add("bg-red");
+                var TotalPremiumLeft = parseInt(document.getElementById("div-premLeft").getAttribute("data-to"));
+                var HTMLTotalPremiumLeft = parseInt(document.getElementById("div-premLeft").innerHTML);
+                if (TotalPremiumLeft < 2000 || HTMLTotalPremiumLeft < 2000)
+                    swal('Oops...', 'Not enough premium funds!', 'error');
+                else {
+                    var pbtn = document.getElementById("premiumBidBtn");
+                    pbtn.disabled = false;
+                    pbtn.classList.remove("bg-grey");
+                    pbtn.classList.add("bg-red");
+                }
+            }
+            $('#mainTable tr').removeClass("bg-orange");
+            var j;
+            var currentTeam = "aclteam" + getCookie("teamToken");
+            for (j = 0; j <= 10; j += 2) {
+                if (data.ranks[j] == currentTeam) {
+                    break;
+                }
+            }
+            var rank = (j / 2) + 1;
+            document.getElementById('mainTable').rows[rank].className = "bg-orange";
+            document.getElementById('div-yourRank').innerHTML = rank;
+            for (var i = 0; i <= 10; i += 2) {
+                if (data.ranks[i] == "aclteam1")
+                    data.ranks[i] = "Mira Hyundai Rockers";
+                else if (data.ranks[i] == "aclteam2")
+                    data.ranks[i] = "Panchganga Brigade";
+                else if (data.ranks[i] == "aclteam3")
+                    data.ranks[i] = "Elite Strikers";
+                else if (data.ranks[i] == "aclteam4")
+                    data.ranks[i] = "Mr. Milk Warriors";
+                else if (data.ranks[i] == "aclteam5")
+                    data.ranks[i] = "Aman KIA Motors";
+                else
+                    data.ranks[i] = "JLV Agro";
+                document.getElementById("team" + i).innerHTML = data.ranks[i];
+                document.getElementById("price" + i).innerHTML = data.ranks[i + 1];
+            }
+        });
+
+        socket.on('premiumBidBtnClicked', function(data) {
+            document.getElementById("div-currBid").innerHTML = data.currentBid;
+            // if(premiumBtnClickFlag) {
+            // 	document.getElementById("div-yourBid").innerHTML = data.currentBid;	
+            // 	var premLeft = document.getElementById			
+            // 	premuimBtnClickFlag = false;
+            // }
+            $('#mainTable tr').removeClass("bg-orange");
+            var j;
+            var currentTeam = "aclteam" + getCookie("teamToken");
+            for (j = 0; j <= 10; j += 2) {
+                if (data.ranks[j] == currentTeam)
+                    break;
+            }
+            var rank = (j / 2) + 1;
+            document.getElementById('mainTable').rows[rank].className = "bg-orange";
+            document.getElementById('div-yourRank').innerHTML = rank;
+            document.getElementById('div-yourBid').innerHTML = data.ranks[j + 1];
+            for (var i = 0; i <= 10; i += 2) {
+                if (data.ranks[i] == "aclteam1")
+                    data.ranks[i] = "Mira Hyundai Rockers";
+                else if (data.ranks[i] == "aclteam2")
+                    data.ranks[i] = "Panchganga Brigade";
+                else if (data.ranks[i] == "aclteam3")
+                    data.ranks[i] = "Elite Strikers";
+                else if (data.ranks[i] == "aclteam4")
+                    data.ranks[i] = "Mr. Milk Warriors";
+                else if (data.ranks[i] == "aclteam5")
+                    data.ranks[i] = "Aman KIA Motors";
+                else
+                    data.ranks[i] = "JLV Agro";
+                document.getElementById("team" + i).innerHTML = data.ranks[i];
+                document.getElementById("price" + i).innerHTML = data.ranks[i + 1];
+            }
+        });
+
+        socket.on('startBidding', function(data) {
+            var bbtn = document.getElementById("bidBtn");
+            bbtn.disabled = false;
+            bbtn.classList.remove("bg-grey");
+            bbtn.classList.add("bg-red");
+        });
 
 
-			socket.on('refreshClients',function(data){
-				var teamID = parseInt(getCookie("teamToken"));
-				document.body.innerHTML += '<form id="dynForm" action="/bidding" method="post"><input type="hidden" id="dummyinput" name="q" value="a"></form>';
-				document.getElementById("dummyinput").value=teamID;
-				document.getElementById("dynForm").submit();
-			});
+        socket.on('refreshClients', function(data) {
+            var teamID = parseInt(getCookie("teamToken"));
+            document.body.innerHTML += '<form id="dynForm" action="/bidding" method="post"><input type="hidden" id="dummyinput" name="q" value="a"></form>';
+            document.getElementById("dummyinput").value = teamID;
+            document.getElementById("dynForm").submit();
+        });
 
-			socket.on('stopBidding', function(data) {
-				var bbtn = document.getElementById("bidBtn");
-				var pbtn = document.getElementById("premiumBidBtn");
-				bbtn.disabled = true;
-				pbtn.disabled = true;
-				bbtn.classList.remove("bg-red");
-				bbtn.classList.add("bg-grey");
-				pbtn.classList.remove("bg-red");
-				pbtn.classList.add("bg-grey");
-			});
+        socket.on('stopBidding', function(data) {
+            var bbtn = document.getElementById("bidBtn");
+            var pbtn = document.getElementById("premiumBidBtn");
+            bbtn.disabled = true;
+            pbtn.disabled = true;
+            bbtn.classList.remove("bg-red");
+            bbtn.classList.add("bg-grey");
+            pbtn.classList.remove("bg-red");
+            pbtn.classList.add("bg-grey");
+        });
+    </script>
 
-	</script>
+    <script>
+        var stringBtnFlag = "<%= bidFlag %>";
+        var stringPremFlag = "<%= premiumFlag %>";
+        var intBtnFlag = parseInt(stringBtnFlag);
+        var intPremFlag = parseInt(stringPremFlag);
+        var btn_used_for_bid = document.getElementById('bidBtn');
+        var btn_used_for_premium = document.getElementById('premiumBidBtn');
 
-<script>
-	var stringBtnFlag = "<%= bidFlag %>";
-	var stringPremFlag = "<%= premiumFlag %>";
-	var intBtnFlag = parseInt(stringBtnFlag);
-	var intPremFlag = parseInt(stringPremFlag);
-	var btn_used_for_bid = document.getElementById('bidBtn');
-	var btn_used_for_premium = document.getElementById('premiumBidBtn');
+        // if(intPremFlag = 1)
+        // 	document.getElementById('div-bidIncre').innerHTML = 2000;
+        // else
+        // 	document.getElementById("div-bidIncre").innerHTML = 1000;
 
-	// if(intPremFlag = 1)
-	// 	document.getElementById('div-bidIncre').innerHTML = 2000;
-	// else
-	// 	document.getElementById("div-bidIncre").innerHTML = 1000;
+        if (intBtnFlag == 1 && intPremFlag == 0) {
+            btn_used_for_bid.disabled = false;
+            btn_used_for_premium.disabled = true;
+            btn_used_for_bid.classList.remove("bg-grey");
+            btn_used_for_bid.classList.add("bg-red");
+            btn_used_for_premium.classList.remove("bg-red");
+            btn_used_for_premium.classList.add("bg-grey");
+        } else if (intBtnFlag == 1 && intPremFlag == 1) {
+            btn_used_for_bid.disabled = true;
+            btn_used_for_premium.disabled = false;
+            btn_used_for_bid.classList.remove("bg-red");
+            btn_used_for_bid.classList.add("bg-grey");
+            btn_used_for_premium.classList.remove("bg-grey");
+            btn_used_for_premium.classList.add("bg-red");
+        } else if (intBtnFlag == 0) {
+            btn_used_for_bid.disabled = true;
+            btn_used_for_premium.disabled = true;
+            btn_used_for_bid.classList.remove("bg-red");
+            btn_used_for_bid.classList.add("bg-grey");
+            btn_used_for_premium.classList.remove("bg-red");
+            btn_used_for_premium.classList.add("bg-grey");
+        }
 
-	if(intBtnFlag == 1 && intPremFlag == 0){
-		btn_used_for_bid.disabled = false;
-		btn_used_for_premium.disabled = true;
-		btn_used_for_bid.classList.remove("bg-grey");
-		btn_used_for_bid.classList.add("bg-red");
-		btn_used_for_premium.classList.remove("bg-red");
-		btn_used_for_premium.classList.add("bg-grey");
-	} else if(intBtnFlag == 1 && intPremFlag == 1){
-		btn_used_for_bid.disabled = true;
-		btn_used_for_premium.disabled = false;
-		btn_used_for_bid.classList.remove("bg-red");
-		btn_used_for_bid.classList.add("bg-grey");
-		btn_used_for_premium.classList.remove("bg-grey");
-		btn_used_for_premium.classList.add("bg-red");
-	} 
-	else if (intBtnFlag == 0) {
-		btn_used_for_bid.disabled = true;
-		btn_used_for_premium.disabled = true;
-		btn_used_for_bid.classList.remove("bg-red");
-		btn_used_for_bid.classList.add("bg-grey");
-		btn_used_for_premium.classList.remove("bg-red");
-		btn_used_for_premium.classList.add("bg-grey");
-	}
+        var teamRankingArray = "<%= teamRankings %>";
 
-	var teamRankingArray = "<%= teamRankings %>";
+        var actualTeamRankingArray = teamRankingArray.split(',');
 
-	var actualTeamRankingArray = teamRankingArray.split(',');
+        var j;
+        var currentTeam = "aclteam" + getCookie("teamToken");
+        for (j = 0; j <= 10; j += 2) {
+            if (actualTeamRankingArray[j] == currentTeam) {
+                break;
+            }
+        }
+        var rank = (j / 2) + 1;
+        // document.getElementById('mainTable').rows[rank].className = "bg-orange";	
+        document.getElementById('div-yourRank').innerHTML = rank;
+        for (var i = 0; i <= 10; i += 2) {
+            if (actualTeamRankingArray[i] == "aclteam1")
+                actualTeamRankingArray[i] = "Mira Hyundai Rockers";
+            else if (actualTeamRankingArray[i] == "aclteam2")
+                actualTeamRankingArray[i] = "Panchganga Brigade";
+            else if (actualTeamRankingArray[i] == "aclteam3")
+                actualTeamRankingArray[i] = "Elite Strikers";
+            else if (actualTeamRankingArray[i] == "aclteam4")
+                actualTeamRankingArray[i] = "Mr. Milk Warriors";
+            else if (actualTeamRankingArray[i] == "aclteam5")
+                actualTeamRankingArray[i] = "Aman KIA Motors";
+            else
+                actualTeamRankingArray[i] = "JLV Agro";
+            document.getElementById("team" + i).innerHTML = actualTeamRankingArray[i];
+            document.getElementById("price" + i).innerHTML = actualTeamRankingArray[i + 1];
+        }
+    </script>
 
-	var j;
-	var currentTeam = "aclteam" + getCookie("teamToken");
-	for(j=0; j<=10; j+=2) {
-		if(actualTeamRankingArray[j] == currentTeam) {
-			break;
-		}		
-	}
-	var rank = (j/2)+1;
-	// document.getElementById('mainTable').rows[rank].className = "bg-orange";	
-	document.getElementById('div-yourRank').innerHTML = rank;
-	for(var i=0; i<=10; i+=2) {
-		if(actualTeamRankingArray[i] == "aclteam1")
-			actualTeamRankingArray[i] = "Aman Honda Ryders";
-		else if(actualTeamRankingArray[i] == "aclteam2")
-			actualTeamRankingArray[i] = "Ceratec Masters";
-		else if(actualTeamRankingArray[i] == "aclteam3")
-			actualTeamRankingArray[i] = "Fitness Mantras";
-		else if(actualTeamRankingArray[i] == "aclteam4")
-			actualTeamRankingArray[i] = "Mahafast Champs";
-		else if(actualTeamRankingArray[i] == "aclteam5")
-			actualTeamRankingArray[i] = "JLV Agro";
-		else
-			actualTeamRankingArray[i] = "Sun Shiners";
-		document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
-		document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
-	}
-</script>
+    <!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
 
-	<!-- Jquery Core Js -->
-	<script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>
 
-	<!-- Bootstrap Core Js -->
-	<script src="plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- Select Plugin Js -->
+    <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-	<!-- Select Plugin Js -->
-	<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-	<!-- Slimscroll Plugin Js -->
-	<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="plugins/node-waves/waves.js"></script>
 
-	<!-- Waves Effect Plugin Js -->
-	<script src="plugins/node-waves/waves.js"></script>
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="plugins/jquery-countto/jquery.countTo.js"></script>
 
-	<!-- Jquery CountTo Plugin Js -->
-	<script src="plugins/jquery-countto/jquery.countTo.js"></script>
+    <!-- Morris Plugin Js -->
+    <script src="plugins/raphael/raphael.min.js"></script>
+    <script src="plugins/morrisjs/morris.js"></script>
 
-	<!-- Morris Plugin Js -->
-	<script src="plugins/raphael/raphael.min.js"></script>
-	<script src="plugins/morrisjs/morris.js"></script>
+    <!-- ChartJs -->
+    <script src="plugins/chartjs/Chart.bundle.js"></script>
 
-	<!-- ChartJs -->
-	<script src="plugins/chartjs/Chart.bundle.js"></script>
+    <!-- Flot Charts Plugin Js -->
+    <script src="plugins/flot-charts/jquery.flot.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.time.js"></script>
 
-	<!-- Flot Charts Plugin Js -->
-	<script src="plugins/flot-charts/jquery.flot.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.resize.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.pie.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.categories.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.time.js"></script>
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
-	<!-- Sparkline Chart Plugin Js -->
-	<script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <!-- JQuery Redirect Plugin -->
+    <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
-	<!-- JQuery Redirect Plugin -->
-	<script src="plugins/jquery-redirect/jquery.redirect.js"></script>
+    <!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/pages/index.js"></script>
+    <script src="js/pages/medias/image-gallery.js"></script>
+    <script src="js/acl/render-ejs.js"></script>
 
-	<!-- Custom Js -->
-	<script src="js/admin.js"></script>
-	<script src="js/pages/index.js"></script>
-	<script src="js/pages/medias/image-gallery.js"></script>
-	<script src="js/acl/render-ejs.js"></script>
+    <!-- Demo Js -->
+    <script src="js/demo.js"></script>
 
-	<!-- Demo Js -->
-	<script src="js/demo.js"></script>
-
-	<!-- Light Gallery Plugin Js -->
-	<script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+    <!-- Light Gallery Plugin Js -->
+    <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 </body>
 
 </html>

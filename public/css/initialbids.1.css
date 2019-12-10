@@ -1,0 +1,155 @@
+* {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  max-height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+
+header {
+  position: relative;
+  height: 30vh;
+  min-height: 120px;
+  background-image: linear-gradient(#ff0000, #8B0000);
+}
+
+polygon{
+  fill: #ffffff;
+  z-index: -1;
+}
+
+h1 {
+  font: 44px "Arial";
+  text-align: left;
+  padding-left: 2%;
+}
+
+header h1 {
+  color: white;
+  display: inline-block;
+  float: none;
+  vertical-align:top;
+  margin-top: 3%;
+  }
+
+header img {
+  margin-left: 3%;
+  margin-top: 2%;
+  display: inline-block;
+  width: 10%;
+  min-height: 100px;
+  min-width: 100px;
+  height: auto;
+  float: left;
+  z-index: 1;
+}
+
+header h3{
+  padding-left: 15%;
+  position: relative;
+  color: white;
+  text-align: left;
+  text-align: top;
+  }
+
+svg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 10vw;
+  /* set height to pixels if you want angle to change with screen width */
+}
+
+section img{
+  position: absolute;
+  top: 28%;
+  left: 73%;
+}
+
+section button{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 120px;
+  color: #fff;
+  font-size: 16px;
+  background: #FF6600;
+  cursor: pointer;
+}
+
+section button:hover{
+  background: #800000;
+}
+
+.yellow {
+  margin-top: 5%;
+  padding: 15px;
+  background: linear-gradient(to left,#280000,#000000);
+  position: absolute;
+  top: 77%;
+  width: 100%;
+  z-index: 1;
+  color: #ffffff;
+
+}
+.yellow:before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  left: 0;
+  background :linear-gradient(to left,#280000,#000000);
+  z-index: -1;
+}
+.yellow:before {
+  top: -40px;
+  transform: skew(0, 3deg);
+}
+
+
+.legal {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 15px;
+    overflow: hidden;
+    background-color: #D3D3D3 }
+.legal .copyright {
+      font-size: 13px;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+.legal .copyright a {
+        font-weight: bold;
+        text-decoration: none; 
+        color: #ff0000}
+.legal .version {
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-top: 5px;
+      font-size: 13px; }
+.legal .rules {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 2%;
+  margin-right: 3%;
+}
+
+
+

@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>ACL '17</title>
-	<link href="../css/login.css" rel="stylesheet">
-	<!-- Custom Css -->
+    <title>ACL '19</title>
+    <link href="../css/login.css" rel="stylesheet">
+    <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
 </head>
+
 <body>
-  <div class="loginBox">
-		<h1>ACL '17</h1>
-		<h5>Ace Cricket League,2017</h5>
-		<br><br>
-		<h2>Sign In</h2>
+    <div class="loginBox">
+        <h1>ACL '19</h1>
+        <h5>Ace Cricket League,2019</h5>
+        <br><br>
+        <h2>Sign In</h2>
 
-			<p>Username</p>
-			<input type="text" class="form-control" name="username" placeholder="Username" id="username" required>
-            <br><br>
-            
-			<p>Password</p>
-			<input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
-			<center><button name="btn" onclick="validateAndRedirect();">Submit</button></center>
+        <p>Username</p>
+        <input type="text" class="form-control" name="username" placeholder="Username" id="username" required>
+        <br><br>
 
-	</div>
-  <div class="blur-background"></div>
-</div>
+        <p>Password</p>
+        <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+        <center><button name="btn" onclick="validateAndRedirect();">Submit</button></center>
 
-<!-- Jquery Core Js -->
-<script src="../plugins/jquery/jquery.min.js"></script>
+    </div>
+    <div class="blur-background"></div>
+    </div>
 
-<!-- Bootstrap Core Js -->
-<script src="../plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- Jquery Core Js -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
 
-<!-- JQuery redirect plugin-->
-<script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="../plugins/bootstrap/js/bootstrap.js"></script>
 
-<!-- Waves Effect Css -->
-<link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- JQuery redirect plugin-->
+    <script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
 
-<!-- Custom Js -->
-<script src="../js/admin.js"></script>
-<script src="../js/pages/examples/sign-in.js"></script>
-<script src="../js/pages/forms/basic-form-elements.js"></script>
-<script src="../js/acl/render-ejs.js"></script>
-<script src="../js/cookies.js"></script>
+    <!-- Waves Effect Css -->
+    <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Custom Js -->
+    <script src="../js/admin.js"></script>
+    <script src="../js/pages/examples/sign-in.js"></script>
+    <script src="../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../js/acl/render-ejs.js"></script>
+    <script src="../js/cookies.js"></script>
 
     <script type="text/javascript">
-        function validateAndRedirect(){
+        function validateAndRedirect() {
 
             var user = document.getElementById("username").value;
             var password = document.getElementById("password").value;
-            
-            if(user == "gamemaster" && password == "acl2017"){
+
+            if (user == "gamemaster" && password == "acl2017") {
                 renderEjs('gamemaster/control', user);
                 setCookie('user', user, 1);
-            }
-            else{
+            } else {
                 alert("Incorrect password");
             }
         }
     </script>
 
 </body>
+
 </html>

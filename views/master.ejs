@@ -2,411 +2,419 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>Game Master</title>
-	<!-- Favicon-->
-	<link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Game Master</title>
+    <!-- Favicon-->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
 
-	<!-- Google Fonts -->
-	<link href="../css/fonts.css" rel="stylesheet" type="text/css">
-	<link href="../css/material-icons.css" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="../css/material-icons.css" rel="stylesheet" type="text/css">
 
-	<!-- Bootstrap Core Css -->
-	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap Core Css -->
+    <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-	<!-- Waves Effect Css -->
-	<link href="../plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Waves Effect Css -->
+    <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
 
-	<!-- Animation Css -->
-	<link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
 
-	<!-- Morris Chart Css-->
-	<link href="../plugins/morrisjs/morris.css" rel="stylesheet" />
+    <!-- Morris Chart Css-->
+    <link href="../plugins/morrisjs/morris.css" rel="stylesheet" />
 
-	<!-- Custom Css -->
-	<link href="../css/style.css" rel="stylesheet">
+    <!-- Custom Css -->
+    <link href="../css/style.css" rel="stylesheet">
 
-	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-	<link href="../css/themes/all-themes.css" rel="stylesheet" />
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../css/themes/all-themes.css" rel="stylesheet" />
 
-	<script src="../socket.io/socket.io.js"></script>
+    <script src="../socket.io/socket.io.js"></script>
 
-	<style type="text/css">
-		.container1 {
-			position: relative;
-		}
+    <style type="text/css">
+        .container1 {
+            position: relative;
+        }
+        
+        .image123 {
+            display: block;
+            width: 100%;
+            /* height: 150px; */
+        }
+        
+        .overlay123 {
+            position: absolute;
+            bottom: 0;
+            opacity: 0.6;
+            left: 0;
+            right: 0;
+            background-color: #000000;
+            overflow: hidden;
+            width: 100%;
+            height: 15%;
+            transition: .5s ease;
+        }
+        
+        .container1:hover .overlay123 {
+            height: 20%;
+        }
+        
+        .text123 {
+            white-space: nowrap;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+        
+        .caption {
+            white-space: nowrap;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            overflow: hidden;
+        }
+        
+        figure {
+            float: right;
+            width: 100%;
+            text-align: center;
+            font-style: italic;
+            font-size: smaller;
+            text-indent: 0;
+            border: thin silver solid;
+            margin: 0.5em;
+            padding: 0.5em;
+        }
+        
+        figcaption {
+            font-size: 18px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-style: normal;
+        }
+    </style>
+    <script>
+        var socket = io('localhost:3000');
 
-		.image123 {
-		  display: block;
-		  width: 100%;
-		  /* height: 150px; */
-		}
+        function buttonClick() {
+            var btn = document.getElementById("the_only_btn");
+            document.getElementById('sound1').play();
+            document.getElementById('sound1').currentTime = 0;
+            if (btn.innerHTML == "START SLOT") {
+                btn.innerHTML = "END SLOT";
+                btn.classList.remove("bg-green");
+                btn.classList.add("bg-red");
+                socket.emit('startBidding', "Enable bid button");
+                btn.disabled = true;
+                setTimeout(function() {
+                    btn.disabled = false;
+                }, 1000);
+            } else {
+                btn.innerHTML = "START SLOT";
+                btn.classList.remove("bg-red");
+                btn.classList.add("bg-green");
+                socket.emit('stopBidding', "Disable bid and premium bid buttons");
+                btn.disabled = true;
+                setTimeout(function() {
+                    btn.disabled = false;
+                }, 1000);
+            }
+        }
 
-		.overlay123 {
-		  position: absolute;
-		  bottom: 0;
-		  opacity: 0.6;
-		  left: 0;
-		  right: 0;
-		  background-color: #000000;
-		  overflow: hidden;
-		  width: 100%;
-		  height: 15%;
-		  transition: .5s ease;
-		}
+        socket.on('stopBidding', function(data) {
+            var selectionForm = document.createElement("form");
+            selectionForm.setAttribute("method", "POST");
+            selectionForm.setAttribute("action", "/gamemaster/selection");
 
-		.container1:hover .overlay123 {
-		  height: 20%;
-		}
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "token");
+            hiddenField.setAttribute("value", "gamemaster");
 
-		.text123 {
-		  white-space: nowrap; 
-		  background-color: #000000;
-		  color: white;
-		  font-size: 16px;
-		  position: absolute;
-		  overflow: hidden;
-		  top: 50%;
-		  left: 50%;
-		  transform: translate(-50%, -50%);
-		  -ms-transform: translate(-50%, -50%);
-		}
+            selectionForm.appendChild(hiddenField);
 
-		.caption {
-  			white-space: nowrap; 
-		    background-color: #000000;
-		    color: white;
-		    font-size: 16px;
-		    position: absolute;
-		    overflow: hidden;		}
+            document.body.appendChild(selectionForm);
+            selectionForm.submit();
+        });
 
-		figure {
-	  		float: right;
-			width: 100%;
-			text-align: center;
-			font-style: italic;
-			font-size: smaller;
-			text-indent: 0;
-			border: thin silver solid;
-			margin: 0.5em;
-			padding: 0.5em;
-		}
-
-		figcaption {
-			font-size: 18px;
-			background-color: #1a1a1a;
-			color: #ffffff;	
-		    font-style: normal;
-		}
-	</style>
-	<script>
-		var socket = io('localhost:3000');
-		function buttonClick() {
-			var btn = document.getElementById("the_only_btn");
-			document.getElementById('sound1').play();
-			document.getElementById('sound1').currentTime = 0;
-			if(btn.innerHTML == "START SLOT"){
-				btn.innerHTML = "END SLOT";
-				btn.classList.remove("bg-green");
-				btn.classList.add("bg-red");
-				socket.emit('startBidding', "Enable bid button");
-				btn.disabled = true;
-				setTimeout(function(){btn.disabled = false;},1000);
-			}
-			else{
-				btn.innerHTML = "START SLOT";
-				btn.classList.remove("bg-red");
-				btn.classList.add("bg-green");
-				socket.emit('stopBidding', "Disable bid and premium bid buttons");
-				btn.disabled = true;
-				setTimeout(function(){btn.disabled = false;},1000);
-			}			
-		}
-
-		socket.on('stopBidding', function(data) {
-			var selectionForm = document.createElement("form");
-			selectionForm.setAttribute("method", "POST");
-			selectionForm.setAttribute("action", "/gamemaster/selection");
-
-			var hiddenField = document.createElement("input");
-			hiddenField.setAttribute("type", "hidden");
-			hiddenField.setAttribute("name", "token");
-			hiddenField.setAttribute("value", "gamemaster");
-
-			selectionForm.appendChild(hiddenField);
-
-			document.body.appendChild(selectionForm);
-			selectionForm.submit();
-		});
-
-		socket.on('master-ranking', function(data) {
-			for(var i=0; i<=10; i+=2) {
-				if(data[i] == "aclteam1")
-					data[i] = "Aman Honda Ryders";
-				else if(data[i] == "aclteam2")
-					data[i] = "Ceratec Masters";
-				else if(data[i] == "aclteam3")
-					data[i] = "Fitness Mantras";
-				else if(data[i] == "aclteam4")
-					data[i] = "Mahafast Champs";
-				else if(data[i] == "aclteam5")
-					data[i] = "JLV Agro";
-				else
-					data[i] = "Sun Shiners";
-				document.getElementById("team"+i).innerHTML = data[i];
-				document.getElementById("price"+i).innerHTML = data[i+1];
-				document.getElementById("div-currBid").innerHTML = data[1];
-			}
-		});	
-		socket.on('bidBtnClicked', function(data) {
-			for(var i=0; i<=10; i+=2) {
-				if(data.ranks[i] == "aclteam1")
-					data.ranks[i] = "Aman Honda Ryders";
-				else if(data.ranks[i] == "aclteam2")
-					data.ranks[i] = "Ceratec Masters";
-				else if(data.ranks[i] == "aclteam3")
-					data.ranks[i] = "Fitness Mantras";
-				else if(data.ranks[i] == "aclteam4")
-					data.ranks[i] = "Mahafast Champs";
-				else if(data.ranks[i] == "aclteam5")
-					data.ranks[i] = "JLV Agro";
-				else
-					data.ranks[i] = "Sun Shiners";
-				document.getElementById("team"+i).innerHTML = data.ranks[i];
-				document.getElementById("price"+i).innerHTML = data.ranks[i+1];
-				document.getElementById("div-currBid").innerHTML = data.currentBid;
-			}
-		});	
-		socket.on('premiumBidBtnClicked', function(data) {
-			for(var i=0; i<=10; i+=2) {
-				if(data.ranks[i] == "aclteam1")
-					data.ranks[i] = "Aman Honda Ryders";
-				else if(data.ranks[i] == "aclteam2")
-					data.ranks[i] = "Ceratec Masters";
-				else if(data.ranks[i] == "aclteam3")
-					data.ranks[i] = "Fitness Mantras";
-				else if(data.ranks[i] == "aclteam4")
-					data.ranks[i] = "Mahafast Champs";
-				else if(data.ranks[i] == "aclteam5")
-					data.ranks[i] = "JLV Agro";
-				else
-					data.ranks[i] = "Sun Shiners";
-				document.getElementById("team"+i).innerHTML = data.ranks[i];
-				document.getElementById("price"+i).innerHTML = data.ranks[i+1];
-				document.getElementById("div-currBid").innerHTML = data.currentBid;
-			}
-		});	
-	</script>
+        socket.on('master-ranking', function(data) {
+            for (var i = 0; i <= 10; i += 2) {
+                if (data[i] == "aclteam1")
+                    data[i] = "Mira Hyundai Rockers";
+                else if (data[i] == "aclteam2")
+                    data[i] = "Panchganga Brigade";
+                else if (data[i] == "aclteam3")
+                    data[i] = "Elite Strikers";
+                else if (data[i] == "aclteam4")
+                    data[i] = "Mr. Milk Warriors";
+                else if (data[i] == "aclteam5")
+                    data[i] = "Aman KIA Motors";
+                else
+                    data[i] = "JLV Agro";
+                document.getElementById("team" + i).innerHTML = data[i];
+                document.getElementById("price" + i).innerHTML = data[i + 1];
+                document.getElementById("div-currBid").innerHTML = data[1];
+            }
+        });
+        socket.on('bidBtnClicked', function(data) {
+            for (var i = 0; i <= 10; i += 2) {
+                if (data.ranks[i] == "aclteam1")
+                    data.ranks[i] = "Mira Hyundai Rockers";
+                else if (data.ranks[i] == "aclteam2")
+                    data.ranks[i] = "Panchganga Brigade";
+                else if (data.ranks[i] == "aclteam3")
+                    data.ranks[i] = "Elite Strikers";
+                else if (data.ranks[i] == "aclteam4")
+                    data.ranks[i] = "Mr. Milk Warriors";
+                else if (data.ranks[i] == "aclteam5")
+                    data.ranks[i] = "Aman KIA Motors";
+                else
+                    data.ranks[i] = "JLV Agro";
+                document.getElementById("team" + i).innerHTML = data.ranks[i];
+                document.getElementById("price" + i).innerHTML = data.ranks[i + 1];
+                document.getElementById("div-currBid").innerHTML = data.currentBid;
+            }
+        });
+        socket.on('premiumBidBtnClicked', function(data) {
+            for (var i = 0; i <= 10; i += 2) {
+                if (data.ranks[i] == "aclteam1")
+                    data.ranks[i] = "Mira Hyundai Rockers";
+                else if (data.ranks[i] == "aclteam2")
+                    data.ranks[i] = "Panchganga Brigade";
+                else if (data.ranks[i] == "aclteam3")
+                    data.ranks[i] = "Elite Strikers";
+                else if (data.ranks[i] == "aclteam4")
+                    data.ranks[i] = "Mr. Milk Warriors";
+                else if (data.ranks[i] == "aclteam5")
+                    data.ranks[i] = "Aman KIA Motors";
+                else
+                    data.ranks[i] = "JLV Agro";
+                document.getElementById("team" + i).innerHTML = data.ranks[i];
+                document.getElementById("price" + i).innerHTML = data.ranks[i + 1];
+                document.getElementById("div-currBid").innerHTML = data.currentBid;
+            }
+        });
+    </script>
 </head>
 
 <body class="theme-red">
 
-	<audio id="sound1" src="../sounds/startEndSlot.mp3" preload="auto"></audio>
-	<!-- Page Loader -->
-	<div class="page-loader-wrapper">
-		<div class="loader">
-			<div class="preloader">
-				<div class="spinner-layer pl-red">
-					<div class="circle-clipper left">
-						<div class="circle"></div>
-					</div>
-					<div class="circle-clipper right">
-						<div class="circle"></div>
-					</div>
-				</div>
-			</div>
-			<p>Please wait...</p>
-		</div>
-	</div>
-	<!-- #END# Page Loader -->
-	<!-- Overlay For Sidebars -->
-	<div class="overlay"></div>
-	<!-- #END# Overlay For Sidebars -->
-	<!-- Search Bar -->
-	<div class="search-bar">
-		<div class="search-icon">
-			<i class="material-icons">search</i>
-		</div>
-		<input type="text" placeholder="START TYPING...">
-		<div class="close-search">
-			<i class="material-icons">close</i>
-		</div>
-	</div>
-	<!-- #END# Search Bar -->
-	<!-- Top Bar -->
-	<nav class="navbar">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-				<a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand">ACE CRICKET LEAGUE 2017</a>
-			</div>
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-				   </a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- #Top Bar -->
-	<section>
-		<!-- Left Sidebar -->
-		<aside id="leftsidebar" class="sidebar">
-			<!-- User Info -->
-			<div class="user-info">
-				<div class="image">
-					<img src="../images/user.png" width="54" height="auto" alt="User" />
-				</div>
-				<div class="info-container">
-					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
-				</div>
-			</div>
-			
-			<!-- #User Info -->
-			<!-- Menu -->
-			<div class="menu">
-				<ul class="list">
-					<!-- <li class="header">MAIN NAVIGATION</li> -->
-					<li class="active">
-						<a onClick="renderEjs('gamemaster/control', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Bidding Phase</span>
-						</a>
-					</li>
-					<li>
-						<a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Selection Phase</span>
-						</a>
-					</li>
-					<li>
-						<a onClick="renderEjs('gamemaster/teamsummary', getCookie('user'));">
-							<i class="material-icons">home</i>
-							<span>Summary</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<!-- #Menu -->
-			<!-- Footer -->
-			<div class="legal">
-				<div class="copyright">
-					&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
-				</div>
-				<div class="version">
-					<b>Version: </b> 1.0.0
-				</div>
-			</div>
-			<!-- #Footer -->
-		</aside>
-		<!-- #END# Left Sidebar -->
-		
-	</section>
+    <audio id="sound1" src="../sounds/startEndSlot.mp3" preload="auto"></audio>
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand">ACE CRICKET LEAGUE 2019</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="../images/user.png" width="54" height="auto" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game Master</div>
+                </div>
+            </div>
+
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <!-- <li class="header">MAIN NAVIGATION</li> -->
+                    <li class="active">
+                        <a onClick="renderEjs('gamemaster/control', getCookie('user'));">
+                            <i class="material-icons">home</i>
+                            <span>Bidding Phase</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick="renderEjs('gamemaster/selection', getCookie('user'));">
+                            <i class="material-icons">home</i>
+                            <span>Selection Phase</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick="renderEjs('gamemaster/teamsummary', getCookie('user'));">
+                            <i class="material-icons">home</i>
+                            <span>Summary</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2019 <a href="javascript:void(0);">Ace Cricket League</a>.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 1.0.0
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+
+    </section>
 
 
-	<section class="content">
-		<div class="container-fluid">
-			<!-- Widgets -->
-			<div class="row clearfix">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-pink hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">place</i>
-						</div>
-						<div class="content">
-							<div class="text">CURRENT ROUND</div>
-							<div class="number count-to" data-from="0" data-to="<%= curRound %>" data-speed="1000" data-fresh-interval="20" id="div-currRound"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-cyan hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">arrow_downward</i>
-						</div>
-						<div class="content">
-							<div class="text">BASE BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= baseBid %>" data-speed="1000" data-fresh-interval="20" id="div-baseBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-light-green hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">arrow_upward</i>
-						</div>
-						<div class="content">
-							<div class="text">MAXIMUM BID</div>
-							<div class="number count-to" data-from="0" data-to="<%= maxBid %>" data-speed="1000" data-fresh-interval="20" id="div-maxBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-orange hover-expand-effect" id="bidIncrDiv">
-						<div class="icon">
-							<i class="material-icons">trending_up</i>
-						</div>
-						<div class="content">
-							<div class="text">BID INCREMENT</div>
-							<div class="number count-to" id="bidIncrVal" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-pink hover-expand-effect">
-						<div class="icon">
-							<center><img class="material-icons" align="middle" style="margin-top: 18px" src="../images/rupee.png"></center>
-						</div>
-						<div class="content">
-							<div class="text">NET EXPENSE</div>
-							<div class="number count-to" data-from="0" data-to="<%= netExpense %>" data-speed="1000" data-fresh-interval="20" id="div-netExpense"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-cyan hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">flare</i>
-						</div>
-						<div class="content">
-							<div class="text">CURRENT BID</div>
-							<div class="number count-to" data-from="0" data-to="0" data-speed="1000" data-fresh-interval="20" id="div-currBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-light-green hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">credit_card</i>
-						</div>
-						<div class="content">
-							<div class="text">NET PREMIUM</div>
-							<div class="number count-to" data-from="0" data-to="<%= premSpent %>" data-speed="1000" data-fresh-interval="20" id="div-yourBid"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="info-box bg-orange hover-expand-effect">
-						<div class="icon">
-							<i class="material-icons">visibility</i>
-						</div>
-						<div class="content">
-							<div class="text">CATEGORY</div>
-							<div class="number" id="div-yourRank"><%= groupName %></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Widgets -->
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">place</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CURRENT ROUND</div>
+                            <div class="number count-to" data-from="0" data-to="<%= curRound %>" data-speed="1000" data-fresh-interval="20" id="div-currRound"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">BASE BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= baseBid %>" data-speed="1000" data-fresh-interval="20" id="div-baseBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">arrow_upward</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">MAXIMUM BID</div>
+                            <div class="number count-to" data-from="0" data-to="<%= maxBid %>" data-speed="1000" data-fresh-interval="20" id="div-maxBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect" id="bidIncrDiv">
+                        <div class="icon">
+                            <i class="material-icons">trending_up</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">BID INCREMENT</div>
+                            <div class="number count-to" id="bidIncrVal" data-from="0" data-to="1000" data-speed="1000" data-fresh-interval="20" id="div-bidIncre"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <center><img class="material-icons" align="middle" style="margin-top: 18px" src="../images/rupee.png"></center>
+                        </div>
+                        <div class="content">
+                            <div class="text">NET EXPENSE</div>
+                            <div class="number count-to" data-from="0" data-to="<%= netExpense %>" data-speed="1000" data-fresh-interval="20" id="div-netExpense"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">flare</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CURRENT BID</div>
+                            <div class="number count-to" data-from="0" data-to="0" data-speed="1000" data-fresh-interval="20" id="div-currBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">credit_card</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">NET PREMIUM</div>
+                            <div class="number count-to" data-from="0" data-to="<%= premSpent %>" data-speed="1000" data-fresh-interval="20" id="div-yourBid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">visibility</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CATEGORY</div>
+                            <div class="number" id="div-yourRank">
+                                <%= groupName %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div class="container-fluid">
-			<div class="row clearfix">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="card">
-						<div class="body">
-							<table id="mainTable" class="table table-striped">
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <table id="mainTable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
@@ -447,160 +455,176 @@
                                     </tr>
                                 </tbody>
                             </table>
-						</div>
-					</div>
-					<div class="card">
-						<div class="body">
-							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="buttonClick();" id="the_only_btn">START SLOT</button>
-							<button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="refreshPages();" id="refresh_pages_button">REFRESH PAGES</button>	
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-					<div class="card">
-						<div class="header">
-							<h2>Round <%= curRound %>:	[<%= groupName %>] <%= groupDesc %></h2>
-						</div>
-						<div class="body">
-							<div id="gallery-images" class="list-unstyled row clearfix">
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-										<figure>
-			                            	<img class="image123" src="../<%= player_object[0].player_image %>">
-			                        		<figcaption><%= player_object[0].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-		                            	<figure>
-			                            	<img class="image123" src="../<%= player_object[1].player_image %>">
-			                        		<figcaption><%= player_object[1].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-		                            	<figure>
-			                            	<img class="image123" src="../<%= player_object[2].player_image %>">
-			                        		<figcaption><%= player_object[2].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-		                            	<figure>
-			                            	<img class="image123" src="../<%= player_object[3].player_image %>">
-			                        		<figcaption><%= player_object[3].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-		                            	<figure>
-			                            	<img class="image123" src="../<%= player_object[4].player_image %>">
-			                        		<figcaption><%= player_object[4].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<div class="container1">
-		                            	<figure>
-			                            	<img class="image123" src="../<%= player_object[5].player_image %>">
-			                        		<figcaption><%= player_object[5].player_name %></figcaption>
-		                        		</figure>
-		                        	</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="body">
+                            <button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="buttonClick();" id="the_only_btn">START SLOT</button>
+                            <button type="button" class="btn bg-green btn-block btn-lg" style="height: 50px;" onclick="refreshPages();" id="refresh_pages_button">REFRESH PAGES</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Round
+                                <%= curRound %>: [
+                                    <%= groupName %>]
+                                        <%= groupDesc %>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div id="gallery-images" class="list-unstyled row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[0].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[0].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[1].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[1].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[2].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[2].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[3].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[3].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[4].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[4].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="container1">
+                                        <figure>
+                                            <img class="image123" src="../<%= player_object[5].player_image %>">
+                                            <figcaption>
+                                                <%= player_object[5].player_name %>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-				</div>
-				<!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </div>
+                <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<br><br><br><br><br><br><br>
 					
 				</div> -->
-			</div>	
-		</div>
-	</section>
+            </div>
+        </div>
+    </section>
 
-	<script>
-		var teamRankingArray = "<%= teamRankings %>";
-		console.log(teamRankingArray);
-		var actualTeamRankingArray = teamRankingArray.split(',');
-		for(var i=0; i<=10; i+=2) {
-			if(actualTeamRankingArray[i] == "aclteam1")
-				actualTeamRankingArray[i] = "Aman Honda Ryders";
-			else if(actualTeamRankingArray[i] == "aclteam2")
-				actualTeamRankingArray[i] = "Ceratec Masters";
-			else if(actualTeamRankingArray[i] == "aclteam3")
-				actualTeamRankingArray[i] = "Fitness Mantras";
-			else if(actualTeamRankingArray[i] == "aclteam4")
-				actualTeamRankingArray[i] = "Mahafast Champs";
-			else if(actualTeamRankingArray[i] == "aclteam5")
-				actualTeamRankingArray[i] = "JLV Agro";
-			else
-				actualTeamRankingArray[i] = "Sun Shiners";
-			document.getElementById("team"+i).innerHTML = actualTeamRankingArray[i];
-			document.getElementById("price"+i).innerHTML = actualTeamRankingArray[i+1];
-		}
+    <script>
+        var teamRankingArray = "<%= teamRankings %>";
+        console.log(teamRankingArray);
+        var actualTeamRankingArray = teamRankingArray.split(',');
+        for (var i = 0; i <= 10; i += 2) {
+            if (actualTeamRankingArray[i] == "aclteam1")
+                actualTeamRankingArray[i] = "Mira Hyundai Rockers";
+            else if (actualTeamRankingArray[i] == "aclteam2")
+                actualTeamRankingArray[i] = "Panchganga Brigade";
+            else if (actualTeamRankingArray[i] == "aclteam3")
+                actualTeamRankingArray[i] = "Elite Strikers";
+            else if (actualTeamRankingArray[i] == "aclteam4")
+                actualTeamRankingArray[i] = "Mr. Milk Warriors";
+            else if (actualTeamRankingArray[i] == "aclteam5")
+                actualTeamRankingArray[i] = "Aman KIA Motors";
+            else
+                actualTeamRankingArray[i] = "JLV Agro";
+            document.getElementById("team" + i).innerHTML = actualTeamRankingArray[i];
+            document.getElementById("price" + i).innerHTML = actualTeamRankingArray[i + 1];
+        }
 
 
-		function refreshPages() {
-			socket.emit('refreshPages','Refresh Client Bidding Pages');
-		}
-	</script>
+        function refreshPages() {
+            socket.emit('refreshPages', 'Refresh Client Bidding Pages');
+        }
+    </script>
 
-	<!-- Jquery Core Js -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+    <!-- Jquery Core Js -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
 
-	<!-- Bootstrap Core Js -->
-	<script src="../plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="../plugins/bootstrap/js/bootstrap.js"></script>
 
-	<!-- Select Plugin Js -->
-	<script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Select Plugin Js -->
+    <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-	<!-- Slimscroll Plugin Js -->
-	<script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-	<!-- Waves Effect Plugin Js -->
-	<script src="../plugins/node-waves/waves.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="../plugins/node-waves/waves.js"></script>
 
-	<!-- Jquery CountTo Plugin Js -->
-	<script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
 
-	<!-- JQuery redirect plugin-->
-	<script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
+    <!-- JQuery redirect plugin-->
+    <script src="../plugins/jquery-redirect/jquery.redirect.js"></script>
 
-	<!-- Morris Plugin Js -->
-	<script src="../plugins/raphael/raphael.min.js"></script>
-	<script src="../plugins/morrisjs/morris.js"></script>
+    <!-- Morris Plugin Js -->
+    <script src="../plugins/raphael/raphael.min.js"></script>
+    <script src="../plugins/morrisjs/morris.js"></script>
 
-	<!-- ChartJs -->
-	<script src="../plugins/chartjs/Chart.bundle.js"></script>
+    <!-- ChartJs -->
+    <script src="../plugins/chartjs/Chart.bundle.js"></script>
 
-	<!-- Flot Charts Plugin Js -->
-	<script src="../plugins/flot-charts/jquery.flot.js"></script>
-	<script src="../plugins/flot-charts/jquery.flot.resize.js"></script>
-	<script src="../plugins/flot-charts/jquery.flot.pie.js"></script>
-	<script src="../plugins/flot-charts/jquery.flot.categories.js"></script>
-	<script src="../plugins/flot-charts/jquery.flot.time.js"></script>
+    <!-- Flot Charts Plugin Js -->
+    <script src="../plugins/flot-charts/jquery.flot.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.time.js"></script>
 
-	<!-- Sparkline Chart Plugin Js -->
-	<script src="../plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="../plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
-	<!-- Custom Js -->
-	<script src="../js/admin.js"></script>
-	<script src="../js/pages/index.js"></script>
-	<script src="../js/pages/medias/image-gallery.js"></script>
-	<script src="../js/acl/render-ejs.js"></script>
-	<script src="../js/cookies.js"></script>
+    <!-- Custom Js -->
+    <script src="../js/admin.js"></script>
+    <script src="../js/pages/index.js"></script>
+    <script src="../js/pages/medias/image-gallery.js"></script>
+    <script src="../js/acl/render-ejs.js"></script>
+    <script src="../js/cookies.js"></script>
 
-	<!-- Demo Js -->
-	<script src="../js/demo.js"></script>
+    <!-- Demo Js -->
+    <script src="../js/demo.js"></script>
 
-	<!-- Light Gallery Plugin Js -->
+    <!-- Light Gallery Plugin Js -->
     <script src="../plugins/light-gallery/js/lightgallery-all.js"></script>
 </body>
 

@@ -2,153 +2,157 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>ACL '17</title>
-	<!-- Favicon-->
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>ACL '19</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<!-- Google Fonts -->
-	<link href="../css/fonts.css" rel="stylesheet" type="text/css">
-	<link href="../css/material-icons.css" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="../css/material-icons.css" rel="stylesheet" type="text/css">
 
-	<!-- Bootstrap Core Css -->
-	<link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-	<!-- Waves Effect Css -->
-	<link href="plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
 
-	<!-- Animation Css -->
-	<link href="plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="plugins/animate-css/animate.css" rel="stylesheet" />
 
-	<!-- Morris Chart Css-->
-	<link href="plugins/morrisjs/morris.css" rel="stylesheet" />
+    <!-- Morris Chart Css-->
+    <link href="plugins/morrisjs/morris.css" rel="stylesheet" />
 
-	<!-- Custom Css -->
-	<link href="css/style.css" rel="stylesheet">
+    <!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
 
-	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-	<link href="css/themes/all-themes.css" rel="stylesheet" />
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/all-themes.css" rel="stylesheet" />
 
-	<style type="text/css">
-		.container1 {
-			position: relative;
-		}
-
-		.image123 {
-		  display: block;
-		  width: 100%;
-		  /* height: 100pxauto; */
-		}
-
-		.overlay123 {
-		  position: absolute;
-		  bottom: 0;
-		  opacity: 0.6;
-		  left: 0;
-		  right: 0;
-		  background-color: #000000;
-		  overflow: hidden;
-		  width: 95%;
-		  height: 0;
-		  transition: .5s ease;
-		  margin-left: 5px;
-		  margin-right: 5px;
-		  margin-bottom: 5px;
-		}
-
-		.container1:hover .overlay123 {
-		  height: 15%;
-		}
-
-		.text123 {
-		  white-space: nowrap; 
-		  background-color: #000000;
-		  color: white;
-		  font-size: 16px;
-		  position: absolute;
-		  overflow: hidden;
-		  top: 50%;
-		  left: 50%;
-		  transform: translate(-50%, -50%);
-		  -ms-transform: translate(-50%, -50%);
-		}
-	</style>
+    <style type="text/css">
+        .container1 {
+            position: relative;
+        }
+        
+        .image123 {
+            display: block;
+            width: 100%;
+            /* height: 100pxauto; */
+        }
+        
+        .overlay123 {
+            position: absolute;
+            bottom: 0;
+            opacity: 0.6;
+            left: 0;
+            right: 0;
+            background-color: #000000;
+            overflow: hidden;
+            width: 95%;
+            height: 0;
+            transition: .5s ease;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .container1:hover .overlay123 {
+            height: 15%;
+        }
+        
+        .text123 {
+            white-space: nowrap;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 
 <body class="theme-red">
-	<style>
-		.sidebar .user-info-lol {
-	    padding: 13px 15px 12px 15px;
-	    white-space: nowrap;
-	    position: relative;
-	    border-bottom: 1px solid #e9e9e9;
-	    background: url("images/MahaFastChamps.png") no-repeat no-repeat;
-	    height: 135px; }
-	</style>
-	<!-- Page Loader -->
-	<div class="page-loader-wrapper">
-		<div class="loader">
-			<div class="preloader">
-				<div class="spinner-layer pl-red">
-					<div class="circle-clipper left">
-						<div class="circle"></div>
-					</div>
-					<div class="circle-clipper right">
-						<div class="circle"></div>
-					</div>
-				</div>
-			</div>
-			<p>Please wait...</p>
-		</div>
-	</div>
-	<!-- #END# Page Loader -->
-	<!-- Overlay For Sidebars -->
-	<div class="overlay"></div>
-	<!-- #END# Overlay For Sidebars -->
-	<!-- Search Bar -->
-	<div class="search-bar">
-		<div class="search-icon">
-			<i class="material-icons">search</i>
-		</div>
-		<input type="text" placeholder="START TYPING...">
-		<div class="close-search">
-			<i class="material-icons">close</i>
-		</div>
-	</div>
-	<!-- #END# Search Bar -->
-	<!-- Top Bar -->
-	<nav class="navbar">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-				<a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand">ACE CRICKET LEAGUE 2017</a>
-			</div>
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					
-					
-					
-				   </a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- #Top Bar -->
-	<section>
-		<!-- Left Sidebar -->
-		<aside id="leftsidebar" class="sidebar">
-			<!-- User Info -->
-			<div class="user-info" style="height: 200px">
-				<div>
-					<div class="image">
-					<img src="<%= teamLogo%>" width="100" height="100" alt="User" />
-					</div>
-					<div class="info-container">
-						<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= teamName %></div>
-					<!-- <div class="btn-group user-helper-dropdown">
+    <style>
+        .sidebar .user-info-lol {
+            padding: 13px 15px 12px 15px;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid #e9e9e9;
+            background: url("images/MahaFastChamps.png") no-repeat no-repeat;
+            height: 135px;
+        }
+    </style>
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand">ACE CRICKET LEAGUE 2019</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+
+
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info" style="height: 200px">
+                <div>
+                    <div class="image">
+                        <img src="<%= teamLogo%>" width="100" height="100" alt="User" />
+                    </div>
+                    <div class="info-container">
+                        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= teamName %>
+                        </div>
+                        <!-- <div class="btn-group user-helper-dropdown">
 						<i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
 						<ul class="dropdown-menu pull-right">
 							<li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
@@ -160,174 +164,188 @@
 							<li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
 						</ul>
 					</div> -->
-					</div>
-				</div>
-			</div>
-			<!-- #User Info -->
-			<!-- Menu -->
-			<div class="menu">
-				<ul class="list">
-					<!-- <li class="header">MAIN NAVIGATION</li> -->
-					<li  class="active">
-						<a onClick="renderEjs('teamprofile', getCookie('teamToken'));">
-							<i class="material-icons">home</i>
-							<span>Team Profile</span>
-						</a>
-					</li>
-					<li>
-						<a onClick="renderEjs('bidding', getCookie('teamToken'));">
-							<i class="material-icons">home</i>
-							<span>Bidding</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<!-- #Menu -->
-			<!-- Footer -->
-			<div class="legal">
-				<div class="copyright">
-					&copy; 2017 <a href="javascript:void(0);">Ace Cricket League</a>.
-				</div>
-				<div class="version">
-					<b>Version: </b> 1.0.0
-				</div>
-			</div>
-			<!-- #Footer -->
-		</aside>
-		<!-- #END# Left Sidebar -->
-		
-	</section>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <!-- <li class="header">MAIN NAVIGATION</li> -->
+                    <li class="active">
+                        <a onClick="renderEjs('teamprofile', getCookie('teamToken'));">
+                            <i class="material-icons">home</i>
+                            <span>Team Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick="renderEjs('bidding', getCookie('teamToken'));">
+                            <i class="material-icons">home</i>
+                            <span>Bidding</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2019 <a href="javascript:void(0);">Ace Cricket League</a>.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 1.0.0
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
 
-	<section class="content">
-		<div class="container-fluid">
-			<div class="block-header">
-				<h2>TEAM PROFILE</h2>
-			</div>
+    </section>
 
-			<div class="row clearfix">
-				<div class="card">
-					<div class="header">
-						<h2>
-							Team Information
-						</h2>
-					</div>
-					<div class="body">
-						<div class="media">
-							<div class="media-left media-middle">
-								<img class="media-object thumbnail" src="<%= teamLogo %>" width="200" height="200">
-								<!-- <img class="media-object" src="http://placehold.it/64x64" width="64" height="64"> -->
-							</div>
-							<div class="media-body">
-								<div>
-									<br><br>
-									<h4>Team Name: <%= teamName %></h4>
-								</div>
-								<br>
-								<div>
-									<h4>Remaining Premium: <%= premiumLeft %></h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="header">
-						<h2>
-							Squad Information
-						</h2>
-					</div>
-					<div class="body">
-						<table class="table table-bordered table-hover table-condensed">
-							<thead>
-								<th>#</th>
-								<th>Name</th>
-								<th></th>
-								<th>Category</th>
-								<th>Price</th>
-							</thead>
-							
-							
-							<tbody>
-								<% 	var teamSize = data.length;
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>TEAM PROFILE</h2>
+            </div>
+
+            <div class="row clearfix">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Team Information
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <img class="media-object thumbnail" src="<%= teamLogo %>" width="200" height="200">
+                                <!-- <img class="media-object" src="http://placehold.it/64x64" width="64" height="64"> -->
+                            </div>
+                            <div class="media-body">
+                                <div>
+                                    <br><br>
+                                    <h4>Team Name:
+                                        <%= teamName %>
+                                    </h4>
+                                </div>
+                                <br>
+                                <div>
+                                    <h4>Remaining Premium:
+                                        <%= premiumLeft %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Squad Information
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th></th>
+                                <th>Category</th>
+                                <th>Price</th>
+                            </thead>
+
+
+                            <tbody>
+                                <% 	var teamSize = data.length;
 									var tot_price = 0;
 									for(var i=0; i<teamSize; i++){ 
 									tot_price += data[i].price; %>
-								<tr>
-									<th scop="row"><%=i+1%></th>
-									<td><%= data[i].player_fname +" "+ data[i].player_lname%></td>
-									<td><img class="thumbnail" src="<%=data[i].player_image%>" width="100" height="100"></td>
-									<td><%=data[i].group_name%></td>
-									<td><%=data[i].price%></td>
-								</tr>
-								<% } %>
-							</tbody>
+                                    <tr>
+                                        <th scop="row">
+                                            <%=i+1%>
+                                        </th>
+                                        <td>
+                                            <%= data[i].player_fname +" "+ data[i].player_lname%>
+                                        </td>
+                                        <td><img class="thumbnail" src="<%=data[i].player_image%>" width="100" height="100"></td>
+                                        <td>
+                                            <%=data[i].group_name%>
+                                        </td>
+                                        <td>
+                                            <%=data[i].price%>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
 
-							<tfoot>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th>TOTAL</th>
-								<th><%= tot_price%></th>
-							</tfoot>
-						</table>
-					</div>
-				</div>
-			</div>
+                            <tfoot>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>TOTAL</th>
+                                <th>
+                                    <%= tot_price%>
+                                </th>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-			
-		</div>
-	</section>
 
-	<!-- Jquery Core Js -->
-	<script src="plugins/jquery/jquery.min.js"></script>
+        </div>
+    </section>
 
-	<!-- Bootstrap Core Js -->
-	<script src="plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
 
-	<!-- Select Plugin Js -->
-	<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>
 
-	<!-- Slimscroll Plugin Js -->
-	<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- Select Plugin Js -->
+    <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-	<!-- Waves Effect Plugin Js -->
-	<script src="plugins/node-waves/waves.js"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-	<!-- Jquery CountTo Plugin Js -->
-	<script src="plugins/jquery-countto/jquery.countTo.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="plugins/node-waves/waves.js"></script>
 
-	<!-- Morris Plugin Js -->
-	<script src="plugins/raphael/raphael.min.js"></script>
-	<script src="plugins/morrisjs/morris.js"></script>
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="plugins/jquery-countto/jquery.countTo.js"></script>
 
-	<!-- ChartJs -->
-	<script src="plugins/chartjs/Chart.bundle.js"></script>
+    <!-- Morris Plugin Js -->
+    <script src="plugins/raphael/raphael.min.js"></script>
+    <script src="plugins/morrisjs/morris.js"></script>
 
-	<!-- JQuery Redirect Plugin -->
+    <!-- ChartJs -->
+    <script src="plugins/chartjs/Chart.bundle.js"></script>
+
+    <!-- JQuery Redirect Plugin -->
     <script src="plugins/jquery-redirect/jquery.redirect.js"></script>
 
 
-	<!-- Flot Charts Plugin Js -->
-	<script src="plugins/flot-charts/jquery.flot.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.resize.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.pie.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.categories.js"></script>
-	<script src="plugins/flot-charts/jquery.flot.time.js"></script>
+    <!-- Flot Charts Plugin Js -->
+    <script src="plugins/flot-charts/jquery.flot.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="plugins/flot-charts/jquery.flot.time.js"></script>
 
-	<!-- Sparkline Chart Plugin Js -->
-	<script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
-	<!-- Custom Js -->
-	<script src="js/admin.js"></script>
-	<script src="js/pages/index.js"></script>
-	<script src="js/pages/medias/image-gallery.js"></script>
+    <!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/pages/index.js"></script>
+    <script src="js/pages/medias/image-gallery.js"></script>
     <script src="js/acl/render-ejs.js"></script>
-  	<script src="js/cookies.js"></script>
+    <script src="js/cookies.js"></script>
 
-	<!-- Demo Js -->
-	<script src="js/demo.js"></script>
+    <!-- Demo Js -->
+    <script src="js/demo.js"></script>
 
-	<!-- Light Gallery Plugin Js -->
+    <!-- Light Gallery Plugin Js -->
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 </body>
 
