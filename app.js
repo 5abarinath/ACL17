@@ -27,7 +27,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname + '/public')));
 
 // Body-Parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Cookie-parser middleware to handle cookies
@@ -36,6 +36,29 @@ app.use(cookieParser());
 // Gamemaster - index.html
 app.get('/gamemaster', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/index.html'));
+});
+
+app.post('/gamemaster/authenticate', (req, res) => {
+    if(req.body.username === 'gamemaster' && req.body.password === 'acl2019') {
+        res.cookie('user', 'gamemaster', {maxAge: 1000 * 60 * 60 * 24});
+        jsonResponse = {
+            'status': 'success',
+            'message': 'Logged in successfully!',
+            'data': {
+                'authenticated': true,
+            }
+        }
+        res.json(jsonResponse);
+    } else {
+        jsonResponse = {
+            'status': 'success',
+            'message': 'Incorrect username or password',
+            'data': {
+                'authenticated': false,
+            }
+        }
+        res.json(jsonResponse);
+    }
 });
 
 // Gamemaster - Bidding Phase
@@ -75,7 +98,6 @@ app.post('/gamemaster/control', function(req, res) {
                         var premium_spent = (150000 * 6) - reply4[0].net_prem;
 
                         redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err5, reply5) {
-
                             res.render('master', {
                                 curRound: round,
                                 groupName: grp_name,

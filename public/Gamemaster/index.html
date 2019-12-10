@@ -21,7 +21,7 @@
 
         <p>Password</p>
         <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
-        <center><button name="btn" onclick="validateAndRedirect();">Submit</button></center>
+        <center><button name="btn" onclick="validateAndAuthenticate();">Submit</button></center>
 
     </div>
     <div class="blur-background"></div>
@@ -43,20 +43,40 @@
     <script src="../js/admin.js"></script>
     <script src="../js/pages/examples/sign-in.js"></script>
     <script src="../js/pages/forms/basic-form-elements.js"></script>
-    <script src="../js/acl/render-ejs.js"></script>
-    <script src="../js/cookies.js"></script>
+    <!-- Swal plugin Core Js -->
+    <script src="../plugins/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
-        function validateAndRedirect() {
+        function validateAndAuthenticate() {
 
-            var user = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+            var user = document.getElementById("username").value.trim();
+            var password = document.getElementById("password").value.trim();
 
-            if (user == "gamemaster" && password == "acl2017") {
-                renderEjs('gamemaster/control', user);
-                setCookie('user', user, 1);
-            } else {
-                alert("Incorrect password");
+            if (user && password) {
+                const url = "./authenticate";
+                const response = $.post(url, { username: user, password: password } );
+                response.success(function(results) {
+                    if(results['data']['authenticated']) {
+                        swal({
+                                title: 'Success!',
+                                text: 'Logging you in...',
+                                icon: 'success',
+                            }).then(
+                                function() {
+                                    var formTest = document.createElement('form');
+                                    formTest.setAttribute("method", "post");
+                                    formTest.setAttribute("action", "./control");
+                                    document.body.appendChild(formTest);
+                                    formTest.submit();
+                                }
+                            );
+                    } else {
+                        swal('Oops...', 'Incorrect username or password!', 'error');
+                    }
+                });
+                response.error(function() {
+                    swal('Oops...', 'Please check your connection to the server.', 'error');
+                });
             }
         }
     </script>
