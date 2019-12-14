@@ -6,8 +6,9 @@ module.exports = Object.freeze({
     DATABASE_PORT: 3306,
     REDIS_HOST: '192.168.99.100', // '192.168.99.100'
     REDIS_PORT: 6379,
+    APP_PORT: 80, // 3000
     INITIAL_PREMIUM: 500000,
     PLAYERS_PER_ROUND: 6,
     TOTAL_TEAMS: 6,
-    TOTAL_ROUNDS: 15,
+    TOTAL_ROUNDS: 14,
 });

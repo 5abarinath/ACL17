@@ -7,9 +7,6 @@ const cors = require('cors');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-// PORT number
-const port = 3000;
-
 // Check connection with MySQL database
 const connection = require('./config/database');
 
@@ -18,6 +15,9 @@ const redisClient = require('./config/redis');
 
 // Get app specific constants
 const constants = require('./config/constants');
+
+// PORT number
+const port = constants.APP_PORT;
 
 // CORS middleware
 app.use(cors());
