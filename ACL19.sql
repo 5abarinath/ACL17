@@ -42,12 +42,12 @@ CREATE TABLE `Bidders` (
 --
 
 INSERT INTO `Bidders` (`team_id`, `team_name`, `team_owner`, `team_logo`, `points_spent`, `premium_left`) VALUES
-(1, 'Mira Hyundai Rockers', 'Team owner 1', '/images/teams/mira.jpg', 0, 150000),
-(2, 'Panchganga Brigade', 'Team owner 2', '/images/teams/panchganga.jpg', 0, 150000),
-(3, 'Elite Strikers', 'Team owner 3', '/images/teams/elite.png', 0, 150000),
-(4, 'Mr. Milk Warriors', 'Team owner 4', '/images/teams/mrmilk.jpg', 0, 150000),
-(5, 'Aman KIA Motors', 'Team owner 5', '/images/teams/amankia.jpg', 0, 150000),
-(6, 'JLV Agro', 'Team owner 6', '/images/teams/jlv.jpg', 0, 150000);
+(1, 'Mira Hyundai Rockers', 'Team owner 1', '/images/teams/mira.jpg', 0, 500000),
+(2, 'Panchganga Brigade', 'Team owner 2', '/images/teams/panchganga.jpg', 0, 500000),
+(3, 'Elite Strikers', 'Team owner 3', '/images/teams/elite.png', 0, 500000),
+(4, 'Mr. Milk Warriors', 'Team owner 4', '/images/teams/mrmilk.jpg', 0, 500000),
+(5, 'Aman KIA Motors', 'Team owner 5', '/images/teams/amankia.jpg', 0, 500000),
+(6, 'JLV Agro', 'Team owner 6', '/images/teams/jlv.jpg', 0, 500000);
 
 -- --------------------------------------------------------
 

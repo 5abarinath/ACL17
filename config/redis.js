@@ -1,11 +1,12 @@
 // Docker redis - docker run -d -p 6379:6379 --name redis1 redis
 // docker stop redis1
 const redis = require('redis');
+const constants = require('./constants')
 
 // Create connection with Redis database
 const redisClient = redis.createClient({
-	host: "192.168.99.100", // "192.168.99.100", "localhost"
-	port: 6379
+	host: constants.REDIS_HOST,
+	port: constants.REDIS_PORT,
 });
 
 // Check connection with Redis
@@ -18,12 +19,12 @@ redisClient.on('connect', function() {
 	redisClient.set('maxBid', 0);
     
     // Creating the key-value storage for all six teams
-	for(var i=1; i<=6; i++){
+	for(let i = 1; i <= constants.TOTAL_TEAMS; i++){
 		key = "aclteam" + i;
 		redisClient.hmset(key, {
 		    'bidFlag': 0,
 		    'rank': 0,
-		    'premLeft': 150000,
+		    'premLeft': constants.INITIAL_PREMIUM,
 		    'yourBid': 0
 		});
 		redisClient.zadd('aclTeamRanks', 0, key);

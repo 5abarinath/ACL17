@@ -1,10 +1,12 @@
 const mysql = require('mysql');
+const constants = require('./constants');
 
 const connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : '',
-    database : 'ACL17'
+    host : constants.DATABASE_URL,
+    user : constants.DATABASE_USER,
+    password : constants.DATABASE_PASSWORD,
+    database : constants.DATABASE_NAME,
+    port: constants.DATABASE_PORT,
 }); 
 
 connection.connect(function(err) {

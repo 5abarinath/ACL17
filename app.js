@@ -16,6 +16,9 @@ const connection = require('./config/database');
 // Check connection with Redis
 const redisClient = require('./config/redis');
 
+// Get app specific constants
+const constants = require('./config/constants');
+
 // CORS middleware
 app.use(cors());
 
@@ -40,7 +43,7 @@ app.get('/gamemaster', function(req, res) {
 
 app.post('/gamemaster/authenticate', (req, res) => {
     if(req.body.username === 'gamemaster' && req.body.password === 'acl2019') {
-        res.cookie('user', 'gamemaster', {maxAge: 1000 * 60 * 60 * 24});
+        res.cookie('user', req.body.username, {maxAge: 1000 * 60 * 60 * 24}); // Cookie lasts for 1 day
         jsonResponse = {
             'status': 'success',
             'message': 'Logged in successfully!',
@@ -74,7 +77,7 @@ app.post('/gamemaster/control', function(req, res) {
             throw err;
         }
 
-        var round = (results[0].no_of_rounds / 6) + 1;
+        var round = (results[0].no_of_rounds / constants.PLAYERS_PER_ROUND) + 1;
         redisClient.set('currentRound', round);
 
         connection.query(sql_group_data, [round], function(err1, results1) {
@@ -95,7 +98,7 @@ app.post('/gamemaster/control', function(req, res) {
                     var net_expense = reply3[0].net_bid;
                     connection.query(sql_prem_spent, function(err4, reply4) {
                         if (err4) throw err4;
-                        var premium_spent = (150000 * 6) - reply4[0].net_prem;
+                        var premium_spent = (constants.INITIAL_PREMIUM * 6) - reply4[0].net_prem;
 
                         redisClient.zrevrange('aclTeamRanks', 0, 1500000, "withscores", function(err5, reply5) {
                             res.render('master', {
@@ -124,12 +127,12 @@ app.post('/gamemaster/control', function(req, res) {
 // Gamemaster - Selection Phase
 app.post('/gamemaster/selection', function(req, res) {
     let admin = req.body.token;
-    if (admin != "gamemaster")
+    if (admin !== "gamemaster")
         res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/index.html'));
 
     let sql_round_count = "SELECT COUNT(*) AS no_of_rounds FROM Bidding";
     connection.query(sql_round_count, function(err, results) {
-        let groupID = (results[0].no_of_rounds / 6) + 1;
+        let groupID = (results[0].no_of_rounds / constants.PLAYERS_PER_ROUND) + 1;
         let sql_player_data = "SELECT CONCAT(player_fname, ' ', player_lname) AS player_name, player_image, player_id FROM Players WHERE group_id = ?";
         connection.query(sql_player_data, [groupID], function(err2, result2) {
             if (err2) throw err2;
@@ -199,9 +202,6 @@ app.post('/gamemaster/assignPlayers', function(req, res) {
             let sql_prem_left = "UPDATE Bidders SET premium_left=? WHERE team_id=?";
             connection.query(sql_prem_left, [result, 1], function(err2, res2) {});
         });
-
-
-
         redisClient.hget("aclteam2", 'yourBid', function(err, result) {
             if (err) throw err;
             let sql_player_price = "UPDATE Players SET price = ? WHERE team_id = ? AND group_id = ?";
@@ -289,7 +289,7 @@ app.post('/gamemaster/assignPlayers', function(req, res) {
             let sql_group_base_bid = "SELECT base_bid FROM Groups WHERE group_id = ?";
             connection.query(sql_group_base_bid, [nextRound], function(err50, reply50) {
                 var baseBidForNextRound = reply50[0].base_bid;
-                for (var i = 0; i < 6; i++) {
+                for (var i = 0; i < constants.TOTAL_TEAMS; i++) {
                     var teamCodeInSortedSet = rankingArray[i];
                     redisClient.zadd('aclTeamRanks', baseBidForNextRound + i * 1000, teamCodeInSortedSet);
                     redisClient.hset(teamCodeInSortedSet, 'yourBid', baseBidForNextRound + i * 1000);
@@ -302,7 +302,7 @@ app.post('/gamemaster/assignPlayers', function(req, res) {
     });
 
     redisClient.get('currentRound', function(err, reply) {
-        if (parseInt(reply) < 15)
+        if (parseInt(reply) < constants.TOTAL_ROUNDS)
             res.redirect(307, '/gamemaster/control');
         else
             res.redirect(307, '/gamemaster/teamsummary');
@@ -459,7 +459,7 @@ app.post('/bidding', function(req, res) {
         let sql_count = "SELECT count(*) AS no_of_rounds FROM Bidding";
         connection.query(sql_count, function(err, result) {
             if (err) throw err;
-            currRound = result[0].no_of_rounds / 6 + 1;
+            currRound = result[0].no_of_rounds / constants.PLAYERS_PER_ROUND + 1;
 
             let sql_groups = "SELECT * FROM Groups WHERE group_id = ?";
             connection.query(sql_groups, [currRound], function(err1, result1) {
