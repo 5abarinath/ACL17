@@ -64,6 +64,10 @@ app.post('/gamemaster/authenticate', (req, res) => {
     }
 });
 
+app.post('/gamemaster/captains', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/Gamemaster' + '/captains.html'));
+});
+
 // Gamemaster - Bidding Phase
 app.post('/gamemaster/control', function(req, res) {
     let sql_round_count = "SELECT COUNT(*) AS no_of_rounds FROM Bidding";
